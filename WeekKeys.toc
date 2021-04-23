@@ -1,0 +1,44 @@
+## Interface: 90005
+## Title: WeekKeys
+## Author: Reinisdm
+## Version: 94
+## Notes: Lists your keystones.
+## SavedVariables: WeekKeysDB
+
+embeds.xml
+
+Init.lua
+
+locales\enUS.lua
+locales\ruRU.lua
+
+OptionTable.lua
+db.lua
+Prefix.lua
+Convert.lua
+UI.lua
+Reset.lua
+Affix.lua
+loot.lua
+
+Minimap.lua
+Player.lua
+
+Events.lua
+Main.lua
+
+Create.lua
+SlashCommands.lua
+
+iterators.lua
+MyCharacters.lua
+PartyKeys.lua
+GuildKeys.lua
+FriendKeys.lua
+MTable.lua
+lootframe.lua
+dressing.lua
+achieve.lua
+Torghast.lua
+calculator.lua
+settings.lua

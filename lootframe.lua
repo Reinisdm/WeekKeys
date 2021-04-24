@@ -612,7 +612,6 @@ WeekKeys.AddInit(function()
 
             btn.setdata = function(self,dungeon,itemlink)
                 if mlevel ~= 0 then
-                    print(ilvl)
                     itemlink = itemlink:gsub("%d+:3524:%d+:%d+:%d+","5:"..mythic_level[LootFinder.level]..":6652:1501:"..ilvl..":6646")
                 end
                 GetItemStats(itemlink,table.wipe(tabl or {}))

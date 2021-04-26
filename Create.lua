@@ -1,8 +1,11 @@
 local Addon = ...
-local VERSION = 95
+local VERSION = 97
 local buttons = {}
 local elements = {}
 local buttonID = 1
+    --[[
+        {type = "Fontstr", point = "TEXT", point_x = number, point_y = number, text = "text", width = number, height = number}
+    --]]
 
 function WeekKeys:Create()
     WeekKeys.Affixes.init()
@@ -12,7 +15,7 @@ function WeekKeys:Create()
     WeekFrame:SetSize(500,500)
     if WeekKeysDB.Settings["MainFramePos"] then
         local db = WeekKeysDB.Settings["MainFramePos"]
-            WeekFrame:SetPoint(db["point"],db["xOfs"],db["yOfs"])
+        WeekFrame:SetPoint(db["point"],db["xOfs"],db["yOfs"])
     else
         WeekFrame:SetPoint("center")
     end

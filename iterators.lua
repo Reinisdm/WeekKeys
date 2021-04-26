@@ -4,9 +4,9 @@ WeekKeys.Iterators = {}
 local Iterators = WeekKeys.Iterators
 
 --- Return iterator to 'for ... in' loop
----@param list table @table with player data
----@param writeRealm boolean @bool write (*) or not
----@return function @loop iterator
+---@param list table with player data
+---@param writeRealm boolean write (*) or not
+---@return function iterator loop iterator
 function Iterators.FormatPlayerList(list,writeRealm)
 
     if #list == 0 then return function() end end
@@ -18,14 +18,14 @@ function Iterators.FormatPlayerList(list,writeRealm)
     local i = 0
     ---'for ... in' iterator
     ---@return number i
-    ---@return string faction @"A" or "H"
+    ---@return string faction "A" or "H"
     ---@return number covenantID
-    ---@return string colored_nickname @ |cffrrggbbNICKNAME|r (*),
+    ---@return string colored_nickname |cffrrggbbNICKNAME|r (*),
     ---@return string realm
     ---@return number ilvl
-    ---@return string record @??/??/?? or ??/?? or ??
-    ---@return string keystone @Keystone name(lvl)
-    ---@return boolean reward @have keystone reward or no
+    ---@return string record ??/??/?? or ??/?? or ??
+    ---@return string keystone Keystone name(lvl)
+    ---@return boolean reward have keystone reward or no
     return function()
         i = i + 1
         local char = list[i]
@@ -61,7 +61,7 @@ function Iterators.FormatPlayerByIDList(db,list)
     -- don't loop
     if not db or #list == 0 then return function() end end
 
-    -- get realm 
+    -- get realm
     local _, realm = UnitFullName("player")
     realm = realm or GetRealmName() or ""
     realm = realm:gsub(" ","")
@@ -91,5 +91,30 @@ function Iterators.FormatPlayerByIDList(db,list)
             end
         end
         return i, char.faction, char.covenant, colored_nickname, char.realm, char.ilvl, char.record, keystone, char.reward
+    end
+end
+--- 'for' loop iterator loops LootList
+---@return function iterator loop iterator
+function Iterators.LootList()
+    if #LootFinder.loot_list == 0 then return function() end end
+    local index = 0
+    --- iterator
+    ---@return integer index position in LootList table
+    ---@return string source instance/raid
+    ---@return string name dungeon name
+    ---@return string boss boss name
+    ---@return string itemlink modified itemlink
+    ---@return integer icon  items iconID
+    ---@return integer mainatr str/agi/int value
+    ---@return integer crit crit value
+    ---@return integer haste haste value
+    ---@return integer mastery mastery value
+    ---@return integer versality versality value
+    return function()
+        index = index + 1
+        local tbl = LootFinder.loot_list[index]
+        if not tbl then return end
+        --index, name, boss, itemlink, icon, mainstat, crit, haste, mastery, versality
+        return index, tbl.source, tbl.name, tbl.boss, tbl.itemlink, tbl.icon, tbl.mainstat, tbl.crit, tbl.haste, tbl.mastery, tbl.versality
     end
 end

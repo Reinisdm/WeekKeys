@@ -63,8 +63,7 @@ function WeekKeys.UI.CharacterButton(name, parent)
     function btn:SetName(name,realm)
         self.name:SetText(name or "")
     end
-   
-    
+
     --------------------- ilvl ----------------------
     btn.ilvl = btn:CreateFontString(nil, "ARTWORK", "GameFontNormal")
     btn.ilvl:SetPoint("LEFT",180,0)
@@ -376,6 +375,105 @@ function WeekKeys.UI.MTableButton(name,parent,bool)
         btn.rio:SetText(rio)
         btn.mod:SetText(mod)
     end
+
+    return btn
+end
+
+--- Create 'LootFinders' row
+---@param name string rows name (nilable)
+---@param parent Frame parent frame
+---@return Button LootFinders_row button with Set### functions
+function WeekKeys.UI.LootFinderButton(name,parent)
+    local btn = WeekKeys.UI.Button(name, parent)
+
+    -- icon
+    btn.icon = btn:CreateTexture('textureName', 'CENTER')
+    btn.icon:SetPoint("LEFT",5,0)
+    btn.icon:SetSize(18,18)
+    ---Set Loot texture
+    ---@param self Button
+    ---@param iconID integer
+    btn.SetIcon = function (self,iconID)
+        self.icon:SetTexture(iconID)
+    end
+
+    -- dungeon
+    btn.instance = btn:CreateFontString(nil , "ARTWORK", "GameFontNormal")
+    btn.instance:SetPoint("LEFT",25,0)
+    btn.instance:SetSize(200,20)
+    btn.instance:SetJustifyH("LEFT")
+    ---Set dungeon name
+    ---@param self Button
+    ---@param dungeon string name of dungeon
+    btn.SetDungeon = function (self, dungeon)
+        self.instance:SetText(dungeon or "")
+    end
+
+    -- main atr
+    btn.mainatr = btn:CreateFontString(nil , "ARTWORK", "GameFontNormal")
+    btn.mainatr:SetPoint("LEFT",230,0)
+    btn.mainatr:SetSize(50,20)
+    ---Set Main atr value
+    ---@param self Button
+    ---@param mainatr integer str/agi/int value
+    btn.SetMainAtr = function (self, mainatr)
+        self.mainatr:SetText(mainatr or 0)
+    end
+
+    -- crit
+    btn.crit = btn:CreateFontString(nil , "ARTWORK", "GameFontNormal")
+    btn.crit:SetPoint("LEFT",280,0)
+    btn.crit:SetSize(50,20)
+    ---Set Crit value
+    ---@param self Button
+    ---@param crit integer crit value
+    btn.SetCrit = function (self, crit)
+        self.crit:SetText(crit or 0)
+    end
+
+    -- haste
+    btn.haste = btn:CreateFontString(nil , "ARTWORK", "GameFontNormal")
+    btn.haste:SetPoint("LEFT",330,0)
+    btn.haste:SetSize(50,20)
+    ---Set haste value
+    ---@param self Button
+    ---@param haste integer haste value
+    btn.SetHaste = function (self, haste)
+        self.haste:SetText(haste or 0)
+    end
+
+    -- mastery
+    btn.mastery = btn:CreateFontString(nil , "ARTWORK", "GameFontNormal")
+    btn.mastery:SetPoint("LEFT",380,0)
+    btn.mastery:SetSize(50,20)
+    ---Set mastery value
+    ---@param self Button
+    ---@param mastery integer mastery value
+    btn.SetMastery = function (self, mastery)
+        self.mastery:SetText(mastery or 0)
+    end
+
+    -- vers
+    btn.versality = btn:CreateFontString(nil , "ARTWORK", "GameFontNormal")
+    btn.versality:SetPoint("LEFT",430,0)
+    btn.versality:SetSize(50,20)
+    ---Set versality value
+    ---@param self Button
+    ---@param versality integer versality value
+    btn.SetVersality = function (self, versality)
+        self.versality:SetText(versality or 0)
+    end
+
+    btn:SetScript("OnEnter",function(self)
+        if not self.link then return end
+        GameTooltip:Hide()
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        GameTooltip:SetHyperlink(self.link)
+        GameTooltip:Show()
+    end)
+    btn:SetScript("OnLeave",function()
+        GameTooltip:Hide()
+    end)
 
     return btn
 end

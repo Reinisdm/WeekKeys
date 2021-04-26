@@ -4,47 +4,13 @@ local WeekFrame = WeekKeys.WeekFrame
 
 local loot_btns = {}
 local hide_frames = {}
-local tabl = {}
-local mythic_level = {
-    nil, -- index 1 -> mythic 1?
-    6808,-- index 2 -> mythic 2
-    6809,
-    7203,
-    7204,
-    7205,
-    7206,
-    7207,
-    7208,
-    7209,
-    7210,
-    7211,
-    7212,
-    7213,
-    7214
-}
 local mlevel = 15
 local wchest = true
-local ilvl = 5868 + 16
---[[
-local end_of_run_ilvl = {
-    nil,
-    5845,
-    5848,
-    5852,
-    5852,
-    5852,
-    5858,
-    5858,
-    5858,
-    5861,
-    5861,
-    5865,
-    5865,
-    5865,
-    5868 --210  => 5658
-}
---]]
 
+
+--- Function to create frame with class icons
+---@param btn Frame @frame/button to anchor
+---@return Frame class_frame @Frame with class icons
 local function createmyclasslist(btn)
     -- background for class buttons
     local back = CreateFrame("Frame",nil,btn,"InsetFrameTemplate")
@@ -80,6 +46,9 @@ local function createmyclasslist(btn)
     return back
 end
 
+--- Function to create frame with spec list
+---@param btn Frame @frame/button to anchor
+---@return Frame spec_frame @Frame with class specializations
 local function createspeclist(btn)
     local spec_btn_list = {}
     -- background for spec buttons
@@ -124,6 +93,9 @@ local function createspeclist(btn)
     return back
 end
 
+--- Function to create frame with clot list
+---@param btn Frame @frame/button to anchor
+---@return Frame slot_frame @Frame with slots
 local function createslotlist(btn)
     -- background for spec buttons
     local back = CreateFrame("Frame",nil,btn,"InsetFrameTemplate")
@@ -151,7 +123,10 @@ local function createslotlist(btn)
     back:Hide()
     return back
 end
--- instances
+
+--- Function to create frame with instance list
+---@param btn Frame @frame/button to anchor
+---@return Frame instance_frame @Frame with instances
 local function createinstancelist(btn)
 
     local back = CreateFrame("Frame",nil,btn,"InsetFrameTemplate")
@@ -209,97 +184,9 @@ local function createinstancelist(btn)
     return back
 end
 
-local function setunfind(...)
-    local _, arg1,arg2 = ...
-    if arg2 == 0 then
-        if arg1 == "ITEM_MOD_STRENGTH_SHORT" then
-            UIDropDownMenu_SetText(Stating3,SPEC_FRAME_PRIMARY_STAT_STRENGTH)
-        elseif arg1 == "ITEM_MOD_AGILITY_SHORT" then
-            UIDropDownMenu_SetText(Stating3,SPEC_FRAME_PRIMARY_STAT_AGILITY)
-        elseif arg1 == "ITEM_MOD_INTELLECT_SHORT" then
-            UIDropDownMenu_SetText(Stating3,SPEC_FRAME_PRIMARY_STAT_INTELLECT)
-        elseif arg1 == "ITEM_MOD_CRIT_RATING_SHORT" then
-            UIDropDownMenu_SetText(Stating3,STAT_CRITICAL_STRIKE)
-        elseif arg1 == "ITEM_MOD_HASTE_RATING_SHORT" then
-            UIDropDownMenu_SetText(Stating3,STAT_HASTE)
-        elseif arg1 == "ITEM_MOD_VERSATILITY" then
-            UIDropDownMenu_SetText(Stating3,STAT_VERSATILITY)
-        elseif arg1 == "ITEM_MOD_MASTERY_RATING_SHORT" then
-            UIDropDownMenu_SetText(Stating3,STAT_MASTERY)
-        else
-            UIDropDownMenu_SetText(Stating3,"-------")
-        end
-        LootFinder.stat1 = arg1
-    elseif arg1 == 0 then
-        if arg2 == "ITEM_MOD_STRENGTH_SHORT" then
-            UIDropDownMenu_SetText(Stating4,SPEC_FRAME_PRIMARY_STAT_STRENGTH)
-        elseif arg2 == "ITEM_MOD_AGILITY_SHORT" then
-            UIDropDownMenu_SetText(Stating4,SPEC_FRAME_PRIMARY_STAT_AGILITY)
-        elseif arg2 == "ITEM_MOD_INTELLECT_SHORT" then
-            UIDropDownMenu_SetText(Stating4,SPEC_FRAME_PRIMARY_STAT_INTELLECT)
-        elseif arg2 == "ITEM_MOD_CRIT_RATING_SHORT" then
-            UIDropDownMenu_SetText(Stating4,STAT_CRITICAL_STRIKE)
-        elseif arg2 == "ITEM_MOD_HASTE_RATING_SHORT" then
-            UIDropDownMenu_SetText(Stating4,STAT_HASTE)
-        elseif arg2 == "ITEM_MOD_VERSATILITY" then
-            UIDropDownMenu_SetText(Stating4,STAT_VERSATILITY)
-        elseif arg2 == "ITEM_MOD_MASTERY_RATING_SHORT" then
-            UIDropDownMenu_SetText(Stating4,STAT_MASTERY)
-        else
-            UIDropDownMenu_SetText(Stating4,"-------")
-        end
-        LootFinder.stat2 = arg2
-    end
-    LootFinder:Find()
-end
--- stat choose (later replace this)
----[[
-function WeekKeys.WPDropDownDemo_Menu1(frame, level, menuList)
-    local info = UIDropDownMenu_CreateInfo()
-    info.text = OPTIONAL
-    info.arg2 = 0
-    info.func = setunfind
-    UIDropDownMenu_AddButton(info)
-    info.text,info.arg1, info.checked = SPEC_FRAME_PRIMARY_STAT_STRENGTH,"ITEM_MOD_STRENGTH_SHORT","ITEM_MOD_STRENGTH_SHORT" == LootFinder.stat1
-    UIDropDownMenu_AddButton(info)
-    info.text,info.arg1, info.checked = SPEC_FRAME_PRIMARY_STAT_AGILITY,"ITEM_MOD_AGILITY_SHORT", "ITEM_MOD_AGILITY_SHORT" == LootFinder.stat1
-    UIDropDownMenu_AddButton(info)
-    info.text,info.arg1, info.checked = SPEC_FRAME_PRIMARY_STAT_INTELLECT,"ITEM_MOD_INTELLECT_SHORT", "ITEM_MOD_INTELLECT_SHORT" == LootFinder.stat1
-    UIDropDownMenu_AddButton(info)
-    info.text,info.arg1, info.checked = STAT_CRITICAL_STRIKE,"ITEM_MOD_CRIT_RATING_SHORT", "ITEM_MOD_CRIT_RATING_SHORT" == LootFinder.stat1
-    UIDropDownMenu_AddButton(info)
-    info.text,info.arg1, info.checked = STAT_HASTE,"ITEM_MOD_HASTE_RATING_SHORT", "ITEM_MOD_HASTE_RATING_SHORT" == LootFinder.stat1
-    UIDropDownMenu_AddButton(info)
-    info.text,info.arg1, info.checked = STAT_VERSATILITY,"ITEM_MOD_VERSATILITY", "ITEM_MOD_VERSATILITY" == LootFinder.stat1
-    UIDropDownMenu_AddButton(info)
-    info.text,info.arg1, info.checked = STAT_MASTERY,"ITEM_MOD_MASTERY_RATING_SHORT", "ITEM_MOD_MASTERY_RATING_SHORT" == LootFinder.stat1
-    UIDropDownMenu_AddButton(info)
-end
-
-function WeekKeys.WPDropDownDemo_Menu2(frame, level, menuList)
-    local info = UIDropDownMenu_CreateInfo()
-    info.text = OPTIONAL
-    info.arg1 = 0
-    info.func = setunfind
-    UIDropDownMenu_AddButton(info)
-    info.text,info.arg2, info.checked = SPEC_FRAME_PRIMARY_STAT_STRENGTH,"ITEM_MOD_STRENGTH_SHORT", "ITEM_MOD_STRENGTH_SHORT" == LootFinder.stat2
-    UIDropDownMenu_AddButton(info)
-    info.text,info.arg2, info.checked = SPEC_FRAME_PRIMARY_STAT_AGILITY,"ITEM_MOD_AGILITY_SHORT", "ITEM_MOD_AGILITY_SHORT" == LootFinder.stat2
-    UIDropDownMenu_AddButton(info)
-    info.text,info.arg2, info.checked = SPEC_FRAME_PRIMARY_STAT_INTELLECT,"ITEM_MOD_INTELLECT_SHORT", "ITEM_MOD_INTELLECT_SHORT" == LootFinder.stat2
-    UIDropDownMenu_AddButton(info)
-    info.text,info.arg2, info.checked = STAT_CRITICAL_STRIKE,"ITEM_MOD_CRIT_RATING_SHORT", "ITEM_MOD_CRIT_RATING_SHORT" == LootFinder.stat2
-    UIDropDownMenu_AddButton(info)
-    info.text,info.arg2, info.checked = STAT_HASTE,"ITEM_MOD_HASTE_RATING_SHORT", "ITEM_MOD_HASTE_RATING_SHORT" == LootFinder.stat2
-    UIDropDownMenu_AddButton(info)
-    info.text,info.arg2, info.checked = STAT_VERSATILITY,"ITEM_MOD_VERSATILITY", "ITEM_MOD_VERSATILITY" == LootFinder.stat2
-    UIDropDownMenu_AddButton(info)
-    info.text,info.arg2, info.checked = STAT_MASTERY,"ITEM_MOD_MASTERY_RATING_SHORT", "ITEM_MOD_MASTERY_RATING_SHORT" == LootFinder.stat2
-    UIDropDownMenu_AddButton(info)
-end
---]]
-
---ilvl choose
+--- Function to create frame with m+ levels
+---@param btn Frame @frame/button to anchor
+---@return Frame mplus_frame @frame with m+ choose
 local function createmlevel(btn)
     local back = CreateFrame("Frame",nil,btn,"InsetFrameTemplate")
     back:SetPoint("BOTTOMLEFT",0,30)
@@ -318,12 +205,12 @@ local function createmlevel(btn)
             local id = self:GetID()
             local chest, key = C_MythicPlus.GetRewardLevelForDifficultyLevel(max(1,id))
             if wchest then
-                ilvl = 5658 + chest
+                LootFinder.milvl = chest
             else
-                ilvl = 5658 + key
+                LootFinder.milvl = key
             end
-            mlevel = id
-            btn:SetText(mlevel .. (wchest and "|Tinterface/worldmap/treasurechest_64.blp:20:20|t" or ""))
+            LootFinder.mlevel = id
+            btn:SetText(LootFinder.mlevel .. (wchest and "|Tinterface/worldmap/treasurechest_64.blp:20:20|t" or ""))
             LootFinder:Find()
         end)
 
@@ -336,12 +223,12 @@ local function createmlevel(btn)
         local checked = self:GetChecked()
         local chest, key = C_MythicPlus.GetRewardLevelForDifficultyLevel(max(1,mlevel))
         if checked == true then
-            ilvl = 5658 + chest
+            LootFinder.milvl = chest
         else
-            ilvl = 5658 + key
+            LootFinder.milvl = key
         end
         wchest = checked
-        btn:SetText(mlevel .. (wchest and "|Tinterface/worldmap/treasurechest_64.blp:20:20|t" or ""))
+        btn:SetText(LootFinder.mlevel .. (wchest and "|Tinterface/worldmap/treasurechest_64.blp:20:20|t" or ""))
         LootFinder:Find()
     end);
     hide_frames[#hide_frames + 1] = back
@@ -349,6 +236,63 @@ local function createmlevel(btn)
     back:Hide()
     return back
 end
+
+--- Function to create frame with stat choose
+---@param btn Frame @frame to anchor
+---@return Frame stat_frame @stat frame
+local function createfilters(btn)
+    local back = CreateFrame("Frame",nil,btn,"InsetFrameTemplate")
+    back:SetPoint("BOTTOMLEFT",0,30)
+
+    local displayname = {
+    --    SPEC_FRAME_PRIMARY_STAT_STRENGTH, -- comment out because useless
+    --    SPEC_FRAME_PRIMARY_STAT_AGILITY, -- comment out because useless
+    --    SPEC_FRAME_PRIMARY_STAT_INTELLECT, -- comment out because useless
+        STAT_CRITICAL_STRIKE,
+        STAT_HASTE,
+        STAT_VERSATILITY,
+        STAT_MASTERY
+    }
+    local values = {
+    --    'ITEM_MOD_STRENGTH_SHORT', -- comment out because useless
+    --    'ITEM_MOD_AGILITY_SHORT', -- comment out because useless
+    --    'ITEM_MOD_INTELLECT_SHORT', -- comment out because useless
+        'ITEM_MOD_CRIT_RATING_SHORT',
+        'ITEM_MOD_HASTE_RATING_SHORT',
+        'ITEM_MOD_VERSATILITY',
+        'ITEM_MOD_MASTERY_RATING_SHORT'
+    }
+    back:SetSize(150,10 + #values * 20)
+    for i = 1, #values do
+        local checkbtn = CreateFrame("CheckButton", "WeekKeys_StatChoose"..i, back, "ChatConfigCheckButtonTemplate")
+        checkbtn:SetPoint("TOPLEFT", 5, -i*20+15)
+        checkbtn.val = values[i]
+        _G["WeekKeys_StatChoose"..i.."Text"]:SetText(displayname[i])
+        checkbtn:SetScript("OnClick",function(self)
+            local checked = self:GetChecked()
+            if checked == true then
+                LootFinder.stats[self.val] = true
+            else
+                LootFinder.stats[self.val] = nil
+            end
+            LootFinder:Find()
+        end)
+    end
+    hide_frames[#hide_frames + 1] = back
+    back:Hide()
+    return back
+    --[[
+        SPEC_FRAME_PRIMARY_STAT_STRENGTH    'ITEM_MOD_STRENGTH_SHORT'
+        SPEC_FRAME_PRIMARY_STAT_AGILITY     'ITEM_MOD_AGILITY_SHORT'
+        SPEC_FRAME_PRIMARY_STAT_INTELLECT   'ITEM_MOD_INTELLECT_SHORT'
+        STAT_CRITICAL_STRIKE                'ITEM_MOD_CRIT_RATING_SHORT'
+        STAT_HASTE                          'ITEM_MOD_HASTE_RATING_SHORT'
+        STAT_VERSATILITY                    'ITEM_MOD_VERSATILITY'
+        STAT_MASTERY                        'ITEM_MOD_MASTERY_RATING_SHORT'
+    ]]
+end
+
+
 --[[ TO DO
 
 local function createraidlist(self)
@@ -378,10 +322,10 @@ WeekKeys.AddInit(function()
     class_btn:SetSize(30,30)
     class_btn:SetPoint("TopLeft",20,-30)
     class_btn.texture:SetTexture(QUESTION_MARK_ICON)
-    class_btn:SetScript("OnClick",function(self) 
+    class_btn:SetScript("OnClick",function(self)
         self.showframe = self.showframe or createmyclasslist(self)
         if self.showframe:IsShown() then
-            return self.showframe:Hide()  
+            return self.showframe:Hide()
         end
         for _,v in pairs(hide_frames) do v:Hide() end
         self.showframe:Show()
@@ -395,7 +339,7 @@ WeekKeys.AddInit(function()
     spec_btn:SetPoint("Topleft",60,-30)
     spec_btn.texture:SetTexture(QUESTION_MARK_ICON)
     spec_btn:SetScript("OnClick",function(self)
-        self.showframe = self.showframe or createspeclist(self) 
+        self.showframe = self.showframe or createspeclist(self)
         if self.showframe:IsShown() then
             return self.showframe:Hide()
         end
@@ -459,7 +403,7 @@ WeekKeys.AddInit(function()
     --[[
     local pvp_btn = WeekKeys.UI.Button(nil, WeekKeys.WeekFrame)
     pvp_btn:SetSize(30,30)
-    pvp_btn:SetPoint("Topleft",180,-30)
+    pvp_btn:SetPoint("Topleft",220,-30)
     pvp_btn.texture:SetTexture('????')
     pvp_btn.texture:SetTexCoord(some_text_coords_if_need)
     pvp_btn:SetScript("OnClick",function(self)
@@ -478,7 +422,7 @@ WeekKeys.AddInit(function()
     -- keylevel
     local keylevel = WeekKeys.UI.Button(nil, WeekKeys.WeekFrame)
     keylevel:SetSize(30,30)
-    keylevel:SetPoint("Topleft",180,-30)
+    keylevel:SetPoint("Topleft",260,-30)
     keylevel:SetText(15 .. "|Tinterface/worldmap/treasurechest_64.blp:20:20|t")
     keylevel:SetScript("OnClick",function(self)
         self.showframe = self.showframe or createmlevel(self)
@@ -491,24 +435,23 @@ WeekKeys.AddInit(function()
     keylevel:Hide()
     arrayOfElements[#arrayOfElements + 1] = keylevel
 
-    -- filters
-    ---[[
-    local stat1_choose = CreateFrame("Frame", "Stating3", WeekKeys.WeekFrame, "UIDropDownMenuTemplate")
-    stat1_choose:SetPoint("TOPLEFT",240,-30)
-    UIDropDownMenu_SetWidth(stat1_choose, 100)
-    UIDropDownMenu_Initialize(stat1_choose, WeekKeys.WPDropDownDemo_Menu1)
-    UIDropDownMenu_SetText(stat1_choose,OPTIONAL)
-    stat1_choose:Hide()
-    arrayOfElements[#arrayOfElements + 1] = stat1_choose
+    -- stat filters
+    local statfilter = WeekKeys.UI.Button(nil, WeekKeys.WeekFrame)
+    statfilter:SetSize(30,30)
+    statfilter:SetPoint("Topleft",300,-30)
+    statfilter:SetText("???")
+    statfilter:SetScript("OnClick",function(self)
+        self.showframe = self.showframe or createfilters(self)
+        if self.showframe:IsShown() then
+            return self.showframe:Hide()
+        end
+        for _,v in pairs(hide_frames) do v:Hide() end
+        self.showframe:Show()
+    end)
+    statfilter:Hide()
+    arrayOfElements[#arrayOfElements + 1] = statfilter
 
-    local stat2_choose = CreateFrame("Frame", "Stating4", WeekKeys.WeekFrame, "UIDropDownMenuTemplate")
-    stat2_choose:SetPoint("TOPLEFT",350,-30)
-    UIDropDownMenu_SetWidth(stat2_choose, 100)
-    UIDropDownMenu_Initialize(stat2_choose, WeekKeys.WPDropDownDemo_Menu2)
-    UIDropDownMenu_SetText(stat2_choose,OPTIONAL)
-    stat2_choose:Hide()
-    arrayOfElements[#arrayOfElements + 1] = stat2_choose
---]]
+
     -- "dungeons"
     local label = WeekKeys.WeekFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
     label:SetPoint("TOPLEFT",25,-60)
@@ -564,91 +507,28 @@ WeekKeys.AddInit(function()
     label:Hide()
     arrayOfElements[#arrayOfElements + 1] = label
 
---[[
-    --]]
     -- result printing
-    hooksecurefunc(LootFinder, "Find", function()  -- yes, I hook my function :D
-        for i = #loot_btns, #LootFinder.LootList do -- loop to create new buttons, when lootcount > buttoncount
-            local btn = WeekKeys.UI.Button(nil, arrayOfElements[1])
+    hooksecurefunc(LootFinder, "Find", function()
+        for i = #loot_btns, #LootFinder.loot_list do
+            local btn = WeekKeys.UI.LootFinderButton(nil, arrayOfElements[1])
             loot_btns[#loot_btns + 1] = btn
-            btn:SetSize(WeekKeys.WeekFrame:GetWidth()-8,20)
+            btn:SetSize(492,20)
             btn:SetPoint("TOPLEFT",4,-(i)*20)
-
-            btn.icon = btn:CreateTexture('textureName', 'CENTER')
-            btn.icon:SetPoint("LEFT",5,0)
-            btn.icon:SetSize(18,18)
-            --btn.icon:SetPoint('TOPLEFT', 22, 0)
-
-            -- dungeon
-            btn.instance = btn:CreateFontString(nil , "ARTWORK", "GameFontNormal")
-            btn.instance:SetPoint("LEFT",25,0)
-            btn.instance:SetSize(200,20)
-            btn.instance:SetJustifyH("LEFT")
-
-            -- main atr
-            btn.mainatr = btn:CreateFontString(nil , "ARTWORK", "GameFontNormal")
-            btn.mainatr:SetPoint("LEFT",230,0)
-            btn.mainatr:SetSize(50,20)
-
-            -- crit
-            btn.crit = btn:CreateFontString(nil , "ARTWORK", "GameFontNormal")
-            btn.crit:SetPoint("LEFT",280,0)
-            btn.crit:SetSize(50,20)
-
-            -- haste
-            btn.haste = btn:CreateFontString(nil , "ARTWORK", "GameFontNormal")
-            btn.haste:SetPoint("LEFT",330,0)
-            btn.haste:SetSize(50,20)
-
-            -- mastery
-            btn.mastery = btn:CreateFontString(nil , "ARTWORK", "GameFontNormal")
-            btn.mastery:SetPoint("LEFT",380,0)
-            btn.mastery:SetSize(50,20)
-
-            -- vers
-            btn.versality = btn:CreateFontString(nil , "ARTWORK", "GameFontNormal")
-            btn.versality:SetPoint("LEFT",430,0)
-            btn.versality:SetSize(50,20)
-
-            btn.setdata = function(self,dungeon,itemlink)
-                if mlevel ~= 0 then
-                    print(ilvl)
-                    itemlink = itemlink:gsub("%d+:3524:%d+:%d+:%d+","5:"..mythic_level[LootFinder.level]..":6652:1501:"..ilvl..":6646")
-                end
-                GetItemStats(itemlink,table.wipe(tabl or {}))
-                -- texture
-                local _, _, _, _, icon = GetItemInfoInstant(itemlink)
-                self.icon:SetTexture(icon)
-
-                -- dungeon
-                self.instance:SetText(dungeon or "")
-
-                -- atr
-                self.mainatr:SetText(tabl.ITEM_MOD_STRENGTH_SHORT or tabl.ITEM_MOD_AGILITY_SHORT or tabl.ITEM_MOD_INTELLECT_SHORT or 0)
-                self.crit:SetText(tabl.ITEM_MOD_CRIT_RATING_SHORT or 0)
-                self.haste:SetText(tabl.ITEM_MOD_HASTE_RATING_SHORT or 0)
-                self.mastery:SetText(tabl.ITEM_MOD_MASTERY_RATING_SHORT or 0)
-                self.versality:SetText(tabl.ITEM_MOD_VERSATILITY or 0)
-
-                self.itemlink = itemlink
-            end
-            btn:SetScript("OnEnter",function(self)
-                GameTooltip:Hide()
-                GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-                GameTooltip:SetHyperlink(self.itemlink)
-                GameTooltip:Show()
-            end)
-            btn:SetScript("OnLeave",function()
-                GameTooltip:Hide()
-            end)
-
         end
-        for i = 1, #loot_btns do -- hide all buttons for situation when buttoncoutn > lootcount
+        for i = 1, #loot_btns do -- hide all buttons
             loot_btns[i]:Hide()
         end
-        for index,val in pairs(LootFinder.LootList)  do -- show and set information (self,dungeon,itemlink)
-            loot_btns[index]:setdata(val[1],val[2])
-            loot_btns[index]:Show()
+        for index, source, name, boss, itemlink, icon, mainstat, crit, haste, mastery, versality in WeekKeys.Iterators.LootList() do
+            local btn = loot_btns[index]
+            btn:SetIcon(icon)
+            btn:SetDungeon(name)
+            btn.link = itemlink
+            btn:SetMainAtr(mainstat)
+            btn:SetCrit(crit)
+            btn:SetHaste(haste)
+            btn:SetMastery(mastery)
+            btn:SetVersality(versality)
+            btn:Show()
         end
     end)
 

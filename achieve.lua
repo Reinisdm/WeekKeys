@@ -84,7 +84,7 @@ function()
         GameTooltip:SetHyperlink(self.link)
         GameTooltip:Show()
     end)
-    btn:SetScript("OnLeave",function() 
+    btn:SetScript("OnLeave",function()
         GameTooltip:Hide();
     end)
     for i = 12, 19 do

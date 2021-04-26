@@ -1,6 +1,6 @@
-WeekKeys.FriendBattleTag = {
 
-}
+WeekKeys.FriendBattleTag = {}
+
 function WeekKeys:OnInitialize()
     WeekKeys.db = LibStub("AceDB-3.0"):New("WeekKeysDB",WeekKeys.OptionTable)
     WeekKeys.icon:Register("WeekKeys", WeekKeys.icon.minimap_data, WeekKeys.db.global.minimap)
@@ -24,11 +24,9 @@ function WeekKeys:OnInitialize()
     WeekKeys.PartyDB = {}
     if IsInGroup() then
         WeekKeys:SendCommMessage("WeekKeys","request","PARTY")
-        WeekKeys:SendCommMessage("WeekKeys","update2 " .. WeekKeys.DB.GetAllByFaction(WeekKeysDB.Characters),"PARTY")
     end
     if IsInGuild() then
         WeekKeys:SendCommMessage("WeekKeys","request","GUILD")
-        WeekKeys:SendCommMessage("WeekKeys","update2 " .. WeekKeys.DB.GetAllByFaction(WeekKeysDB.Characters),"GUILD")
         WeekKeys:SendCommMessage("AstralKeys","request","GUILD")
     end
 

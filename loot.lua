@@ -1,5 +1,26 @@
 LootFinder = LootFinder or {}
 
+--[[
+    GetMerchantNumItems()
+    link = GetMerchantItemLink(index);
+    name, texture, price, quantity, numAvailable, isPurchasable, isUsable, extendedCost = GetMerchantItemInfo(index)
+    itemType, itemSubType, _, _, iconID, _, classID, subclassID = select(6, GetItemInfo(itemID))
+    for i = 1, GetMerchantNumItems() do
+        local link = GetMerchantItemLink(i)
+        local name = GetMerchantItemInfo(i)
+        local itemType, itemSubType, _, _, iconID, _, classID, subclassID = select(6, GetItemInfo(link))
+        testDB[#testDB + 1] = {
+            itemlink = link,
+            name = name,
+            itemType = itemType,
+            itemSubType = itemSubType,
+            iconID = iconID,
+            classID = classID,
+            subclassID = subclassID
+        }
+    end
+]]
+
 LootFinder.class_spec = {
     [1] = { -- warrior
         71, -- arms
@@ -63,114 +84,152 @@ LootFinder.class_spec = {
     }
 }
 
+local mythic_level = {
+    nil, -- index 1 -> mythic 1?
+    6808,-- index 2 -> mythic 2
+    6809,
+    7203,
+    7204,
+    7205,
+    7206,
+    7207,
+    7208,
+    7209,
+    7210,
+    7211,
+    7212,
+    7213,
+    7214
+}
+
 LootFinder.class = 0
 LootFinder.spec = 0
 LootFinder.slot = 15
 LootFinder.expansion = 9
 LootFinder.instances = {}
-LootFinder.level = 15
-LootFinder.LootList = {}
-function LootFinder:GetFilters()
-    self.class, self.spec = EJ_GetLootFilter()
-    self.slot = EJ_GetSlotFilter()
+LootFinder.stats = {}
+--[[
+    SPEC_FRAME_PRIMARY_STAT_STRENGTH    'ITEM_MOD_STRENGTH_SHORT'
+    SPEC_FRAME_PRIMARY_STAT_AGILITY     'ITEM_MOD_AGILITY_SHORT'
+    SPEC_FRAME_PRIMARY_STAT_INTELLECT   'ITEM_MOD_INTELLECT_SHORT'
+    STAT_CRITICAL_STRIKE                'ITEM_MOD_CRIT_RATING_SHORT'
+    STAT_HASTE                          'ITEM_MOD_HASTE_RATING_SHORT'
+    STAT_VERSATILITY                    'ITEM_MOD_VERSATILITY'
+    STAT_MASTERY                        'ITEM_MOD_MASTERY_RATING_SHORT'
+]]
+LootFinder.milvl = 226
+LootFinder.mlevel = 15
+LootFinder.loot_list = {}
+LootFinder.find_in_instances = true
+LootFinder.sort_by = false
+
+--- Add loot to list
+---@param source string instance/raid
+---@param name string instance name
+---@param boss string boss name
+---@param itemlink string itemlink
+---@param icon integer iconID
+---@param mainstat integer str/agi/int value
+---@param crit integer crit value
+---@param haste integer haste value
+---@param mastery integer mastery value
+---@param versality integer versality value
+function LootFinder:AddResult(source, name, boss, itemlink, icon, mainstat, crit, haste, mastery, versality)
+    local tbl = {source = source, name = name, boss = boss, itemlink = itemlink, icon = icon, mainstat = mainstat, crit = crit, haste = haste, mastery = mastery, versality = versality}
+    LootFinder.loot_list[#LootFinder.loot_list+1] = tbl
 end
 
-function LootFinder.SetStat2(self,arg1,arg2,checked)
-    if arg2 == 0 then
-        if arg1 == "ITEM_MOD_STRENGTH_SHORT" then
-            UIDropDownMenu_SetText(Stating1,SPEC_FRAME_PRIMARY_STAT_STRENGTH)
-        elseif arg1 == "ITEM_MOD_AGILITY_SHORT" then
-            UIDropDownMenu_SetText(Stating1,SPEC_FRAME_PRIMARY_STAT_AGILITY)
-        elseif arg1 == "ITEM_MOD_INTELLECT_SHORT" then
-            UIDropDownMenu_SetText(Stating1,SPEC_FRAME_PRIMARY_STAT_INTELLECT)
-        elseif arg1 == "ITEM_MOD_CRIT_RATING_SHORT" then
-            UIDropDownMenu_SetText(Stating1,STAT_CRITICAL_STRIKE)
-        elseif arg1 == "ITEM_MOD_HASTE_RATING_SHORT" then
-            UIDropDownMenu_SetText(Stating1,STAT_HASTE)
-        elseif arg1 == "ITEM_MOD_VERSATILITY" then
-            UIDropDownMenu_SetText(Stating1,STAT_VERSATILITY)
-        elseif arg1 == "ITEM_MOD_MASTERY_RATING_SHORT" then
-            UIDropDownMenu_SetText(Stating1,STAT_MASTERY)
-        else
-            UIDropDownMenu_SetText(Stating1,"-------")
-        end
-        LootFinder.stat1 = arg1
-    elseif arg1 == 0 then
-        if arg2 == "ITEM_MOD_STRENGTH_SHORT" then
-            UIDropDownMenu_SetText(Stating2,SPEC_FRAME_PRIMARY_STAT_STRENGTH)
-        elseif arg2 == "ITEM_MOD_AGILITY_SHORT" then
-            UIDropDownMenu_SetText(Stating2,SPEC_FRAME_PRIMARY_STAT_AGILITY)
-        elseif arg2 == "ITEM_MOD_INTELLECT_SHORT" then
-            UIDropDownMenu_SetText(Stating2,SPEC_FRAME_PRIMARY_STAT_INTELLECT)
-        elseif arg2 == "ITEM_MOD_CRIT_RATING_SHORT" then
-            UIDropDownMenu_SetText(Stating2,STAT_CRITICAL_STRIKE)
-        elseif arg2 == "ITEM_MOD_HASTE_RATING_SHORT" then
-            UIDropDownMenu_SetText(Stating2,STAT_HASTE)
-        elseif arg2 == "ITEM_MOD_VERSATILITY" then
-            UIDropDownMenu_SetText(Stating2,STAT_VERSATILITY)
-        elseif arg2 == "ITEM_MOD_MASTERY_RATING_SHORT" then
-            UIDropDownMenu_SetText(Stating2,STAT_MASTERY)
-        else
-            UIDropDownMenu_SetText(Stating2,"-------")
-        end
-        LootFinder.stat2 = arg2
+---Get table size
+---@param tbl table
+---@return integer table_size
+local function getsize(tbl)
+    local size = 0
+    for _, _ in pairs(tbl or LootFinder.stats) do
+        size = size + 1
     end
-    CloseDropDownMenus()
+    return size
 end
 
--- LootFinder.LootList
+local itemtstats = {}
+--- Start find loot, results stored in Lootfinde.loot_list
 function LootFinder:Find()
     EJ_SetDifficulty(23)
     EJ_SelectTier(LootFinder.expansion)
     if EncounterJournal_ListInstances then
         EncounterJournal_ListInstances()
     end
-
-    --C_EncounterJournal.SetPreviewMythicPlusLevel(0)
-    --C_EncounterJournal.SetPreviewMythicPlusLevel(LootFinder.level)
-    self.LootList = {}
     self.class = self.class or 0
     self.spec = self.spec or 0
     self.slot = self.slot or 0
     EJ_SetLootFilter(self.class,self.spec )
     C_EncounterJournal.SetSlotFilter(self.slot)
-    local iIndex = 1
-    local stat1 = self.stat1
-    local stat2 = self.stat2
-    while EJ_GetInstanceByIndex(iIndex, false) ~= nil do
-        if LootFinder.instances[iIndex] == nil then LootFinder.instances[iIndex] = true end
-        if LootFinder.instances[iIndex] then
-            local instanceID, name = EJ_GetInstanceByIndex(iIndex, false)
-            EJ_SelectInstance(instanceID)
-            for i=1,EJ_GetNumLoot() do
-                local itemInfo = C_EncounterJournal.GetLootInfoByIndex(i)
+    table.wipe(LootFinder.loot_list)
+
+
+    local index = 1
+    while EJ_GetInstanceByIndex(index, false) ~= nil do -- for each instance
+        if LootFinder.instances[index] == nil then LootFinder.instances[index] = true end
+        if LootFinder.instances[index] then -- if not black-listed
+            local instanceID, instancename = EJ_GetInstanceByIndex(index, false) -- get instanceID and instance name
+            EJ_SelectInstance(instanceID) -- select instance
+            for i=1,EJ_GetNumLoot() do -- each loot
+                table.wipe(itemtstats) -- wipe previous results
+                local itemInfo = C_EncounterJournal.GetLootInfoByIndex(i) -- get loot info
                 if not itemInfo.link then -- sometimes link is nil
                     i = i - 1
                 else
-                    local stats = GetItemStats(itemInfo.link)
-                    if stat1 ~= nil and stat2 ~= nil then
-                        if stats[stat1] ~= nil and stats[stat2] ~= nil then
-                            tinsert(self.LootList,{name,itemInfo.link,stats[stat1]})
+                    --modify link
+                    if LootFinder.mlevel ~= 0 then
+                        itemInfo.link = itemInfo.link:gsub("%d+:3524:%d+:%d+:%d+","5:"..mythic_level[LootFinder.mlevel]..":6652:1501:"..(LootFinder.milvl + 5658)..":6646")
+                    end
+                    --boss name
+                    local bossname = EJ_GetEncounterInfo(itemInfo.encounterID)
+
+                    --add or not to lootlist
+                    itemtstats = GetItemStats(itemInfo.link, itemtstats)
+                    --if #LootFinder.stats > 0 then
+                    if getsize() > 1 then
+                        local count = 0
+                        for key, _ in pairs(LootFinder.stats) do
+                            if  itemtstats[key] then
+                                count = count + 1
+                            end
                         end
-                    elseif stat1 and stat2 == nil and stats[stat1] then
-                        tinsert(self.LootList,{name,itemInfo.link,stats[stat1]})
-                    elseif stat1 == nil and stat2 and stats[stat2] then
-                        tinsert(self.LootList,{name,itemInfo.link,stats[stat2]})
-                    elseif stat1 == nil and stat2 == nil then
-                        tinsert(self.LootList,{name,itemInfo.link})
+                        if count >= 2 then
+                            LootFinder:AddResult("instance", instancename, bossname,
+                                        itemInfo.link, itemInfo.icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                                        itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
+                                        itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
+                        end
+                    elseif getsize() == 1 then
+                        for key, _ in pairs(LootFinder.stats) do
+                            if itemtstats[key] then
+                                LootFinder:AddResult("instance", instancename, bossname,
+                                        itemInfo.link, itemInfo.icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                                        itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
+                                        itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
+                                break
+                            end
+                        end
+                    else
+                        LootFinder:AddResult("instance", instancename, bossname,
+                                itemInfo.link, itemInfo.icon,
+                                itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                                itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
+                                itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
                     end
                 end
-            end
-        end
-        iIndex=iIndex+1
-    end
-    if stat1 or stat2 then
-        table.sort(self.LootList, function(a,b)
-            return a[3] > b[3]
-        end)
-    end
-    if EncounterJournal_ListInstances then
-        EncounterJournal_ListInstances()
-    end
-    return self.LootList
+            end -- for each loot
+        end -- if not black lsited
+        index = index + 1
+    end -- for each instance
+
 end
+--[[
+    LootFinder.raids = {}
+    LootFinder.raid_difficult = 16
+    14 - normal
+    15 - heroic
+    16 - mythic
+    17 - looking for raid
+]]

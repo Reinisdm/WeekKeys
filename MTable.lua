@@ -4,6 +4,19 @@ local function add(arg1)
     elements[#elements+1] = arg1
 end
 local L = WeekKeys.L
+--[[  PTR things
+
+local dungeonScore = C_ChallengeMode.GetOverallDungeonScore(); 
+local color = C_ChallengeMode.GetDungeonScoreRarityColor(dungeonScore); 
+if(color) then 
+    self.WeeklyInfo.Child.DungeonScoreInfo.Score:SetVertexColor(color.r, color.g, color.b);
+end 
+self.WeeklyInfo.Child.DungeonScoreInfo.Score:SetText(dungeonScore);
+self.WeeklyInfo.Child.DungeonScoreInfo:SetShown(chestFrame:IsShown());
+
+
+
+--]]
 local buttons = {}
 local Rio_de_Janeiro = {20,30,40,50,60,70,80,90,100,110,121,133,146,161,177,195,214,236,259,285,314,345,380,418,459,505,556,612,673}
 --    Blizz_Janeiro = {}

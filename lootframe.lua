@@ -184,6 +184,105 @@ local function createinstancelist(btn)
     return back
 end
 
+
+--- Function to create frame with raid list
+---@param btn Frame @frame/button to anchor
+---@return Frame instance_frame @Frame with instances
+local function createraidlist(btn)
+    local back = CreateFrame("Frame",nil,btn,"InsetFrameTemplate")
+    back:SetPoint("BOTTOMLEFT",0,30)
+    local btnsize = 30
+    back:SetSize(btnsize * 4 + 20, 150)
+
+    local i = 1
+    EJ_SelectTier(LootFinder.expansion)
+    while EJ_GetInstanceByIndex(i, true) ~= nil do
+        LootFinder.raids[i] = false
+        local _, name, _, _, _, _, buttonImage2 = EJ_GetInstanceByIndex(i, true)
+        local button = WeekKeys.UI.Button(nil, back)
+        button.name = name
+        button:SetPoint("TOPLEFT",(i-1)%4*btnsize+10,-1*math.floor((i-1)/4)*btnsize-10)
+        button:SetSize(btnsize,btnsize)
+        button:SetID(i)
+        button.texture:SetTexture(buttonImage2)
+        button.texture:SetAlpha(0.3)
+        button.find = false
+
+        function button:enable(bool)
+            if bool then
+                LootFinder.raids[self:GetID()] = true
+                self.texture:SetAlpha(1)
+            else
+                LootFinder.raids[self:GetID()] = false
+                self.texture:SetAlpha(0.3)
+            end
+            self.find = bool
+        end
+
+        button:SetScript("OnClick",function(self)
+            self:enable(not self.find)
+            LootFinder:Find()
+        end)
+
+        button:SetScript("OnEnter",function(self)
+            GameTooltip:Hide();
+            GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+            GameTooltip:AddLine(self.name)
+            GameTooltip:Show()
+        end)
+
+        button:SetScript("OnLeave",function()
+            GameTooltip:Hide();
+        end)
+
+        i = i + 1
+    end
+    local diff_names = {
+        PLAYER_DIFFICULTY1, -- normal
+        PLAYER_DIFFICULTY2, -- heroic
+        PLAYER_DIFFICULTY6, -- mythic
+        PLAYER_DIFFICULTY3  -- raid finder
+    }
+    local diff_ids = {
+        14, -- normal
+        15, -- heroic
+        16, -- mythic
+        17  -- raid finder
+    }
+    for i = 1, 4 do
+        local checkbtn = CreateFrame("CheckButton", "WeekKeys_RaidChoose"..i, back, "ChatConfigCheckButtonTemplate")
+        checkbtn:SetPoint("TOPLEFT", 5, -(i+1) *20-20)
+        checkbtn.val = diff_ids[i]
+        _G["WeekKeys_RaidChoose"..i.."Text"]:SetText(diff_names[i])
+        checkbtn:SetScript("OnClick",function(self)
+            for j = 1,4 do
+                _G["WeekKeys_RaidChoose"..j]:SetChecked(false)
+            end
+            self:SetChecked(true)
+            LootFinder.raid_difficult = self.val
+
+            LootFinder:Find()
+        end)
+    end
+    table.wipe(diff_names)
+    diff_names = nil
+    table.wipe(diff_ids)
+    diff_ids = nil
+
+    hide_frames[#hide_frames + 1] = back
+    --back:SetScript("OnLeave",function(self) self:Hide() end)
+    back:Hide()
+    return back
+end
+
+--[[ TO DO
+
+local function createpvpdlist(btn)
+
+end
+
+--]]
+
 --- Function to create frame with m+ levels
 ---@param btn Frame @frame/button to anchor
 ---@return Frame mplus_frame @frame with m+ choose
@@ -204,6 +303,7 @@ local function createmlevel(btn)
         button:SetScript("OnClick",function (self)
             local id = self:GetID()
             local chest, key = C_MythicPlus.GetRewardLevelForDifficultyLevel(max(1,id))
+
             if wchest then
                 LootFinder.milvl = chest
             else
@@ -222,6 +322,7 @@ local function createmlevel(btn)
     chesckbtn:SetScript("OnClick",function(self)
         local checked = self:GetChecked()
         local chest, key = C_MythicPlus.GetRewardLevelForDifficultyLevel(max(1,mlevel))
+
         if checked == true then
             LootFinder.milvl = chest
         else
@@ -293,17 +394,7 @@ local function createfilters(btn)
 end
 
 
---[[ TO DO
 
-local function createraidlist(self)
-
-end
-
-local function createpvpdlist(self)
-
-end
-
---]]
 --mylist = nil
 WeekKeys.AddInit(function()
     arrayOfElements[1] = CreateFrame('Frame')
@@ -382,7 +473,7 @@ WeekKeys.AddInit(function()
     instance_btn:Hide()
     arrayOfElements[#arrayOfElements + 1] = instance_btn
 
-    --[[
+
     local raid_btn = WeekKeys.UI.Button(nil, WeekKeys.WeekFrame)
     raid_btn:SetSize(30,30)
     raid_btn:SetPoint("Topleft",180,-30)
@@ -398,7 +489,7 @@ WeekKeys.AddInit(function()
     end)
     raid_btn:Hide()
     arrayOfElements[#arrayOfElements + 1] = raid_btn
-    --]]
+
 
     --[[
     local pvp_btn = WeekKeys.UI.Button(nil, WeekKeys.WeekFrame)

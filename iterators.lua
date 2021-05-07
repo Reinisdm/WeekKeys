@@ -35,7 +35,7 @@ function Iterators.FormatPlayerList(list,writeRealm)
         local _, _, _, argbHex = GetClassColor(classFile)
         local colored_nickname = "|c"..argbHex..char.name.."|r"
         if writeRealm and char.realm ~= realm then
-            colored_nickname = colored_nickname .. "(*)"
+            colored_nickname = colored_nickname .. " (*)"
         end
 
         local keystone = ""

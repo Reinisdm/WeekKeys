@@ -69,9 +69,10 @@ local function createspeclist(btn)
         spec_btn_list[i] = button
     end
 
-    back:SetScript("OnShow",function(self) 
-        local len = #LootFinder.class_spec[LootFinder.class] 
-        if len == 0 then self:Hide() end -- hide if no class choosen
+    back:SetScript("OnShow",function(self)
+        if not LootFinder.class_spec[LootFinder.class] then return self:Hide() end
+        local len = #LootFinder.class_spec[LootFinder.class]
+        --if len == 0 then self:Hide() return end -- hide if no class choosen
         local spec_ids = LootFinder.class_spec[LootFinder.class]
         if len == 2 then back:SetSize(btnsize * 3 + 10, btnsize * 1 + 10) else back:SetSize(btnsize * 3 + 10, btnsize * 2 + 10) end
         for i = 1, len do
@@ -403,15 +404,21 @@ WeekKeys.AddInit(function()
     arrayOfElements[1]:SetSize(10,10)
     arrayOfElements[1]:SetScript("OnShow",function()
         WeekKeys.WeekFrame.ScrollFrame:ClearAllPoints()
-        WeekKeys.WeekFrame.ScrollFrame:SetPoint("TOPLEFT", WeekKeys.WeekFrame, "TOPLEFT", 4, -80);
+        WeekKeys.WeekFrame.ScrollFrame:SetPoint("TOPLEFT", WeekKeys.WeekFrame, "TOPLEFT", 4, -100);
         WeekKeys.WeekFrame.ScrollFrame:SetPoint("BOTTOMRIGHT", WeekKeys.WeekFrame, "BOTTOMRIGHT", -5, 5);
     end)
     arrayOfElements[1]:Hide()
 
+    local class_label = WeekKeys.WeekFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+    class_label:SetSize(30, 20)
+    class_label:SetPoint("TOPLEFT", 20, -30)
+    class_label:SetText(CLASS)
+    class_label:Hide()
+    arrayOfElements[#arrayOfElements + 1] = class_label
     -- class btn
     local class_btn = WeekKeys.UI.Button(nil, WeekKeys.WeekFrame)
     class_btn:SetSize(30,30)
-    class_btn:SetPoint("TopLeft",20,-30)
+    class_btn:SetPoint("TopLeft",20,-50)
     class_btn.texture:SetTexture(QUESTION_MARK_ICON)
     class_btn:SetScript("OnClick",function(self)
         self.showframe = self.showframe or createmyclasslist(self)
@@ -421,13 +428,29 @@ WeekKeys.AddInit(function()
         for _,v in pairs(hide_frames) do v:Hide() end
         self.showframe:Show()
     end)
+    class_btn:SetScript("OnEnter",function(self)
+        GameTooltip:Hide();
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        GameTooltip:AddLine(CLASS)
+        GameTooltip:Show()
+    end)
+
+    class_btn:SetScript("OnLeave",function()
+        GameTooltip:Hide();
+    end)
     class_btn:Hide()
     arrayOfElements[#arrayOfElements + 1] = class_btn
 
+    local spec_label = WeekKeys.WeekFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+    spec_label:SetSize(30, 20)
+    spec_label:SetPoint("TOPLEFT", 60, -30)
+    spec_label:SetText(SPECIALIZATION)
+    spec_label:Hide()
+    arrayOfElements[#arrayOfElements + 1] = spec_label
     -- spec btn
     local spec_btn = WeekKeys.UI.Button(nil, WeekKeys.WeekFrame)
     spec_btn:SetSize(30,30)
-    spec_btn:SetPoint("Topleft",60,-30)
+    spec_btn:SetPoint("Topleft",60,-50)
     spec_btn.texture:SetTexture(QUESTION_MARK_ICON)
     spec_btn:SetScript("OnClick",function(self)
         self.showframe = self.showframe or createspeclist(self)
@@ -437,13 +460,29 @@ WeekKeys.AddInit(function()
         for _,v in pairs(hide_frames) do v:Hide() end
         self.showframe:Show()
     end)
+    spec_btn:SetScript("OnEnter",function(self)
+        GameTooltip:Hide();
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        GameTooltip:AddLine(SPECIALIZATION)
+        GameTooltip:Show()
+    end)
+
+    spec_btn:SetScript("OnLeave",function()
+        GameTooltip:Hide();
+    end)
     spec_btn:Hide()
     arrayOfElements[#arrayOfElements + 1] = spec_btn
 
+    local slot_label = WeekKeys.WeekFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+    slot_label:SetSize(30, 20)
+    slot_label:SetPoint("TOPLEFT", 100, -30)
+    slot_label:SetText(SLOT_ABBR)
+    slot_label:Hide()
+    arrayOfElements[#arrayOfElements + 1] = slot_label
     -- slot btn
     local slot_btn = WeekKeys.UI.Button(nil, WeekKeys.WeekFrame)
     slot_btn:SetSize(30,30)
-    slot_btn:SetPoint("Topleft",100,-30)
+    slot_btn:SetPoint("Topleft",100,-50)
     slot_btn.texture:SetTexture(QUESTION_MARK_ICON)
     slot_btn:SetScript("OnClick",function(self)
         self.showframe = self.showframe or createslotlist(self)
@@ -453,13 +492,29 @@ WeekKeys.AddInit(function()
         for _,v in pairs(hide_frames) do v:Hide() end
         self.showframe:Show()
     end)
+    slot_btn:SetScript("OnEnter",function(self)
+        GameTooltip:Hide();
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        GameTooltip:AddLine(SLOT_ABBR)
+        GameTooltip:Show()
+    end)
+
+    slot_btn:SetScript("OnLeave",function()
+        GameTooltip:Hide();
+    end)
     slot_btn:Hide()
     arrayOfElements[#arrayOfElements + 1] = slot_btn
 
+    local instance_label = WeekKeys.WeekFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+    instance_label:SetSize(30, 20)
+    instance_label:SetPoint("TOPLEFT", 140, -30)
+    instance_label:SetText(INSTANCE)
+    instance_label:Hide()
+    arrayOfElements[#arrayOfElements + 1] = instance_label
     -- instances
     local instance_btn = WeekKeys.UI.Button(nil, WeekKeys.WeekFrame)
     instance_btn:SetSize(30,30)
-    instance_btn:SetPoint("Topleft",140,-30)
+    instance_btn:SetPoint("Topleft",140,-50)
     instance_btn.texture:SetTexture('interface/minimap/objecticonsatlas.blp')
     instance_btn.texture:SetTexCoord(0.24609375,0.267578125,0.951171875,0.994140625)
     instance_btn:SetScript("OnClick",function(self)
@@ -470,13 +525,29 @@ WeekKeys.AddInit(function()
         for _,v in pairs(hide_frames) do v:Hide() end
         self.showframe:Show()
     end)
+    instance_btn:SetScript("OnEnter",function(self)
+        GameTooltip:Hide();
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        GameTooltip:AddLine(INSTANCE)
+        GameTooltip:Show()
+    end)
+
+    instance_btn:SetScript("OnLeave",function()
+        GameTooltip:Hide();
+    end)
     instance_btn:Hide()
     arrayOfElements[#arrayOfElements + 1] = instance_btn
 
+    local raid_label = WeekKeys.WeekFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+    raid_label:SetSize(30, 20)
+    raid_label:SetPoint("TOPLEFT", 180, -30)
+    raid_label:SetText(RAID)
+    raid_label:Hide()
+    arrayOfElements[#arrayOfElements + 1] = raid_label
 
     local raid_btn = WeekKeys.UI.Button(nil, WeekKeys.WeekFrame)
     raid_btn:SetSize(30,30)
-    raid_btn:SetPoint("Topleft",180,-30)
+    raid_btn:SetPoint("Topleft",180,-50)
     raid_btn.texture:SetTexture('interface/minimap/objecticonsatlas.blp')
     raid_btn.texture:SetTexCoord(0.283203125, 0.3046875, 0.94140625, 0.984375)
     raid_btn:SetScript("OnClick",function(self)
@@ -486,6 +557,16 @@ WeekKeys.AddInit(function()
         end
         for _,v in pairs(hide_frames) do v:Hide() end
         self.showframe:Show()
+    end)
+    raid_btn:SetScript("OnEnter",function(self)
+        GameTooltip:Hide();
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        GameTooltip:AddLine(RAID)
+        GameTooltip:Show()
+    end)
+
+    raid_btn:SetScript("OnLeave",function()
+        GameTooltip:Hide();
     end)
     raid_btn:Hide()
     arrayOfElements[#arrayOfElements + 1] = raid_btn
@@ -509,11 +590,16 @@ WeekKeys.AddInit(function()
     arrayOfElements[#arrayOfElements + 1] = pvp_btn
     --]]
 
-
+    local key_label = WeekKeys.WeekFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+    key_label:SetSize(30, 20)
+    key_label:SetPoint("TOPLEFT", 260, -30)
+    key_label:SetText(LEVEL)
+    key_label:Hide()
+    arrayOfElements[#arrayOfElements + 1] = key_label
     -- keylevel
     local keylevel = WeekKeys.UI.Button(nil, WeekKeys.WeekFrame)
     keylevel:SetSize(30,30)
-    keylevel:SetPoint("Topleft",260,-30)
+    keylevel:SetPoint("Topleft",260,-50)
     keylevel:SetText(15 .. "|Tinterface/worldmap/treasurechest_64.blp:20:20|t")
     keylevel:SetScript("OnClick",function(self)
         self.showframe = self.showframe or createmlevel(self)
@@ -523,13 +609,29 @@ WeekKeys.AddInit(function()
         for _,v in pairs(hide_frames) do v:Hide() end
         self.showframe:Show()
     end)
+    keylevel:SetScript("OnEnter",function(self)
+        GameTooltip:Hide();
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        GameTooltip:AddLine(LEVEL)
+        GameTooltip:Show()
+    end)
+
+    keylevel:SetScript("OnLeave",function()
+        GameTooltip:Hide();
+    end)
     keylevel:Hide()
     arrayOfElements[#arrayOfElements + 1] = keylevel
 
+    local stat_label = WeekKeys.WeekFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+    stat_label:SetSize(30, 20)
+    stat_label:SetPoint("TOPLEFT", 300, -30)
+    stat_label:SetText(SCORE_POWER_UPS)
+    stat_label:Hide()
+    arrayOfElements[#arrayOfElements + 1] = stat_label
     -- stat filters
     local statfilter = WeekKeys.UI.Button(nil, WeekKeys.WeekFrame)
     statfilter:SetSize(30,30)
-    statfilter:SetPoint("Topleft",300,-30)
+    statfilter:SetPoint("Topleft",300,-50)
     statfilter:SetText("???")
     statfilter:SetScript("OnClick",function(self)
         self.showframe = self.showframe or createfilters(self)
@@ -539,13 +641,23 @@ WeekKeys.AddInit(function()
         for _,v in pairs(hide_frames) do v:Hide() end
         self.showframe:Show()
     end)
+    statfilter:SetScript("OnEnter",function(self)
+        GameTooltip:Hide();
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        GameTooltip:AddLine(SCORE_POWER_UPS)
+        GameTooltip:Show()
+    end)
+
+    statfilter:SetScript("OnLeave",function()
+        GameTooltip:Hide();
+    end)
     statfilter:Hide()
     arrayOfElements[#arrayOfElements + 1] = statfilter
 
 
     -- "dungeons"
     local label = WeekKeys.WeekFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-    label:SetPoint("TOPLEFT",25,-60)
+    label:SetPoint("TOPLEFT",25,-80)
     label:SetSize(200,20)
     label:SetText(DUNGEONS)
     label:Hide()
@@ -564,35 +676,35 @@ WeekKeys.AddInit(function()
     -- LFG_TYPE_DUNGEON
 
     label = WeekKeys.WeekFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-    label:SetPoint("TOPLEFT",230,-60)
+    label:SetPoint("TOPLEFT",230,-80)
     label:SetSize(50,20)
     label:SetFormattedText(SPEC_FRAME_PRIMARY_STAT,"")
     label:Hide()
     arrayOfElements[#arrayOfElements + 1] = label
 
     label = WeekKeys.WeekFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-    label:SetPoint("TOPLEFT",280,-60)
+    label:SetPoint("TOPLEFT",280,-80)
     label:SetSize(50,20)
     label:SetText(SPELL_CRIT_CHANCE)
     label:Hide()
     arrayOfElements[#arrayOfElements + 1] = label
 
     label = WeekKeys.WeekFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-    label:SetPoint("TOPLEFT",330,-60)
+    label:SetPoint("TOPLEFT",330,-80)
     label:SetSize(50,20)
     label:SetText(STAT_HASTE)
     label:Hide()
     arrayOfElements[#arrayOfElements + 1] = label
 
     label = WeekKeys.WeekFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-    label:SetPoint("TOPLEFT",380,-60)
+    label:SetPoint("TOPLEFT",380,-80)
     label:SetSize(50,20)
     label:SetText(STAT_MASTERY)
     label:Hide()
     arrayOfElements[#arrayOfElements + 1] = label
 
     label = WeekKeys.WeekFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-    label:SetPoint("TOPLEFT",430,-60)
+    label:SetPoint("TOPLEFT",430,-80)
     label:SetSize(50,20)
     label:SetText(STAT_VERSATILITY)
     label:Hide()

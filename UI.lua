@@ -153,7 +153,6 @@ function WeekKeys.UI.ThorgastButton(name, parent)
         self.record2:SetText(record2 .. "/8")
     end
 
-    
 
     return btn
 end

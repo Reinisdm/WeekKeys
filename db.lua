@@ -417,7 +417,7 @@ function WeekKeys.DB.GetGuildFormatted(DB, tbl)
                     tbl[2][index] = "|c"..argbHex..char.name.."|r"
                     tbl[3][index] = char.ilvl
                     tbl[4][index] = char.record
-                    if char.keyID then
+                    if char.keyID and C_ChallengeMode.GetMapUIInfo(char.keyID) and char.keyLevel > 1 then
                         tbl[5][index] = string.format("%s (%d)",C_ChallengeMode.GetMapUIInfo(char.keyID), char.keyLevel)
                         
                         if char.keyID == 375 or char.keyID == 377 then

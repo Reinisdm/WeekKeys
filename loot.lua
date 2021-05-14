@@ -84,33 +84,33 @@ local spec_main_atr = {
    = GetItemInfo(itemInfo)
 local spec_weapons = {
 
-        [71] = {}, -- arms
-        [72] = {}, -- fury
-        [73] = {}, -- protection
+        [71] = {1,5,8}, -- arms
+        [72] = {0,1,4,5,7,8}, -- fury
+        [73] = {0,4,7}, -- protection
 
-        [65] = {}, -- holy
-        [66] = {}, -- protection
-        [70] = {},  -- retribution
+        [65] = {0,4,7}, -- holy
+        [66] = {0,4,7}, -- protection
+        [70] = {1,5,8},  -- retribution
 
-        [253] = {}, -- beast mastery
-        [254] = {}, -- marksmanship
-        [255] = {},  -- survival
+        [253] = {2,3,18}, -- beast mastery
+        [254] = {2,3,18}, -- marksmanship
+        [255] = {6,10},  -- survival
 
-        [259] = {}, -- assassination
-        [260] = {}, -- outlaw
-        [261] = {},  -- subtlety
+        [259] = {15}, -- assassination
+        [260] = {0,4,7}, -- outlaw
+        [261] = {15},  -- subtlety
 
-        [256] = {}, -- discipline
-        [257] = {}, -- holy
-        [258] = {},  -- shadow
+        [256] = {10,15,19}, -- discipline
+        [257] = {10,15,19}, -- holy
+        [258] = {10,15,16},  -- shadow
 
-        [250] = {}, -- blood
-        [251] = {}, -- frost
-        [252] = {}, -- unholy
+        [250] = {1,5,8}, -- blood
+        [251] = {0,1,4,5,7,8}, -- frost
+        [252] = {1,5,8}, -- unholy
 
-        [262] = {}, -- elemental
-        [263] = {}, -- enchancement
-        [264] = {}, -- restoration
+        [262] = {4,10}, -- elemental
+        [263] = {0,4,7}, -- enchancement
+        [264] = {4,10}, -- restoration
 
         [62] = {}, -- arcane
         [63] = {}, -- fire
@@ -326,7 +326,7 @@ function LootFinder:Find()
                 local itemInfo = C_EncounterJournal.GetLootInfoByIndex(i) -- get loot info
                 if not itemInfo.link then -- sometimes link is nil
                     i = i - 1
-                else
+                elseif getsize(GetItemStats(itemInfo.link)) > 0 then
                     --modify link
                     --if LootFinder.mlevel ~= 0 then
                         itemInfo.link = itemInfo.link:gsub("%d+:3524:%d+:%d+:%d+","5:"..mythic_level[max(LootFinder.mlevel,1)]..":6652:1501:"..(LootFinder.milvl + 5658)..":6646")
@@ -386,7 +386,7 @@ function LootFinder:Find()
                 local itemInfo = C_EncounterJournal.GetLootInfoByIndex(i) -- get loot info
                 if not itemInfo.link then -- sometimes link is nil
                     i = i - 1
-                else
+                elseif getsize(GetItemStats(itemInfo.link)) > 0 then
                     --boss name
                     local bossname = EJ_GetEncounterInfo(itemInfo.encounterID)
 

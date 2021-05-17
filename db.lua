@@ -332,7 +332,7 @@ function WeekKeys.DB.GetChar(DB, name, realm)
             else
                 str = ""
             end
-            return  "|c"..argbHex..char.name.."|r", char.ilvl, char.record, str, char.covenantID
+            return  "|c"..argbHex..char.name.."|r", char.ilvl, char.record, str, char.covenant
         end
     end
 end

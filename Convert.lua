@@ -52,8 +52,9 @@ function convert.StrToTbl(update_type,data,tbl)
     tbl = tbl or {}
     local pattern = WeekKeys.Patterns[update_type]
     local index = 1
-
-    for word in string.gmatch(data..":", '([^:]*):') do
+    --/run for word in string.gmatch("a;b;c;d;e;;;;f;", "([^;]*);") do print("->"..word.."<-") end
+    --/run for word in string.gmatch("a;b;c;d;e;;f;", '([^;]*);') do print(word) end
+    for word in string.gmatch(data..";", '([^;]*);') do
         local key = pattern[index]
         tbl[key] = (word ~= "" and (tonumber(word) or word) or nil)
         index = index + 1
@@ -75,7 +76,11 @@ function convert.TblToStr(update_type,data)
     local pattern = WeekKeys.Patterns[update_type]
 
     for _,key in pairs(pattern) do
-        str = str .. ((data[key] == nil) and "" or tostring(data[key])) .. ":"
+        if data[key] == nil then
+            str = str .. ";"
+        else
+            str = str .. tostring(data[key]) .. ";"
+        end
     end
 
     return str:sub(1,-2)

@@ -19,7 +19,6 @@ function WeekKeys.AstralKeys.GUILD(msg, sender)
     WeekKeysDB.Guild = WeekKeysDB.Guild or {}
     WeekKeysDB.Guild[guildName] = WeekKeysDB.Guild[guildName] or {}
 
-    
     local cmd, text = strsplit(" ",msg,2)
     if cmd == "updateV8" then
         local char, classname, keyid, keylevel, record, week = strsplit(":",text) -- split AstralKeys data
@@ -63,12 +62,12 @@ function WeekKeys.AstralKeys.GUILD(msg, sender)
     end
     
 end
-
+--/run WeekKeys.WeekKeys.PARTY("update3 " .. WeekKeys.DB.GetAllCovenant(WeekKeysDB.Characters),"sss")
 function WeekKeys.WeekKeys.PARTY(msg,sender)
     local command, text = strsplit(" ",msg,2)
     if msg == "request" then
 
-        WeekKeys:SendCommMessage("WeekKeys","update2 " .. WeekKeys.DB.GetAllByFaction(WeekKeysDB.Characters),"PARTY")
+        WeekKeys:SendCommMessage("WeekKeys","update3 " .. WeekKeys.DB.GetAllCovenant(WeekKeysDB.Characters),"PARTY")
     elseif command == "update" then
         WeekKeys.DB.SaveVars(WeekKeys.PartyDB,WeekKeys.Convert.OldStringToVars(text,sender))
     elseif command == "update2" then
@@ -76,7 +75,13 @@ function WeekKeys.WeekKeys.PARTY(msg,sender)
         while text and text:len() > 0 do
             char, text = strsplit("_",text,2)
            -- print(text:len(),"<=>",WeekKeys.Convert.StringToVars(char,sender))
-            WeekKeys.DB.SaveVars(WeekKeys.PartyDB,WeekKeys.Convert.StringToVars(char,sender))
+                WeekKeys.DB.SaveVars(WeekKeys.PartyDB,WeekKeys.Convert.StringToVars(char,sender))
+        end
+    elseif command == "update3" then
+        local char
+        while text and text:len() > 0 do
+            char, text = strsplit("_",text,2)
+            WeekKeys.DB.SaveCovenantChar(WeekKeys.PartyDB,WeekKeys.Convert.StringToVars(char,sender))
         end
     end
 end

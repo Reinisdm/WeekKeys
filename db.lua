@@ -332,7 +332,7 @@ function WeekKeys.DB.GetChar(DB, name, realm)
             else
                 str = ""
             end
-            return  "|c"..argbHex..char.name.."|r", char.ilvl, char.record, str
+            return  "|c"..argbHex..char.name.."|r", char.ilvl, char.record, str, char.covenantID
         end
     end
 end
@@ -390,7 +390,6 @@ function WeekKeys.DB.GetTorghast(DB, tbl)
     return tbl
 
 end
---/run a = WeekKeys.DB.GetTorghast(WeekKeysDB.Characters) for i=1,#a[1] do print(a[2][i],a[3][i],a[4][i])end
 
 function WeekKeys.DB.GetGuildFormatted(DB, tbl)
     if not DB then

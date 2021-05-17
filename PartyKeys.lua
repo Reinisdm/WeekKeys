@@ -8,7 +8,7 @@ local querytable = {}
 local buttons = {}
 local updateFrame = CreateFrame("frame")
 local function update()
-    local name, ilvl, record, keystone, realm
+    local name, ilvl, record, keystone, realm, covenant
     for i = 1, 4 do
         name, realm = UnitName("party"..i)
         if realm then
@@ -16,19 +16,21 @@ local function update()
         else
             realm = GetNormalizedRealmName()
         end
-        name, ilvl, record, keystone = WeekKeys.DB.GetChar(WeekKeys.PartyDB,name, realm)
+        name, ilvl, record, keystone, covenant = WeekKeys.DB.GetChar(WeekKeys.PartyDB,name, realm)
 
         if buttons[i] then
             buttons[i]:SetName(name)
             buttons[i]:Setilvl(ilvl)
             buttons[i]:SetRecord(record)
             buttons[i]:SetKeystone(keystone)
+            buttons[i]:SetCovenant(covenant)
         else
-            buttons[i] = WeekKeys.UI.CharacterButton(nil,buttons[#buttons] or elements[1])
+            buttons[i] = WeekKeys.UI.FactionCovenantButton(nil,buttons[#buttons] or elements[1])
             buttons[i]:SetName(name)
             buttons[i]:Setilvl(ilvl)
             buttons[i]:SetRecord(record)
             buttons[i]:SetKeystone(keystone)
+            buttons[i]:SetCovenant(covenant)
         end
     end
 end

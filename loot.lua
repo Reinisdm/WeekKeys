@@ -1,5 +1,180 @@
 LootFinder = LootFinder or {}
 
+local pvp_gear_list = {
+	[175912] = false,
+	[179578] = false,
+	[178367] = false,
+	[175913] = false,
+	[178368] = false,
+	[182480] = false,
+	[175914] = false,
+	[181333] = false,
+	[178369] = false,
+	[183501] = false,
+	[175915] = false,
+	[181844] = false,
+	[183470] = false,
+	[181462] = false,
+	[182769] = false,
+	[175916] = false,
+	[181335] = false,
+	[183184] = false,
+	[178371] = false,
+	[175917] = false,
+	[178372] = false,
+	[175918] = false,
+	[182325] = false,
+	[178373] = false,
+	[175887] = false,
+	[175919] = false,
+	[181816] = false,
+	[181848] = false,
+	[178374] = false,
+	[183506] = false,
+	[181498] = false,
+	[175920] = false,
+	[178375] = false,
+	[183507] = false,
+	[175889] = false,
+	[175921] = false,
+	[182137] = false,
+	[178376] = false,
+	[182743] = false,
+	[175890] = false,
+	[175922] = false,
+	[181373] = false,
+	[178377] = false,
+	[175891] = false,
+	[182681] = false,
+	[183478] = false,
+	[181980] = false,
+	[178442] = false,
+	[180004] = false,
+	[179526] = false,
+	[182140] = false,
+	[178379] = false,
+	[175893] = false,
+	[179495] = false,
+	[179559] = false,
+	[183480] = false,
+	[175894] = false,
+	[180261] = false,
+	[182142] = false,
+	[182461] = false,
+	[182748] = false,
+	[175895] = false,
+	[182621] = false,
+	[178382] = false,
+	[178414] = false,
+	[184311] = false,
+	[182686] = false,
+	[178383] = false,
+	[178447] = false,
+	[182368] = false,
+	[178352] = false,
+	[178384] = false,
+	[178448] = false,
+	[182624] = false,
+	[178353] = false,
+	[183485] = false,
+	[175899] = false,
+	[178354] = false,
+	[178386] = false,
+	[175900] = false,
+	[178355] = false,
+	[178387] = false,
+	[175901] = false,
+	[180842] = false,
+	[178356] = false,
+	[175902] = false,
+	[178357] = false,
+	[175903] = false,
+	[179569] = false,
+	[178358] = false,
+	[181737] = false,
+	[175904] = false,
+	[182598] = false,
+	[178359] = false,
+	[183491] = false,
+	[175905] = false,
+	[182344] = false,
+	[180081] = false,
+	[178360] = false,
+	[175906] = false,
+	[178361] = false,
+	[175907] = false,
+	[180019] = false,
+	[181836] = false,
+	[175892] = false,
+	[178362] = false,
+	[180935] = false,
+	[182449] = false,
+	[175908] = false,
+	[182128] = false,
+	[181837] = false,
+	[182109] = false,
+	[183514] = false,
+	[178363] = false,
+	[178378] = false,
+	[181944] = false,
+	[175909] = false,
+	[181461] = false,
+	[179543] = false,
+	[178380] = false,
+	[182667] = false,
+	[178364] = false,
+	[175888] = false,
+	[181511] = false,
+	[175910] = false,
+	[178381] = false,
+	[182349] = false,
+	[175896] = false,
+	[181700] = false,
+	[178365] = false,
+	[181712] = false,
+	[178385] = false,
+	[175911] = false,
+	[182465] = false,
+	[183197] = false,
+	[178370] = false,
+	[179609] = false,
+	[178366] = false,
+	[175897] = false,
+	[182187] = false,
+	[175898] = false,
+}
+
+local gear_type = {
+    [1] = 4,
+    [2] = 4,
+    [3] = 3,
+    [4] = 2,
+    [5] = 1,
+    [6] = 4,
+    [7] = 3,
+    [8] = 1,
+    [9] = 1,
+    [10] = 2,
+    [11] = 2,
+    [12] = 2
+}
+
+local slotids = {
+    [0] = "INVTYPE_HEAD",
+    [1] = "INVTYPE_NECK",
+    [2] = "INVTYPE_SHOULDER",
+    [3] = "INVTYPE_CLOAK",
+    [4] = "INVTYPE_CHEST",
+    [5] = "INVTYPE_WRIST",
+    [6] = "INVTYPE_HAND",
+    [7] = "INVTYPE_WAIST",
+    [8] = "INVTYPE_LEGS",
+    [9] = "INVTYPE_FEET",
+    [10] = "INVTYPE_WEAPON",-- need weapon wear table
+    [11] = "INVTYPE_HOLDABLEs",-- shields/ off hands
+    [12] = "INVTYPE_FINGER",
+    [13] = "INVTYPE_TRINKET"
+}
 --[[
     GetMerchantNumItems()
     link = GetMerchantItemLink(index);
@@ -20,9 +195,6 @@ LootFinder = LootFinder or {}
         }
     end
 
-    {id, itemID
-    mainstat 0/1/2/3
-    slotID
 }
 ]]
 --[[
@@ -212,7 +384,23 @@ LootFinder.class_spec = {
 
 -- atr armor weapon
 -- str {}    {}
+local pvprank = {
+    6628, -- unranked
+    6627, -- Combatant
+    6626, -- Challenger
+    6625, -- Rival
+    6623, -- Duelist
+    6624  -- Elite
+}
 
+local pvpilvl = {
+    200,  -- unranked
+    207,  -- Combatant
+    213,  -- Challenger
+    220,  -- Rival
+    226,  -- Duelist
+    233   -- Elite
+}
 
 
 
@@ -247,6 +435,8 @@ LootFinder.mlevel = 15
 
 LootFinder.raids = {}
 LootFinder.raid_difficult = 16
+
+LootFinder.pvptier = 0
 
 --[[
     LootFinder.raids = {}
@@ -428,7 +618,68 @@ function LootFinder:Find()
         end -- if not black lsited
         index = index + 1
     end -- for each instance
+    if LootFinder.pvptier > 0 then
+        for id, _ in pairs(pvp_gear_list) do
+            -- INVTYPE_CLOAK
+            --
+            table.wipe(itemtstats) -- wipe previous results
+            local itemlink, _,_,_,_,_,_,itemtype, icon, _, classID, subclassID = select(2, GetItemInfo(id))
+            subclassID = itemtype == "INVTYPE_NECK" and gear_type[LootFinder.class] or subclassID
+            if subclassID == 0 then
+                subclassID = gear_type[LootFinder.class]
+            end
+            local invtype = slotids[LootFinder.slot] or ""
+            if (gear_type[LootFinder.class] == 1) and (invtype == "INVTYPE_CHEST") then
+                invtype = "INVTYPE_ROBE"
+            end
+            -- cloth chest -> robe?
 
+            if classID == 4 and subclassID == gear_type[LootFinder.class] and itemtype:find(invtype) then
+            --print((classID or "")  .. " == ".. 4 .. " -> ", classID == 4)
+            --print((subclassID or "") .. " == ".. gear_type[LootFinder.class] .. " -> ", subclassID == gear_type[LootFinder.class])
+            --print('"'..(itemtype or "").. "\":find(".. invtype .. ") -> ", itemtype:find(invtype))
+                --modify link
+                --    itemInfo.link = itemInfo.link:gsub("%d+:3524:%d+:%d+:%d+","5:"..mythic_level[max(LootFinder.mlevel,1)]..":6652:1501:"..(LootFinder.milvl + 5658)..":6646")
+                local link = itemlink:gsub("%d+:%d+:::::","60:258::14:3:".. pvprank[LootFinder.pvptier] ..":"..(1272 + pvpilvl[LootFinder.pvptier]) .. ":6646:1:28:807:::")
+                -- 1472 - 200ilvl
+                --boss name
+                local pvprating = ""
 
+                --add or not to lootlist
+                itemtstats = GetItemStats(link, itemtstats)
+                --if #LootFinder.stats > 0 then
+                if getsize() > 1 then
+                    local count = 0
+                    for key, _ in pairs(LootFinder.stats) do
+                        if  itemtstats[key] then
+                            count = count + 1
+                        end
+                    end 
+                    if count >= 2 then
+                        LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
+                        link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                                    itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
+                                    itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
+                    end
+                elseif getsize() == 1 then
+                    for key, _ in pairs(LootFinder.stats) do
+                        if itemtstats[key] then
+                            LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
+                            link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                                    itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
+                                    itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
+                            break
+                        end
+                    end
+                else
+                    LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
+                    link, icon,
+                            itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                            itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
+                            itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
+                end
+            end
+        end
+    end
 end
 

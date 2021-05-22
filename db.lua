@@ -485,7 +485,7 @@ function WeekKeys.DB.GetCharsByFriend(DB, tbl, battletag)
         tbl[4][index] = player.ilvl
         tbl[5][index] = player.record
         if player.keyID then
-            
+
             tbl[6][index] = string.format("%s (%d)",C_ChallengeMode.GetMapUIInfo(player.keyID), player.keyLevel)
             if player.keyID == 375 or player.keyID == 377 then
                 tbl[6][index] = "|Tinterface/icons/ui_sigil_nightfae.blp:20:20|t" .. tbl[6][index] 

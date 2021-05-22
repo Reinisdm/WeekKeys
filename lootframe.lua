@@ -276,13 +276,67 @@ local function createraidlist(btn)
     return back
 end
 
---[[ TO DO
+--- Function to create frame with pvp tier selection
+---@param btn Frame @frame/button to anchor
+---@return Frame mplus_frame @frame with pvp tier selection
+local function createpvplist(btn)
+    local back = CreateFrame("Frame",nil,btn,"InsetFrameTemplate")
+    back:SetPoint("BOTTOMLEFT",0,30)
+    back:SetSize(120, 130)
+    local nopvp = CreateFrame("CheckButton", "WeekKeys_PvPChoose0", back, "ChatConfigCheckButtonTemplate")
+    nopvp:SetPoint("TOPLEFT", 5, -5)
+    nopvp.val = 0
+    nopvp:SetChecked(true)
+    _G["WeekKeys_PvPChoose0Text"]:SetText(DISABLE)
+    nopvp:SetScript("OnClick",function(self)
+        for j = 0,5 do
+            _G["WeekKeys_PvPChoose"..j]:SetChecked(false)
+        end
+        self:SetChecked(true)
+        LootFinder.pvptier = self.val
 
-local function createpvpdlist(btn)
+        LootFinder:Find()
+    end)
+    local rating = {
+        "0-1399",
+        "1400-1599",
+        "1600-1799",
+        "1800-2099",
+        "2100-2399",
+        "2400+"
+    }
+    for i = 0, 4 do
+        local checkbtn = CreateFrame("CheckButton", "WeekKeys_PvPChoose"..(i+1), back, "ChatConfigCheckButtonTemplate")
+        checkbtn:SetPoint("TOPLEFT", 5, -(i+1) *20-5)
+        checkbtn.val = i+1
+        checkbtn.tooltip = rating[i+1]
+        _G["WeekKeys_PvPChoose"..(i+1).."Text"]:SetText(_G["PVP_RANK_".. i .."_NAME"])
+        checkbtn:SetScript("OnClick",function(self)
+            for j = 0,5 do
+                _G["WeekKeys_PvPChoose"..j]:SetChecked(false)
+            end
+            self:SetChecked(true)
+            LootFinder.pvptier = self.val
+
+            LootFinder:Find()
+        end)
+    end
+    hide_frames[#hide_frames + 1] = back
+    back:Hide()
+    return back
+--[[
+    local pvpnames = {
+        PVP_RANK_0_NAME,
+        PVP_RANK_1_NAME,
+        PVP_RANK_2_NAME,
+        PVP_RANK_3_NAME,
+        PVP_RANK_4_NAME,
+        PVP_RANK_5_NAME
+    }--]]
 
 end
 
---]]
+
 
 --- Function to create frame with m+ levels
 ---@param btn Frame @frame/button to anchor
@@ -571,13 +625,18 @@ WeekKeys.AddInit(function()
     raid_btn:Hide()
     arrayOfElements[#arrayOfElements + 1] = raid_btn
 
-
-    --[[
+    local pvp_label = WeekKeys.WeekFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+    pvp_label:SetSize(30, 20)
+    pvp_label:SetPoint("TOPLEFT", 220, -30)
+    pvp_label:SetText(PLAYER_V_PLAYER)
+    pvp_label:Hide()
+    arrayOfElements[#arrayOfElements + 1] = pvp_label
+    --PLAYER_V_PLAYER
     local pvp_btn = WeekKeys.UI.Button(nil, WeekKeys.WeekFrame)
     pvp_btn:SetSize(30,30)
-    pvp_btn:SetPoint("Topleft",220,-30)
-    pvp_btn.texture:SetTexture('????')
-    pvp_btn.texture:SetTexCoord(some_text_coords_if_need)
+    pvp_btn:SetPoint("Topleft",220,-50)
+    pvp_btn.texture:SetTexture('Interface/TalentFrame/TalentFrameAtlas.blp')
+    pvp_btn.texture:SetTexCoord(0.75390625,0.93359375,0.1015625,0.1435546875)
     pvp_btn:SetScript("OnClick",function(self)
         self.showframe = self.showframe or createpvplist(self)
         if self.showframe:IsShown() then
@@ -586,9 +645,19 @@ WeekKeys.AddInit(function()
         for _,v in pairs(hide_frames) do v:Hide() end
         self.showframe:Show()
     end)
+    pvp_btn:SetScript("OnEnter",function(self)
+        GameTooltip:Hide();
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        GameTooltip:AddLine(PLAYER_V_PLAYER)
+        GameTooltip:Show()
+    end)
+
+    pvp_btn:SetScript("OnLeave",function()
+        GameTooltip:Hide();
+    end)
     pvp_btn:Hide()
     arrayOfElements[#arrayOfElements + 1] = pvp_btn
-    --]]
+
 
     local key_label = WeekKeys.WeekFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
     key_label:SetSize(30, 20)

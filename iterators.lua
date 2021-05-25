@@ -14,21 +14,14 @@ function Iterators.FormatPlayerList(list,writeRealm)
     local _, realm = UnitFullName("player")
     realm = realm or GetRealmName() or ""
     realm = realm:gsub(" ","")
-
+    local formatted = {}
     local i = 0
     ---'for ... in' iterator
-    ---@return number i
-    ---@return string faction "A" or "H"
-    ---@return number covenantID
-    ---@return string colored_nickname |cffrrggbbNICKNAME|r (*),
-    ---@return string realm
-    ---@return number ilvl
-    ---@return string record ??/??/?? or ??/?? or ??
-    ---@return string keystone Keystone name(lvl)
-    ---@return boolean reward have keystone reward or no
+    ---@return table formatted table with formatted data
     return function()
         i = i + 1
         local char = list[i]
+        table.wipe(formatted)
         if not char then return end
 
         local _, classFile, _ = GetClassInfo(char.classID)
@@ -52,8 +45,15 @@ function Iterators.FormatPlayerList(list,writeRealm)
                 keystone =  "|Tinterface/icons/ui_sigil_necrolord.blp:20:20|t" .. keystone
             end
         end
-
-        return i, char.faction, char.covenant, colored_nickname, char.realm, char.ilvl, char.record, keystone, char.reward
+        formatted.colored = colored_nickname
+        formatted.realm = char.realm
+        formatted.ilvl = char.ilvl
+        formatted.record = char.record
+        formatted.keystone = keystone
+        formatted.faction = char.faction
+        formatted.covenant = char.covenant
+        formatted.reward = char.reward
+        return i, formatted
     end
 end
 

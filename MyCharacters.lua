@@ -8,7 +8,7 @@ local buttons = {}
 local updateFrame = CreateFrame("frame")
 
 local function update()
-    for i, faction, covID, colored, realm, ilvl, record, keystone, reward in WeekKeys.Iterators.FormatPlayerList(WeekKeysDB.Characters,true) do
+    for i, char in WeekKeys.Iterators.FormatPlayerList(WeekKeysDB.Characters,true) do
 
         if not buttons[i] then -- create if button does not exist
             buttons[i] = WeekKeys.UI.FactionCovenantButton(nil,buttons[#buttons] or elements[1])
@@ -22,16 +22,15 @@ local function update()
                 end
             end)
         end
-
         -- set info
-        buttons[i]:SetFaction(faction)
-        buttons[i]:SetCovenant(covID)
-        buttons[i]:SetName(colored)
-        buttons[i]:SetRealm(realm)
-        buttons[i]:Setilvl(ilvl)
-        buttons[i]:SetRecord(record)
-        buttons[i]:SetKeystone(keystone)
-        buttons[i]:SetReward(reward)
+        buttons[i]:SetFaction(char.faction)
+        buttons[i]:SetCovenant(char.covenant)
+        buttons[i]:SetName(char.colored)
+        buttons[i]:SetRealm(char.realm)
+        buttons[i]:Setilvl(char.ilvl)
+        buttons[i]:SetRecord(char.record)
+        buttons[i]:SetKeystone(char.keystone)
+        buttons[i]:SetReward(char.reward)
         buttons[i]:Show()
     end
 end

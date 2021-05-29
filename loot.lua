@@ -200,53 +200,53 @@ local slotids = {
 --[[
 local spec_main_atr = {
 
-        [71] = "ITEM_MOD_STRENGTH_SHORT", -- arms
-        [72] = "ITEM_MOD_STRENGTH_SHORT", -- fury
-        [73] = "ITEM_MOD_STRENGTH_SHORT", -- protection
+    [71] = "ITEM_MOD_STRENGTH_SHORT", -- arms
+    [72] = "ITEM_MOD_STRENGTH_SHORT", -- fury
+    [73] = "ITEM_MOD_STRENGTH_SHORT", -- protection
 
-        [65] = "ITEM_MOD_INTELLECT_SHORT", -- holy
-        [66] = "ITEM_MOD_STRENGTH_SHORT", -- protection
-        [70] = "ITEM_MOD_STRENGTH_SHORT",  -- retribution
+    [65] = "ITEM_MOD_INTELLECT_SHORT", -- holy
+    [66] = "ITEM_MOD_STRENGTH_SHORT", -- protection
+    [70] = "ITEM_MOD_STRENGTH_SHORT",  -- retribution
 
-        [253] = "ITEM_MOD_AGILITY_SHORT", -- beast mastery
-        [254] = "ITEM_MOD_AGILITY_SHORT", -- marksmanship
-        [255] = "ITEM_MOD_AGILITY_SHORT",  -- survival
+    [253] = "ITEM_MOD_AGILITY_SHORT", -- beast mastery
+    [254] = "ITEM_MOD_AGILITY_SHORT", -- marksmanship
+    [255] = "ITEM_MOD_AGILITY_SHORT",  -- survival
 
-        [259] = "ITEM_MOD_AGILITY_SHORT", -- assassination
-        [260] = "ITEM_MOD_AGILITY_SHORT", -- outlaw
-        [261] = "ITEM_MOD_AGILITY_SHORT",  -- subtlety
+    [259] = "ITEM_MOD_AGILITY_SHORT", -- assassination
+    [260] = "ITEM_MOD_AGILITY_SHORT", -- outlaw
+    [261] = "ITEM_MOD_AGILITY_SHORT",  -- subtlety
 
-        [256] = "ITEM_MOD_INTELLECT_SHORT", -- discipline
-        [257] = "ITEM_MOD_INTELLECT_SHORT", -- holy
-        [258] = "ITEM_MOD_INTELLECT_SHORT",  -- shadow
+    [256] = "ITEM_MOD_INTELLECT_SHORT", -- discipline
+    [257] = "ITEM_MOD_INTELLECT_SHORT", -- holy
+    [258] = "ITEM_MOD_INTELLECT_SHORT",  -- shadow
 
-        [250] = "ITEM_MOD_STRENGTH_SHORT", -- blood
-        [251] = "ITEM_MOD_STRENGTH_SHORT", -- frost
-        [252] = "ITEM_MOD_STRENGTH_SHORT", -- unholy
+    [250] = "ITEM_MOD_STRENGTH_SHORT", -- blood
+    [251] = "ITEM_MOD_STRENGTH_SHORT", -- frost
+    [252] = "ITEM_MOD_STRENGTH_SHORT", -- unholy
 
-        [262] = "ITEM_MOD_INTELLECT_SHORT", -- elemental
-        [263] = "ITEM_MOD_AGILITY_SHORT", -- enchancement
-        [264] = "ITEM_MOD_INTELLECT_SHORT", -- restoration
+    [262] = "ITEM_MOD_INTELLECT_SHORT", -- elemental
+    [263] = "ITEM_MOD_AGILITY_SHORT", -- enchancement
+    [264] = "ITEM_MOD_INTELLECT_SHORT", -- restoration
 
-        [62] = "ITEM_MOD_INTELLECT_SHORT", -- arcane
-        [63] = "ITEM_MOD_INTELLECT_SHORT", -- fire
-        [64] = "ITEM_MOD_INTELLECT_SHORT",  -- frost
+    [62] = "ITEM_MOD_INTELLECT_SHORT", -- arcane
+    [63] = "ITEM_MOD_INTELLECT_SHORT", -- fire
+    [64] = "ITEM_MOD_INTELLECT_SHORT",  -- frost
 
-        [265] = "ITEM_MOD_INTELLECT_SHORT", -- affliction
-        [266] = "ITEM_MOD_INTELLECT_SHORT", -- demonology
-        [267] = "ITEM_MOD_INTELLECT_SHORT", -- destruction
+    [265] = "ITEM_MOD_INTELLECT_SHORT", -- affliction
+    [266] = "ITEM_MOD_INTELLECT_SHORT", -- demonology
+    [267] = "ITEM_MOD_INTELLECT_SHORT", -- destruction
 
-        [268] = "ITEM_MOD_AGILITY_SHORT", -- brewmaster
-        [270] = "ITEM_MOD_INTELLECT_SHORT", -- mistweaver
-        [269] = "ITEM_MOD_AGILITY_SHORT",  -- windwalker
+    [268] = "ITEM_MOD_AGILITY_SHORT", -- brewmaster
+    [270] = "ITEM_MOD_INTELLECT_SHORT", -- mistweaver
+    [269] = "ITEM_MOD_AGILITY_SHORT",  -- windwalker
 
-        [102] = "ITEM_MOD_INTELLECT_SHORT", -- balance
-        [103] = "ITEM_MOD_AGILITY_SHORT", -- feral
-        [104] = "ITEM_MOD_AGILITY_SHORT", -- guardian
-        [105] = "ITEM_MOD_INTELLECT_SHORT",  -- restororation
+    [102] = "ITEM_MOD_INTELLECT_SHORT", -- balance
+    [103] = "ITEM_MOD_AGILITY_SHORT", -- feral
+    [104] = "ITEM_MOD_AGILITY_SHORT", -- guardian
+    [105] = "ITEM_MOD_INTELLECT_SHORT",  -- restororation
 
-        [577] = "ITEM_MOD_AGILITY_SHORT", -- havoc
-        [581] = "ITEM_MOD_AGILITY_SHORT"  -- vengeance
+    [577] = "ITEM_MOD_AGILITY_SHORT", -- havoc
+    [581] = "ITEM_MOD_AGILITY_SHORT"  -- vengeance
 }
 --itemName, itemLink, itemQuality, itemLevel, itemMinLevel, itemType, itemSubType, itemStackCount,
 ->itemEquipLoc<- head/back/trinket/off,main hand
@@ -319,6 +319,343 @@ local function GetPrimaryStats(tbl)
 end
 
 --]]
+spec_main_atr = {
+
+    [71] = "ITEM_MOD_STRENGTH_SHORT", -- arms
+    [72] = "ITEM_MOD_STRENGTH_SHORT", -- fury
+    [73] = "ITEM_MOD_STRENGTH_SHORT", -- protection
+
+    [65] = "ITEM_MOD_INTELLECT_SHORT", -- holy
+    [66] = "ITEM_MOD_STRENGTH_SHORT", -- protection
+    [70] = "ITEM_MOD_STRENGTH_SHORT",  -- retribution
+
+    [253] = "ITEM_MOD_AGILITY_SHORT", -- beast mastery
+    [254] = "ITEM_MOD_AGILITY_SHORT", -- marksmanship
+    [255] = "ITEM_MOD_AGILITY_SHORT",  -- survival
+
+    [259] = "ITEM_MOD_AGILITY_SHORT", -- assassination
+    [260] = "ITEM_MOD_AGILITY_SHORT", -- outlaw
+    [261] = "ITEM_MOD_AGILITY_SHORT",  -- subtlety
+
+    [256] = "ITEM_MOD_INTELLECT_SHORT", -- discipline
+    [257] = "ITEM_MOD_INTELLECT_SHORT", -- holy
+    [258] = "ITEM_MOD_INTELLECT_SHORT",  -- shadow
+
+    [250] = "ITEM_MOD_STRENGTH_SHORT", -- blood
+    [251] = "ITEM_MOD_STRENGTH_SHORT", -- frost
+    [252] = "ITEM_MOD_STRENGTH_SHORT", -- unholy
+
+    [262] = "ITEM_MOD_INTELLECT_SHORT", -- elemental
+    [263] = "ITEM_MOD_AGILITY_SHORT", -- enchancement
+    [264] = "ITEM_MOD_INTELLECT_SHORT", -- restoration
+
+    [62] = "ITEM_MOD_INTELLECT_SHORT", -- arcane
+    [63] = "ITEM_MOD_INTELLECT_SHORT", -- fire
+    [64] = "ITEM_MOD_INTELLECT_SHORT",  -- frost
+
+    [265] = "ITEM_MOD_INTELLECT_SHORT", -- affliction
+    [266] = "ITEM_MOD_INTELLECT_SHORT", -- demonology
+    [267] = "ITEM_MOD_INTELLECT_SHORT", -- destruction
+
+    [268] = "ITEM_MOD_AGILITY_SHORT", -- brewmaster
+    [270] = "ITEM_MOD_INTELLECT_SHORT", -- mistweaver
+    [269] = "ITEM_MOD_AGILITY_SHORT",  -- windwalker
+
+    [102] = "ITEM_MOD_INTELLECT_SHORT", -- balance
+    [103] = "ITEM_MOD_AGILITY_SHORT", -- feral
+    [104] = "ITEM_MOD_AGILITY_SHORT", -- guardian
+    [105] = "ITEM_MOD_INTELLECT_SHORT",  -- restororation
+
+    [577] = "ITEM_MOD_AGILITY_SHORT", -- havoc
+    [581] = "ITEM_MOD_AGILITY_SHORT"  -- vengeance
+}
+local weapons = {
+    [0] = { -- 1H axes
+
+        [1] = true, -- warrior
+        [72] = true, -- fury
+        [73] = true, -- protection
+
+        [2] = true, -- paladin
+        [65] = true, -- holy
+        [66] = true, -- protection
+
+        [4] = true, -- rogue
+        [260] = true, -- outlaw
+
+        [6] = true, -- death knight
+        [251] = true, -- frost
+
+        [7] = true, -- shaman
+        [263] = true, -- enchancement
+
+        [10] = true, -- monk
+        [269] = true, -- windwalker
+
+        [12] = true, -- demon hunter
+        [577] = true, -- havoc
+        [581] = true  -- vengeance
+    },
+    [1] = { -- 2H axes
+        [1] = true, -- warrior
+        [71] = true, -- arms
+        [72] = true, -- fury
+
+        [2] = true, -- paladin
+        [70] = true, -- retribution
+
+        [6] = true, -- death knight
+        [250] = true, -- blood
+        [251] = true, -- frost
+        [252] = true, -- unholy
+    },
+    [2] = { -- bows
+        [3] = true, -- hunter
+        [253] = true,-- beast mastery
+        [254] = true -- marksmanship
+    },
+    [3] = { -- guns
+        [3] = true, -- hunter
+        [253] = true,-- beast mastery
+        [254] = true -- marksmanship
+    },
+    [4] = {  -- 1H maces
+        [1] = true, -- warrior
+        [72] = true, -- fury
+        [73] = true, -- protection
+
+        [2] = true, -- paladin
+        [65] = true, -- holy
+        [66] = true, -- protection
+
+        [4] = true, -- rogue
+        [260] = true, -- outlaw
+
+        [5] = true, -- priest
+        [256] = true, -- discipline
+        [257] = true, -- holy
+        [258] = true, -- shadow
+
+        [6] = true, -- death knight
+        [251] = true, -- frost
+
+        [7] = true, -- shaman
+        [263] = true, -- enchancement
+
+        [10] = true, -- monk
+        [269] = true, -- windwalker
+        [270] = true, -- mistweaver
+
+        [12] = true, -- demon hunter
+        [577] = true, -- havoc
+        [581] = true  -- vengeance
+    },
+    [5] = { -- 2H maces
+        [1] = true, -- warrior
+        [71] = true, -- arms
+        [72] = true, -- fury
+
+        [2] = true, -- paladin
+        [70] = true, -- retribution
+
+        [6] = true, -- death knight
+        [250] = true, -- blood
+        [251] = true, -- frost
+        [252] = true, -- unholy
+    },
+    [6] = {-- polearms
+        [3] = true, -- hunter
+        [255] = true, -- survival
+
+        [11] = true, -- druid
+        [103] = true, -- feral
+        [104] = true, -- balance
+    },
+    [7] = { -- 1H swords
+        [1] = true, -- warrior
+        [72] = true, -- fury
+        [73] = true, -- protection
+
+        [2] = true, -- paladin
+        [65] = true, -- holy
+        [66] = true, -- protection
+
+        [4] = true, -- rogue
+        [260] = true, -- outlaw
+
+        [6] = true, -- death knight
+        [251] = true, -- frost
+
+        [7] = true, -- shaman
+        [263] = true, -- enchancement
+
+        [8] =  true, -- mage
+        [62] = true, -- arcane
+        [63] = true, -- fire
+        [64] = true,  -- frost
+
+        [9] = true, -- warlock
+        [265] = true, -- affliction
+        [266] = true, -- demonology
+        [267] = true,  -- destruction
+
+        [10] = true, -- monk
+        [269] = true, -- windwalker
+
+        [12] = true, -- demon hunter
+        [577] = true, -- havoc
+        [581] = true  -- vengeance
+    },
+    [8] = { -- 2H swords
+        [1] = true, -- warrior
+        [71] = true, -- arms
+        [72] = true, -- fury
+
+        [2] = true, -- paladin
+        [70] = true, -- retribution
+
+        [6] = true, -- death knight
+        [250] = true, -- blood
+        [251] = true, -- frost
+        [252] = true, -- unholy
+    },
+    [9] = { -- warglaives
+        [12] = true, -- demon hunter
+        [577] = true, -- havoc
+        [581] = true  -- vengeance
+    },
+    [10] = { -- staves
+        [3] = true, -- hunter
+        [255] = true, -- survival
+
+        [5] = true, -- priest
+        [256] = true, -- discipline
+        [257] = true, -- holy
+        [258] = true, -- shadow
+
+        [8] =  true, -- mage
+        [62] = true, -- arcane
+        [63] = true, -- fire
+        [64] = true,  -- frost
+
+        [9] = true, -- warlock
+        [265] = true, -- affliction
+        [266] = true, -- demonology
+        [267] = true,  -- destruction
+
+        [10] = true, -- monk
+        [268] = true, -- brewmaster
+        [269] = true, -- mistweaver
+        [270] = true, -- windwalker
+
+        [11] = true, -- druid
+        [102] = true, -- balance
+        [103] = true, -- feral
+        [104] = true, -- guardian
+        [105] = true, -- restoration
+
+    },
+    --[11] = {}, -- bear claw?
+    --[12] = {}, -- catclaw?
+    [13] = { -- fist
+        [4] = true, -- rogue
+        [260] = true, -- outlaw
+
+        [7] = true, -- shaman
+        [263] = true, -- enchancement
+
+        [10] = true, -- monk
+        [269] = true, -- windwalker
+
+        [12] = true, -- demon hunter
+        [577] = true, -- havoc
+        [581] = true, -- vengance
+
+    },
+    --[14] = {}, -- Miscellaneous
+    [15] = { -- dagger
+        [4] = true, -- rogue
+        [259] = true, -- assassination
+        [261] = true, -- subtlety
+
+        [5] = true, -- priest
+        [256] = true, -- discipline
+        [257] = true, -- holy
+        [258] = true, -- shadow
+
+        [8] =  true, -- mage
+        [62] = true, -- arcane
+        [63] = true, -- fire
+        [64] = true,  -- frost
+
+        [9] = true, -- warlock
+        [265] = true, -- affliction
+        [266] = true, -- demonology
+        [267] = true,  -- destruction
+
+    },
+    --[16] = {}, -- thrown Classic
+    --[17] = {}, -- spears?
+    [18] = { -- crossbows
+
+    },
+    [19] = { -- wands
+        [5] = true, -- priest
+        [256] = true, -- discipline
+        [257] = true, -- holy
+        [258] = true, -- shadow
+
+        [8] =  true, -- mage
+        [62] = true, -- arcane
+        [63] = true, -- fire
+        [64] = true,  -- frost
+
+        [9] = true, -- warlock
+        [265] = true, -- affliction
+        [266] = true, -- demonology
+        [267] = true,  -- destruction
+    },
+    --[20] = {}, -- fishing poles
+}
+
+local shields = {
+
+    [1] = true, -- warrior
+    [73] = true, -- protection
+
+    [2] = true, -- paladin
+    [65] = true, -- holy
+    [66] = true,  -- protection
+
+    [7] = true, -- shaman
+    [262] = true, -- elemental
+    [264] = true, -- restoration
+}
+
+local offhand = {
+    [5] = true, -- priest
+    [256] = true, -- discipline
+    [257] = true, -- holy
+    [258] = true, -- shadow
+
+    [8] =  true, -- mage
+    [62] = true, -- arcane
+    [63] = true, -- fire
+    [64] = true,  -- frost
+
+    [9] = true, -- warlock
+    [265] = true, -- affliction
+    [266] = true, -- demonology
+    [267] = true,  -- destruction
+
+    [10] = true, -- monk
+    [270] = true, -- mistweaver
+
+    [11] = true, -- druid
+    [102] = true, -- balance
+    [105] = true, -- restoration
+
+}
 LootFinder.class_spec = {
     [1] = { -- warrior
         71, -- arms
@@ -401,10 +738,6 @@ local pvpilvl = {
     226,  -- Duelist
     233   -- Elite
 }
-
-
-
-
 
 local mythic_level = {
     6808, -- I know m+ id
@@ -620,29 +953,12 @@ function LootFinder:Find()
     end -- for each instance
     if LootFinder.pvptier > 0 then
         for id, _ in pairs(pvp_gear_list) do
-            -- INVTYPE_CLOAK
-            --
+
             table.wipe(itemtstats) -- wipe previous results
             local itemlink, _,_,_,_,_,_,itemtype, icon, _, classID, subclassID = select(2, GetItemInfo(id))
-            subclassID = itemtype == "INVTYPE_NECK" and gear_type[LootFinder.class] or subclassID
-            if subclassID == 0 then
-                subclassID = gear_type[LootFinder.class]
-            end
-            local invtype = slotids[LootFinder.slot] or ""
-            if (gear_type[LootFinder.class] == 1) and (invtype == "INVTYPE_CHEST") then
-                invtype = "INVTYPE_ROBE"
-            end
-            -- cloth chest -> robe?
 
-            if classID == 4 and subclassID == gear_type[LootFinder.class] and itemtype:find(invtype) then
-            --print((classID or "")  .. " == ".. 4 .. " -> ", classID == 4)
-            --print((subclassID or "") .. " == ".. gear_type[LootFinder.class] .. " -> ", subclassID == gear_type[LootFinder.class])
-            --print('"'..(itemtype or "").. "\":find(".. invtype .. ") -> ", itemtype:find(invtype))
-                --modify link
-                --    itemInfo.link = itemInfo.link:gsub("%d+:3524:%d+:%d+:%d+","5:"..mythic_level[max(LootFinder.mlevel,1)]..":6652:1501:"..(LootFinder.milvl + 5658)..":6646")
+            if itemtype == "INVTYPE_NECK" and LootFinder.slot == 1 then
                 local link = itemlink:gsub("%d+:%d+:::::","60:258::14:3:".. pvprank[LootFinder.pvptier] ..":"..(1272 + pvpilvl[LootFinder.pvptier]) .. ":6646:1:28:807:::")
-                -- 1472 - 200ilvl
-                --boss name
                 local pvprating = ""
 
                 --add or not to lootlist
@@ -678,7 +994,348 @@ function LootFinder:Find()
                             itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
                             itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
                 end
+            elseif itemtype == "INVTYPE_FINGER" and LootFinder.slot == 12 then
+                    local link = itemlink:gsub("%d+:%d+:::::","60:258::14:3:".. pvprank[LootFinder.pvptier] ..":"..(1272 + pvpilvl[LootFinder.pvptier]) .. ":6646:1:28:807:::")
+                    local pvprating = ""
+    
+                    --add or not to lootlist
+                    itemtstats = GetItemStats(link, itemtstats)
+                    --if #LootFinder.stats > 0 then
+                    if getsize() > 1 then
+                        local count = 0
+                        for key, _ in pairs(LootFinder.stats) do
+                            if  itemtstats[key] then
+                                count = count + 1
+                            end
+                        end 
+                        if count >= 2 then
+                            LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
+                            link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                                        itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
+                                        itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
+                        end
+                    elseif getsize() == 1 then
+                        for key, _ in pairs(LootFinder.stats) do
+                            if itemtstats[key] then
+                                LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
+                                link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                                        itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
+                                        itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
+                                break
+                            end
+                        end
+                    else
+                        LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
+                        link, icon,
+                                itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                                itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
+                                itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
+                    end
+            elseif itemtype == "INVTYPE_TRINKET" and LootFinder.slot == 13 then
+                local link = itemlink:gsub("%d+:%d+:::::","60:258::14:3:".. pvprank[LootFinder.pvptier] ..":"..(1272 + pvpilvl[LootFinder.pvptier]) .. ":6646:1:28:807:::")
+                local pvprating = ""
+
+                --add or not to lootlist
+                itemtstats = GetItemStats(link, itemtstats)
+                --if #LootFinder.stats > 0 then
+                if getsize() > 1 then
+                    local count = 0
+                    for key, _ in pairs(LootFinder.stats) do
+                        if  itemtstats[key] then
+                            count = count + 1
+                        end
+                    end 
+                    if count >= 2 then
+                        LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
+                        link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                                    itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
+                                    itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
+                    end
+                elseif getsize() == 1 then
+                    for key, _ in pairs(LootFinder.stats) do
+                        if itemtstats[key] then
+                            LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
+                            link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                                    itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
+                                    itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
+                            break
+                        end
+                    end
+                else
+                    LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
+                    link, icon,
+                            itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                            itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
+                            itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
+                end
+            elseif itemtype == "INVTYPE_SHIELD" and LootFinder.slot == 11 and (shields[LootFinder.spec] or (LootFinder.spec == 0 and shields[LootFinder.class])) then
+                local link = itemlink:gsub("%d+:%d+:::::","60:258::14:3:".. pvprank[LootFinder.pvptier] ..":"..(1272 + pvpilvl[LootFinder.pvptier]) .. ":6646:1:28:807:::")
+                local pvprating = ""
+
+                --add or not to lootlist
+                itemtstats = GetItemStats(link, itemtstats)
+                --if #LootFinder.stats > 0 then
+                if getsize() > 1 then
+                    local count = 0
+                    for key, _ in pairs(LootFinder.stats) do
+                        if  itemtstats[key] then
+                            count = count + 1
+                        end
+                    end 
+                    if count >= 2 then
+                        LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
+                        link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                                    itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
+                                    itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
+                    end
+                elseif getsize() == 1 then
+                    for key, _ in pairs(LootFinder.stats) do
+                        if itemtstats[key] then
+                            LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
+                            link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                                    itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
+                                    itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
+                            break
+                        end
+                    end
+                else
+                    LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
+                    link, icon,
+                            itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                            itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
+                            itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
+                end
+            elseif itemtype == "INVTYPE_HOLDABLE" and LootFinder.slot == 11 and (offhand[LootFinder.spec] or (LootFinder.spec == 0 and offhand[LootFinder.class])) then
+                local link = itemlink:gsub("%d+:%d+:::::","60:258::14:3:".. pvprank[LootFinder.pvptier] ..":"..(1272 + pvpilvl[LootFinder.pvptier]) .. ":6646:1:28:807:::")
+                local pvprating = ""
+
+                --add or not to lootlist
+                itemtstats = GetItemStats(link, itemtstats)
+                --if #LootFinder.stats > 0 then
+                if getsize() > 1 then
+                    local count = 0
+                    for key, _ in pairs(LootFinder.stats) do
+                        if  itemtstats[key] then
+                            count = count + 1
+                        end
+                    end 
+                    if count >= 2 then
+                        LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
+                        link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                                    itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
+                                    itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
+                    end
+                elseif getsize() == 1 then
+                    for key, _ in pairs(LootFinder.stats) do
+                        if itemtstats[key] then
+                            LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
+                            link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                                    itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
+                                    itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
+                            break
+                        end
+                    end
+                else
+                    LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
+                    link, icon,
+                            itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                            itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
+                            itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
+                end
+            elseif (itemtype == "INVTYPE_CHEST" or itemtype == "INVTYPE_ROBE") and LootFinder.slot == 4 and subclassID == gear_type[LootFinder.class] then
+
+                local link = itemlink:gsub("%d+:%d+:::::","60:258::14:3:".. pvprank[LootFinder.pvptier] ..":"..(1272 + pvpilvl[LootFinder.pvptier]) .. ":6646:1:28:807:::")
+                local pvprating = ""
+
+                --add or not to lootlist
+                itemtstats = GetItemStats(link, itemtstats)
+                --if #LootFinder.stats > 0 then
+                if getsize() > 1 then
+                    local count = 0
+                    for key, _ in pairs(LootFinder.stats) do
+                        if  itemtstats[key] then
+                            count = count + 1
+                        end
+                    end 
+                    if count >= 2 then
+                        LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
+                        link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                                    itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
+                                    itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
+                    end
+                elseif getsize() == 1 then
+                    for key, _ in pairs(LootFinder.stats) do
+                        if itemtstats[key] then
+                            LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
+                            link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                                    itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
+                                    itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
+                            break
+                        end
+                    end
+                else
+                    LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
+                    link, icon,
+                            itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                            itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
+                            itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
+                end
+            elseif itemtype == "INVTYPE_CLOAK" and LootFinder.slot == 3 then
+                local link = itemlink:gsub("%d+:%d+:::::","60:258::14:3:".. pvprank[LootFinder.pvptier] ..":"..(1272 + pvpilvl[LootFinder.pvptier]) .. ":6646:1:28:807:::")
+                local pvprating = ""
+
+                --add or not to lootlist
+                itemtstats = GetItemStats(link, itemtstats)
+                --if #LootFinder.stats > 0 then
+                if getsize() > 1 then
+                    local count = 0
+                    for key, _ in pairs(LootFinder.stats) do
+                        if  itemtstats[key] then
+                            count = count + 1
+                        end
+                    end 
+                    if count >= 2 then
+                        LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
+                        link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                                    itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
+                                    itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
+                    end
+                elseif getsize() == 1 then
+                    for key, _ in pairs(LootFinder.stats) do
+                        if itemtstats[key] then
+                            LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
+                            link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                                    itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
+                                    itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
+                            break
+                        end
+                    end
+                else
+                    LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
+                    link, icon,
+                            itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                            itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
+                            itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
+                end
+
+
+            elseif classID == 4 and subclassID == gear_type[LootFinder.class] and itemtype:find(slotids[LootFinder.slot] or "") then
+                local link = itemlink:gsub("%d+:%d+:::::","60:258::14:3:".. pvprank[LootFinder.pvptier] ..":"..(1272 + pvpilvl[LootFinder.pvptier]) .. ":6646:1:28:807:::")
+                local pvprating = ""
+
+                --add or not to lootlist
+                itemtstats = GetItemStats(link, itemtstats)
+                --if #LootFinder.stats > 0 then
+
+                if getsize() > 1 then
+                    local count = 0
+                    for key, _ in pairs(LootFinder.stats) do
+                        if  itemtstats[key] then
+                            count = count + 1
+                        end
+                    end
+                    if count >= 2 then
+                        LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
+                        link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                                    itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
+                                    itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
+                    end
+                elseif getsize() == 1 then
+                    for key, _ in pairs(LootFinder.stats) do
+                        if itemtstats[key] then
+                            LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
+                            link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                                    itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
+                                    itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
+                            break
+                        end
+                    end
+                else
+                    LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
+                    link, icon,
+                            itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                            itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
+                            itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
+                end
+
+            elseif classID == 2 and LootFinder.slot == 10 and (weapons[subclassID][LootFinder.spec] or (LootFinder.spec == 0 and weapons[subclassID][LootFinder.class])) then
+                local link = itemlink:gsub("%d+:%d+:::::","60:258::14:3:".. pvprank[LootFinder.pvptier] ..":"..(1272 + pvpilvl[LootFinder.pvptier]) .. ":6646:1:28:807:::")
+                local pvprating = ""
+
+                --add or not to lootlist
+                itemtstats = GetItemStats(link, itemtstats)
+                --if #LootFinder.stats > 0 then
+
+                if spec_main_atr[LootFinder.spec] and itemtstats[spec_main_atr[LootFinder.spec]] then
+                    if getsize() > 1 then
+                        local count = 0
+                        for key, _ in pairs(LootFinder.stats) do
+                            if  itemtstats[key] then
+                                count = count + 1
+                            end
+                        end
+                        if count >= 2 then
+                            LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
+                            link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                                        itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
+                                        itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
+                        end
+                    elseif getsize() == 1 then
+                        for key, _ in pairs(LootFinder.stats) do
+                            if itemtstats[key] then
+                                LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
+                                link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                                        itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
+                                        itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
+                                break
+                            end
+                        end
+                    else
+                        LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
+                        link, icon,
+                                itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                                itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
+                                itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
+                    end
+                elseif LootFinder.spec == 0 and LootFinder.class > 0 then
+                    for _, spec in pairs(LootFinder.class_spec[LootFinder.class]) do
+                        if spec_main_atr[spec] and itemtstats[spec_main_atr[spec]] then
+                            if getsize() > 1 then
+                                local count = 0
+                                for key, _ in pairs(LootFinder.stats) do
+                                    if  itemtstats[key] then
+                                        count = count + 1
+                                    end
+                                end
+                                if count >= 2 then
+                                    LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
+                                    link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                                                itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
+                                                itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
+                                end
+                            elseif getsize() == 1 then
+                                for key, _ in pairs(LootFinder.stats) do
+                                    if itemtstats[key] then
+                                        LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
+                                        link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                                                itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
+                                                itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
+                                        break
+                                    end
+                                end
+                            else
+                                LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
+                                link, icon,
+                                        itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                                        itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
+                                        itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
+                            end
+                            break
+                        end
+                    end
+                end
             end
+
         end
     end
 end

@@ -42,16 +42,16 @@ function WeekKeys.UI.CharacterButton(name, parent)
     local height = btn:GetHeight()
     btn:RegisterForClicks("RightButtonUp","LeftButtonUp")
     --------------------- faction -----------------
-    btn.faction = btn:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-    btn.faction:SetPoint("LEFT", 0,-2)
-    btn.faction:SetSize(25, height)
+    btn.faction = btn:CreateTexture('textureName', 'CENTER')
+    btn.faction:SetPoint("LEFT", 2,0)
+    btn.faction:SetSize(20, 20)
     function btn:SetFaction(faction)
         if faction == "A" or faction == "Alliance" then
-            self.faction:SetText("|Tinterface/groupframe/ui-group-pvp-alliance.blp:20:20|t")
+            self.faction:SetTexture(132067)
         elseif faction == "H" or faction == "Horde" then
-            self.faction:SetText("|Tinterface/battlefieldframe/battleground-horde.blp:20:20|t")
+            self.faction:SetTexture(130705)
         else
-            self.faction:SetText("")
+            self.faction:SetTexture()
         end
     end
 
@@ -110,16 +110,16 @@ function WeekKeys.UI.ThorgastButton(name, parent)
     local height = btn:GetHeight()
 
     --------------------- faction -----------------
-    btn.faction = btn:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-    btn.faction:SetPoint("LEFT", 0,-2)
-    btn.faction:SetSize(25, height)
+    btn.faction = btn:CreateTexture('textureName', 'CENTER')
+    btn.faction:SetPoint("LEFT", 2,0)
+    btn.faction:SetSize(20, 20)
     function btn:SetFaction(faction)
         if faction == "A" or faction == "Alliance" then
-            self.faction:SetText("|Tinterface/groupframe/ui-group-pvp-alliance.blp:20:20|t")
+            self.faction:SetTexture(132067)
         elseif faction == "H" or faction == "Horde" then
-            self.faction:SetText("|Tinterface/battlefieldframe/battleground-horde.blp:20:20|t")
+            self.faction:SetTexture(130705)
         else
-            self.faction:SetText("")
+            self.faction:SetTexture()
         end
     end
 
@@ -131,8 +131,6 @@ function WeekKeys.UI.ThorgastButton(name, parent)
     function btn:SetName(name,realm)
         self.name:SetText(name or "")
     end
-   
-
 
     --------------------- record ----------------------
     btn.record = btn:CreateFontString(nil, "ARTWORK", "GameFontNormal")
@@ -163,34 +161,34 @@ function WeekKeys.UI.FactionCovenantButton(name, parent)
     btn:RegisterForClicks("RightButtonUp","LeftButtonUp")
 
     --------------------- faction -----------------
-    btn.faction = btn:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-    btn.faction:SetPoint("LEFT", 0,-2)
-    btn.faction:SetSize(25, height)
+    btn.faction = btn:CreateTexture('textureName', 'CENTER')
+    btn.faction:SetPoint("LEFT", 2,0)
+    btn.faction:SetSize(20, 20)
     function btn:SetFaction(faction)
         if faction == "A" or faction == "Alliance" then
-            self.faction:SetText("|Tinterface/groupframe/ui-group-pvp-alliance.blp:20:20|t")
+            self.faction:SetTexture(132067)
         elseif faction == "H" or faction == "Horde" then
-            self.faction:SetText("|Tinterface/battlefieldframe/battleground-horde.blp:20:20|t")
+            self.faction:SetTexture(130705)
         else
-            self.faction:SetText("")
+            self.faction:SetTexture()
         end
     end
     ------------------------ covenant ---------------
-    btn.covenant = btn:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-    btn.covenant:SetPoint("LEFT", 20,-2)
-    btn.covenant:SetSize(25, height)
+    btn.covenant = btn:CreateTexture('textureName', 'CENTER')
+    btn.covenant:SetPoint("LEFT", 20,0)
+    btn.covenant:SetSize(20, 20)
     function btn:SetCovenant(covenantID)
         covenantID = tonumber(covenantID)
         if covenantID == 1 then
-            self.covenant:SetText("|Tinterface/icons/ui_sigil_kyrian.blp:20:20|t")
+            self.covenant:SetTexture(3257748) -- 3257748
         elseif covenantID == 2 then
-            self.covenant:SetText("|Tinterface/icons/ui_sigil_venthyr.blp:20:20|t")
+            self.covenant:SetTexture(3257751) -- 3257751
         elseif covenantID == 3 then
-            self.covenant:SetText("|Tinterface/icons/ui_sigil_nightfae.blp:20:20|t")
+            self.covenant:SetTexture(3257750) -- 3257750
         elseif covenantID == 4 then
-            self.covenant:SetText("|Tinterface/icons/ui_sigil_necrolord.blp:20:20|t")
+            self.covenant:SetTexture(3257749) -- 3257749
         else
-            self.covenant:SetText("")
+            self.covenant:SetTexture()
         end
     end
 
@@ -259,22 +257,22 @@ function WeekKeys.UI.CovenantButton(name, parent)
     local height = btn:GetHeight()
     btn:RegisterForClicks("RightButtonUp","LeftButtonUp")
 
-    
     ------------------------ covenant ---------------
-    btn.covenant = btn:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-    btn.covenant:SetPoint("LEFT", 0,-2)
-    btn.covenant:SetSize(25, height)
+    btn.covenant = btn:CreateTexture('textureName', 'CENTER')
+    btn.covenant:SetPoint("LEFT", 0,0)
+    btn.covenant:SetSize(20, 20)
     function btn:SetCovenant(covenantID)
+        covenantID = tonumber(covenantID)
         if covenantID == 1 then
-            self.covenant:SetText("|Tinterface/icons/ui_sigil_kyrian.blp:20:20|t")
+            self.covenant:SetTexture(3257748) -- 3257748
         elseif covenantID == 2 then
-            self.covenant:SetText("|Tinterface/icons/ui_sigil_venthyr.blp:20:20|t")
+            self.covenant:SetTexture(3257751) -- 3257751
         elseif covenantID == 3 then
-            self.covenant:SetText("|Tinterface/icons/ui_sigil_nightfae.blp:20:20|t")
+            self.covenant:SetTexture(3257750) -- 3257750
         elseif covenantID == 4 then
-            self.covenant:SetText("|Tinterface/icons/ui_sigil_necrolord.blp:20:20|t")
+            self.covenant:SetTexture(3257749) -- 3257749
         else
-            self.covenant:SetText("")
+            self.covenant:SetTexture()
         end
     end
 

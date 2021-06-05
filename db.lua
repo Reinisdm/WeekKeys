@@ -244,10 +244,11 @@ function WeekKeys.DB.SaveTable(DB,tbl)
             return
         end
     end
-    if v.name and v.realm then
+    if tbl.name and tbl.realm then
         tinsert(DB,tbl)
     end
 end
+
 function WeekKeys.DB.GetCharsByNameRealm(DB,name,realm,tbl)
     if not DB then
         return

@@ -20,6 +20,7 @@ UI.lua
 Reset.lua
 Affix.lua
 loot.lua
+prefix_patterns.lua
 
 Minimap.lua
 Player.lua

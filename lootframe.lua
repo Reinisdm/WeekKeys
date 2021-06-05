@@ -792,6 +792,8 @@ WeekKeys.AddInit(function()
         end
         for index, source, name, boss, itemlink, icon, mainstat, crit, haste, mastery, versality in WeekKeys.Iterators.LootList() do
             local btn = loot_btns[index]
+            btn.boss = boss
+            btn.dung = name
             btn:SetIcon(icon)
             btn:SetDungeon(name)
             btn.link = itemlink

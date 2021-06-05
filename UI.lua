@@ -464,13 +464,15 @@ function WeekKeys.UI.LootFinderButton(name,parent)
     end
 
     btn:SetScript("OnEnter",function(self)
+        self:SetDungeon(self.boss)
         if not self.link then return end
         GameTooltip:Hide()
         GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
         GameTooltip:SetHyperlink(self.link)
         GameTooltip:Show()
     end)
-    btn:SetScript("OnLeave",function()
+    btn:SetScript("OnLeave",function(self)
+        self:SetDungeon(self.dung)
         GameTooltip:Hide()
     end)
 

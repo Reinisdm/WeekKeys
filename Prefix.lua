@@ -66,7 +66,9 @@ end
 function WeekKeys.WeekKeys.PARTY(msg,sender)
     local command, text = strsplit(" ",msg,2)
     if msg == "request" then
-
+--WeekKeys.DB.GetAllCovenant(WeekKeysDB.Characters)
+--  WeekKeys.Convert.StrToTbl("update3",WeekKeys.Convert.TblToStr("update3",WeekKeysDB.Characters[1]))
+        --str = "" for _,b in pairs(WeekKeysDB.Characters) do str = str .. "_" .. WeekKeys.Convert.TblToStr("update3",WeekKeysDB.Characters[1]) end
         WeekKeys:SendCommMessage("WeekKeys","update3 " .. WeekKeys.DB.GetAllCovenant(WeekKeysDB.Characters),"PARTY")
     elseif command == "update" then
         WeekKeys.DB.SaveVars(WeekKeys.PartyDB,WeekKeys.Convert.OldStringToVars(text,sender))

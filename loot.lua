@@ -319,7 +319,7 @@ local function GetPrimaryStats(tbl)
 end
 
 --]]
-spec_main_atr = {
+local spec_main_atr = {
 
     [71] = "ITEM_MOD_STRENGTH_SHORT", -- arms
     [72] = "ITEM_MOD_STRENGTH_SHORT", -- fury
@@ -730,6 +730,15 @@ local pvprank = {
     6624  -- Elite
 }
 
+local rating = {
+    "0-1399",
+    "1400-1599",
+    "1600-1799",
+    "1800-2099",
+    "2100-2399",
+    "2400+"
+}
+
 local pvpilvl = {
     200,  -- unranked
     207,  -- Combatant
@@ -956,10 +965,9 @@ function LootFinder:Find()
 
             table.wipe(itemtstats) -- wipe previous results
             local itemlink, _,_,_,_,_,_,itemtype, icon, _, classID, subclassID = select(2, GetItemInfo(id))
-
+            local pvprating = rating[LootFinder.pvptier]
             if itemtype == "INVTYPE_NECK" and LootFinder.slot == 1 then
                 local link = itemlink:gsub("%d+:%d+:::::","60:258::14:3:".. pvprank[LootFinder.pvptier] ..":"..(1272 + pvpilvl[LootFinder.pvptier]) .. ":6646:1:28:807:::")
-                local pvprating = ""
 
                 --add or not to lootlist
                 itemtstats = GetItemStats(link, itemtstats)
@@ -996,7 +1004,7 @@ function LootFinder:Find()
                 end
             elseif itemtype == "INVTYPE_FINGER" and LootFinder.slot == 12 then
                     local link = itemlink:gsub("%d+:%d+:::::","60:258::14:3:".. pvprank[LootFinder.pvptier] ..":"..(1272 + pvpilvl[LootFinder.pvptier]) .. ":6646:1:28:807:::")
-                    local pvprating = ""
+
     
                     --add or not to lootlist
                     itemtstats = GetItemStats(link, itemtstats)
@@ -1033,7 +1041,7 @@ function LootFinder:Find()
                     end
             elseif itemtype == "INVTYPE_TRINKET" and LootFinder.slot == 13 then
                 local link = itemlink:gsub("%d+:%d+:::::","60:258::14:3:".. pvprank[LootFinder.pvptier] ..":"..(1272 + pvpilvl[LootFinder.pvptier]) .. ":6646:1:28:807:::")
-                local pvprating = ""
+
 
                 --add or not to lootlist
                 itemtstats = GetItemStats(link, itemtstats)
@@ -1070,7 +1078,7 @@ function LootFinder:Find()
                 end
             elseif itemtype == "INVTYPE_SHIELD" and LootFinder.slot == 11 and (shields[LootFinder.spec] or (LootFinder.spec == 0 and shields[LootFinder.class])) then
                 local link = itemlink:gsub("%d+:%d+:::::","60:258::14:3:".. pvprank[LootFinder.pvptier] ..":"..(1272 + pvpilvl[LootFinder.pvptier]) .. ":6646:1:28:807:::")
-                local pvprating = ""
+
 
                 --add or not to lootlist
                 itemtstats = GetItemStats(link, itemtstats)
@@ -1107,7 +1115,7 @@ function LootFinder:Find()
                 end
             elseif itemtype == "INVTYPE_HOLDABLE" and LootFinder.slot == 11 and (offhand[LootFinder.spec] or (LootFinder.spec == 0 and offhand[LootFinder.class])) then
                 local link = itemlink:gsub("%d+:%d+:::::","60:258::14:3:".. pvprank[LootFinder.pvptier] ..":"..(1272 + pvpilvl[LootFinder.pvptier]) .. ":6646:1:28:807:::")
-                local pvprating = ""
+
 
                 --add or not to lootlist
                 itemtstats = GetItemStats(link, itemtstats)
@@ -1145,7 +1153,7 @@ function LootFinder:Find()
             elseif (itemtype == "INVTYPE_CHEST" or itemtype == "INVTYPE_ROBE") and LootFinder.slot == 4 and subclassID == gear_type[LootFinder.class] then
 
                 local link = itemlink:gsub("%d+:%d+:::::","60:258::14:3:".. pvprank[LootFinder.pvptier] ..":"..(1272 + pvpilvl[LootFinder.pvptier]) .. ":6646:1:28:807:::")
-                local pvprating = ""
+
 
                 --add or not to lootlist
                 itemtstats = GetItemStats(link, itemtstats)
@@ -1182,7 +1190,7 @@ function LootFinder:Find()
                 end
             elseif itemtype == "INVTYPE_CLOAK" and LootFinder.slot == 3 then
                 local link = itemlink:gsub("%d+:%d+:::::","60:258::14:3:".. pvprank[LootFinder.pvptier] ..":"..(1272 + pvpilvl[LootFinder.pvptier]) .. ":6646:1:28:807:::")
-                local pvprating = ""
+
 
                 --add or not to lootlist
                 itemtstats = GetItemStats(link, itemtstats)
@@ -1221,7 +1229,7 @@ function LootFinder:Find()
 
             elseif classID == 4 and subclassID == gear_type[LootFinder.class] and itemtype:find(slotids[LootFinder.slot] or "") then
                 local link = itemlink:gsub("%d+:%d+:::::","60:258::14:3:".. pvprank[LootFinder.pvptier] ..":"..(1272 + pvpilvl[LootFinder.pvptier]) .. ":6646:1:28:807:::")
-                local pvprating = ""
+
 
                 --add or not to lootlist
                 itemtstats = GetItemStats(link, itemtstats)
@@ -1260,7 +1268,7 @@ function LootFinder:Find()
 
             elseif classID == 2 and LootFinder.slot == 10 and (weapons[subclassID][LootFinder.spec] or (LootFinder.spec == 0 and weapons[subclassID][LootFinder.class])) then
                 local link = itemlink:gsub("%d+:%d+:::::","60:258::14:3:".. pvprank[LootFinder.pvptier] ..":"..(1272 + pvpilvl[LootFinder.pvptier]) .. ":6646:1:28:807:::")
-                local pvprating = ""
+                
 
                 --add or not to lootlist
                 itemtstats = GetItemStats(link, itemtstats)

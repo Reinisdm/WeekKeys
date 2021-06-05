@@ -54,9 +54,15 @@ function convert.StrToTbl(update_type,data,tbl)
     local index = 1
     --/run for word in string.gmatch("a;b;c;d;e;;;;f;", "([^;]*);") do print("->"..word.."<-") end
     --/run for word in string.gmatch("a;b;c;d;e;;f;", '([^;]*);') do print(word) end
-    for word in string.gmatch(data..";", '([^;]*);') do
+    for word in string.gmatch(data..":", '([^:]*):') do
         local key = pattern[index]
-        tbl[key] = (word ~= "" and (tonumber(word) or word) or nil)
+
+        if tonumber(word) then -- if string is number "123" => 123
+            tbl[key] = tonumber(word)
+        elseif word ~= "" then
+            tbl[key] = word
+        end
+
         index = index + 1
     end
 
@@ -77,9 +83,9 @@ function convert.TblToStr(update_type,data)
 
     for _,key in pairs(pattern) do
         if data[key] == nil then
-            str = str .. ";"
+            str = str .. ":"
         else
-            str = str .. tostring(data[key]) .. ";"
+            str = str .. tostring(data[key]) .. ":"
         end
     end
 

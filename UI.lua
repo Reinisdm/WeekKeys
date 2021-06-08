@@ -383,9 +383,31 @@ end
 function WeekKeys.UI.LootFinderButton(name,parent)
     local btn = WeekKeys.UI.Button(name, parent)
 
+    -- source icon
+    btn.source = btn:CreateTexture('textureName', 'CENTER')
+    btn.source:SetPoint("LEFT",5,0)
+    btn.source:SetSize(18,18)
+    ---Set Loot texture
+    ---@param self Button
+    ---@param source string
+    btn.SetSource = function (self,source)
+        if source == "pvp" then
+            self.source:SetTexture('Interface/TalentFrame/TalentFrameAtlas.blp')
+            self.source:SetTexCoord(0.75390625,0.93359375,0.1015625,0.1435546875)
+        elseif source == "raid" then
+            self.source:SetTexture('interface/minimap/objecticonsatlas.blp')
+            self.source:SetTexCoord(0.283203125, 0.3046875, 0.94140625, 0.984375)
+        elseif source == "instance" then
+            self.source:SetTexture('interface/minimap/objecticonsatlas.blp')
+            self.source:SetTexCoord(0.24609375,0.267578125,0.951171875,0.994140625)
+        else
+            self.source:SetTexture()
+        end
+    end
+
     -- icon
     btn.icon = btn:CreateTexture('textureName', 'CENTER')
-    btn.icon:SetPoint("LEFT",5,0)
+    btn.icon:SetPoint("LEFT",25,0)
     btn.icon:SetSize(18,18)
     ---Set Loot texture
     ---@param self Button
@@ -396,8 +418,8 @@ function WeekKeys.UI.LootFinderButton(name,parent)
 
     -- dungeon
     btn.instance = btn:CreateFontString(nil , "ARTWORK", "GameFontNormal")
-    btn.instance:SetPoint("LEFT",25,0)
-    btn.instance:SetSize(200,20)
+    btn.instance:SetPoint("LEFT",45,0)
+    btn.instance:SetSize(180,20)
     btn.instance:SetJustifyH("LEFT")
     ---Set dungeon name
     ---@param self Button

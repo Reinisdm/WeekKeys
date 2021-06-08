@@ -28,7 +28,7 @@ patterns.update3 = {
     "keyLevel",
     "faction"
 }
-
+--[[
 patterns.update2 = {
     "name",
     "realm",
@@ -39,3 +39,4 @@ patterns.update2 = {
     "keylevel",
     "faction"
 }
+--]]

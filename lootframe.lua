@@ -794,6 +794,7 @@ WeekKeys.AddInit(function()
             local btn = loot_btns[index]
             btn.boss = boss
             btn.dung = name
+            btn:SetSource(source)
             btn:SetIcon(icon)
             btn:SetDungeon(name)
             btn.link = itemlink

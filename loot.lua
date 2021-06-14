@@ -719,8 +719,6 @@ LootFinder.class_spec = {
     }
 }
 
--- atr armor weapon
--- str {}    {}
 local pvprank = {
     6628, -- unranked
     6627, -- Combatant

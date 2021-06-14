@@ -49,6 +49,8 @@ function convert.StrToTbl(update_type,data,tbl)
 
     if not update_type then return end
     if not data or data == "" then return end
+    if not WeekKeys.Patterns[update_type] then return end
+
     tbl = tbl or {}
     local pattern = WeekKeys.Patterns[update_type]
     local index = 1
@@ -77,6 +79,7 @@ function convert.TblToStr(update_type,data)
 
     if not update_type then return end
     if not data then return end
+    if not WeekKeys.Patterns[update_type] then return end
 
     local str = ""
     local pattern = WeekKeys.Patterns[update_type]

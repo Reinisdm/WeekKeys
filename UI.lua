@@ -396,9 +396,11 @@ function WeekKeys.UI.LootFinderButton(name,parent)
             self.source:SetTexCoord(0.75390625,0.93359375,0.1015625,0.1435546875)
         elseif source == "raid" then
             self.source:SetTexture('interface/minimap/objecticonsatlas.blp')
+            --                      0.5009765625,0.5224609375,0.294921875,0.337890625
             self.source:SetTexCoord(0.283203125, 0.3046875, 0.94140625, 0.984375)
-        elseif source == "instance" then
+        elseif source == "instance" then--34060
             self.source:SetTexture('interface/minimap/objecticonsatlas.blp')
+            --                      0.1728515625,0.1943359375,0.912109375,0.955078125
             self.source:SetTexCoord(0.24609375,0.267578125,0.951171875,0.994140625)
         else
             self.source:SetTexture()

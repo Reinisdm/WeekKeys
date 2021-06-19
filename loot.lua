@@ -816,6 +816,11 @@ function LootFinder:AddResult(source, name, boss, itemlink, icon, mainstat, crit
     LootFinder.loot_list[#LootFinder.loot_list+1] = tbl
 end
 
+function LootFinder.SortBy(stat)
+    table.sort(LootFinder.loot_list, function(a,b) return a[stat] > b[stat] end)
+end
+
+
 ---Get table size
 ---@param tbl table
 ---@return integer table_size

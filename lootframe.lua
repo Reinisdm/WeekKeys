@@ -7,7 +7,32 @@ local hide_frames = {}
 local mlevel = 15
 local wchest = true
 
-
+local function update()
+    for i = #loot_btns, #LootFinder.loot_list do
+        local btn = WeekKeys.UI.LootFinderButton(nil, arrayOfElements[1])
+        loot_btns[#loot_btns + 1] = btn
+        btn:SetSize(492,20)
+        btn:SetPoint("TOPLEFT",4,-(i)*20)
+    end
+    for i = 1, #loot_btns do -- hide all buttons
+        loot_btns[i]:Hide()
+    end
+    for index, source, name, boss, itemlink, icon, mainstat, crit, haste, mastery, versality in WeekKeys.Iterators.LootList() do
+        local btn = loot_btns[index]
+        btn.boss = boss
+        btn.dung = name
+        btn:SetSource(source)
+        btn:SetIcon(icon)
+        btn:SetDungeon(name)
+        btn.link = itemlink
+        btn:SetMainAtr(mainstat)
+        btn:SetCrit(crit)
+        btn:SetHaste(haste)
+        btn:SetMastery(mastery)
+        btn:SetVersality(versality)
+        btn:Show()
+    end
+end
 --- Function to create frame with class icons
 ---@param btn Frame @frame/button to anchor
 ---@return Frame class_frame @Frame with class icons
@@ -727,11 +752,15 @@ WeekKeys.AddInit(function()
 
 
     -- "dungeons"
-    local label = WeekKeys.WeekFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+    local label = WeekKeys.UI.Button(nil, WeekKeys.WeekFrame)
     label:SetPoint("TOPLEFT",25,-80)
     label:SetSize(200,20)
     label:SetText(DUNGEONS)
     label:Hide()
+    local fontstr = label:GetFontString()
+    label:SetFontString(fontstr)
+    fontstr:SetSize(200,20)
+    label:SetScript("OnClick", function() LootFinder.SortBy("name") update() end)
     arrayOfElements[#arrayOfElements + 1] = label
     -- list of globalstrings dungeon/instance
     -- CALENDAR_TYPE_DUNGEON
@@ -746,68 +775,64 @@ WeekKeys.AddInit(function()
     -- VOICE_CHANNEL_NAME_INSTANCE
     -- LFG_TYPE_DUNGEON
 
-    label = WeekKeys.WeekFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+    --
+    label = WeekKeys.UI.Button(nil, WeekKeys.WeekFrame)
     label:SetPoint("TOPLEFT",230,-80)
     label:SetSize(50,20)
-    label:SetFormattedText(SPEC_FRAME_PRIMARY_STAT,"")
+    label:SetText(SPEC_FRAME_PRIMARY_STAT)
     label:Hide()
+    fontstr = label:GetFontString()
+    label:SetFontString(fontstr)
+    fontstr:SetSize(50,20)
+    label:SetScript("OnClick", function() LootFinder.SortBy("mainstat") update() end)
     arrayOfElements[#arrayOfElements + 1] = label
 
-    label = WeekKeys.WeekFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+    label = WeekKeys.UI.Button(nil, WeekKeys.WeekFrame)
     label:SetPoint("TOPLEFT",280,-80)
     label:SetSize(50,20)
     label:SetText(SPELL_CRIT_CHANCE)
     label:Hide()
+    fontstr = label:GetFontString()
+    label:SetFontString(fontstr)
+    fontstr:SetSize(50,20)
+    label:SetScript("OnClick", function() LootFinder.SortBy("crit") update() end)
     arrayOfElements[#arrayOfElements + 1] = label
 
-    label = WeekKeys.WeekFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+    label = WeekKeys.UI.Button(nil, WeekKeys.WeekFrame)
     label:SetPoint("TOPLEFT",330,-80)
     label:SetSize(50,20)
     label:SetText(STAT_HASTE)
     label:Hide()
+    fontstr = label:GetFontString()
+    label:SetFontString(fontstr)
+    fontstr:SetSize(50,20)
+    label:SetScript("OnClick", function() LootFinder.SortBy("haste") update() end)
     arrayOfElements[#arrayOfElements + 1] = label
 
-    label = WeekKeys.WeekFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+    label = WeekKeys.UI.Button(nil, WeekKeys.WeekFrame)
     label:SetPoint("TOPLEFT",380,-80)
     label:SetSize(50,20)
     label:SetText(STAT_MASTERY)
     label:Hide()
+    fontstr = label:GetFontString()
+    label:SetFontString(fontstr)
+    fontstr:SetSize(50,20)
+    label:SetScript("OnClick", function() LootFinder.SortBy("mastery") update() end)
     arrayOfElements[#arrayOfElements + 1] = label
 
-    label = WeekKeys.WeekFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+    label = WeekKeys.UI.Button(nil, WeekKeys.WeekFrame)
     label:SetPoint("TOPLEFT",430,-80)
     label:SetSize(50,20)
     label:SetText(STAT_VERSATILITY)
+    fontstr = label:GetFontString()
+    label:SetFontString(fontstr)
+    fontstr:SetSize(50,20)
     label:Hide()
+    label:SetScript("OnClick", function() LootFinder.SortBy("versality") update() end)
     arrayOfElements[#arrayOfElements + 1] = label
 
     -- result printing
-    hooksecurefunc(LootFinder, "Find", function()
-        for i = #loot_btns, #LootFinder.loot_list do
-            local btn = WeekKeys.UI.LootFinderButton(nil, arrayOfElements[1])
-            loot_btns[#loot_btns + 1] = btn
-            btn:SetSize(492,20)
-            btn:SetPoint("TOPLEFT",4,-(i)*20)
-        end
-        for i = 1, #loot_btns do -- hide all buttons
-            loot_btns[i]:Hide()
-        end
-        for index, source, name, boss, itemlink, icon, mainstat, crit, haste, mastery, versality in WeekKeys.Iterators.LootList() do
-            local btn = loot_btns[index]
-            btn.boss = boss
-            btn.dung = name
-            btn:SetSource(source)
-            btn:SetIcon(icon)
-            btn:SetDungeon(name)
-            btn.link = itemlink
-            btn:SetMainAtr(mainstat)
-            btn:SetCrit(crit)
-            btn:SetHaste(haste)
-            btn:SetMastery(mastery)
-            btn:SetVersality(versality)
-            btn:Show()
-        end
-    end)
+    hooksecurefunc(LootFinder, "Find",update)
 
     WeekKeys.AddButton(L["lootfinder"],arrayOfElements)
 end)

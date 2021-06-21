@@ -444,7 +444,7 @@ function WeekKeys.DB.GetGuildFormatted(DB, tbl)
 end
 
 
-function WeekKeys.DB.GetFriends(DB, tbl)
+function WeekKeys.DB.GetFriends(DB, tbl, detailed)
     if not DB then
         return
     end
@@ -456,10 +456,40 @@ function WeekKeys.DB.GetFriends(DB, tbl)
     tbl[4] = wipe(tbl[4] or {}) -- 
     tbl[5] = wipe(tbl[5] or {})
     tbl[6] = wipe(tbl[6] or {})
+    tbl[7] = wipe(tbl[7] or {})
 
     for tag,_ in pairs(DB) do
-        tbl[2][index] = tag
-        index = index + 1
+        if detailed[tag] then
+            for _, player in pairs(DB[tag]) do
+                tbl[1][index] = player.faction
+                tbl[2][index] = player.covenant
+                local _, classFile, _ = GetClassInfo(player.classID)
+                local _, _, _, argbHex = GetClassColor(classFile)
+                tbl[3][index] = "|c"..argbHex..player.name.."|r"
+                tbl[4][index] = player.ilvl
+                tbl[5][index] = player.record
+                if player.keyID then
+                    tbl[6][index] = string.format("%s (%d)",C_ChallengeMode.GetMapUIInfo(player.keyID), player.keyLevel)
+                    if player.keyID == 375 or player.keyID == 377 then
+                        tbl[6][index] = "|Tinterface/icons/ui_sigil_nightfae.blp:20:20|t" .. tbl[6][index]
+                    elseif player.keyID == 376 or player.keyID == 381 then
+                        tbl[6][index] = "|Tinterface/icons/ui_sigil_kyrian.blp:20:20|t" .. tbl[6][index]
+                    elseif player.keyID == 378 or player.keyID == 380 then
+                        tbl[6][index] =  "|Tinterface/icons/ui_sigil_venthyr.blp:20:20|t" .. tbl[6][index]
+                    elseif player.keyID == 379 or player.keyID == 382 then
+                        tbl[6][index] =  "|Tinterface/icons/ui_sigil_necrolord.blp:20:20|t" .. tbl[6][index]
+                    end
+                else
+                    tbl[6][index] = ""
+                end
+                tbl[7][index] = tag
+                index = index + 1
+            end
+        else
+            tbl[3][index] = tag
+            tbl[7][index] = tag
+            index = index + 1
+        end
     end
     return tbl
 end

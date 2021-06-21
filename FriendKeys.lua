@@ -7,17 +7,21 @@ end
 local L = WeekKeys.L
 local querytable = {}
 local buttons = {}
+local extend = {}
 local updateFrame = CreateFrame("frame")
 local function update()
-    WeekKeys.DB.GetFriends(WeekKeysDB.Friends,querytable)
-    if #querytable[2] == 0 then return end
+    WeekKeys.DB.GetFriends(WeekKeysDB.Friends,querytable,extend)
+    if #querytable[3] == 0 then return end
     for _,v in pairs(buttons) do
         v:Hide()
     end
-    while #buttons < max(#querytable[2],50) do
+    while #buttons < max(#querytable[3],50) do
         buttons[#buttons+1] = WeekKeys.UI.FactionCovenantButton(nil,buttons[#buttons] or elements[1])
         buttons[#buttons]:SetScript("OnClick",function(self,click)
             if click == "LeftButton" then
+                extend[self.bnet] = not extend[self.bnet]
+                update()
+                --[[
                 updateFrame:UnregisterEvent("BN_CHAT_MSG_ADDON")
                 WeekKeys.DB.GetCharsByFriend(db,querytable,self.name:GetText())
                 for _,v in pairs(buttons) do
@@ -35,17 +39,18 @@ local function update()
             else
                 updateFrame:RegisterEvent("BN_CHAT_MSG_ADDON")
                 update()
+                --]]
             end
         end)
     end
-    for i = 1,#querytable[2] do
+    for i = 1,#querytable[3] do
         buttons[i]:SetFaction(querytable[1][i])
-        buttons[i]:SetCovenant(nil)
-        buttons[i]:SetName(querytable[2][i])
-        buttons[i]:Setilvl(querytable[3][i])
-        buttons[i]:SetRecord(querytable[4][i])
-        buttons[i]:SetKeystone(querytable[5][i])
-        buttons[i]:SetReward(querytable[6][i])
+        buttons[i]:SetCovenant(querytable[2][i])
+        buttons[i]:SetName(querytable[3][i])
+        buttons[i]:Setilvl(querytable[4][i])
+        buttons[i]:SetRecord(querytable[5][i])
+        buttons[i]:SetKeystone(querytable[6][i])
+        buttons[i].bnet = querytable[7][i]
         buttons[i]:Show()
     end
 end

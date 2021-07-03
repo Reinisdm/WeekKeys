@@ -30,7 +30,7 @@ function WeekKeys.PlayerData()
         table.sort(recordtable, function(a,b)
             return a.level > b.level
         end)
-
+        -- C_PlayerInfo.MythicPlusRatingSummary
         if #recordtable >= 10 then
             record = recordtable[1].level .. "/" .. recordtable[4].level .. "/" .. recordtable[8].level
         elseif #recordtable >= 4 then
@@ -46,8 +46,11 @@ function WeekKeys.PlayerData()
             WeekKeys.DB.RemoveReward()
         end
         --[[ mythic score?
-            C_PlayerInfo.GetPlayerMythicPlusRatingSummary
-        ]]
+            C_PlayerInfo.GetPlayerMythicPlusRatingSummary(name).currentSeasonScore
+        C_PlayerInfo.GetPlayerMythicPlusRatingSummary("target").currentSeasonScore
+ C_PlayerInfo.GetPlayerMythicPlusRatingSummary("player").currentSeasonScore
+        
+            ]]
 
         local torghast_number = 1
 

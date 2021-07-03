@@ -12,6 +12,8 @@ Init.lua
 locales\enUS.lua
 locales\ruRU.lua
 locales\zhTW.lua
+locales\zhCN.lua
+
 
 OptionTable.lua
 db.lua

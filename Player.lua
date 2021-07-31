@@ -47,10 +47,9 @@ function WeekKeys.PlayerData()
         end
         --[[ mythic score?
             C_PlayerInfo.GetPlayerMythicPlusRatingSummary(name).currentSeasonScore
-        C_PlayerInfo.GetPlayerMythicPlusRatingSummary("target").currentSeasonScore
- C_PlayerInfo.GetPlayerMythicPlusRatingSummary("player").currentSeasonScore
-        
-            ]]
+            C_PlayerInfo.GetPlayerMythicPlusRatingSummary("target").currentSeasonScore
+            C_PlayerInfo.GetPlayerMythicPlusRatingSummary("player").currentSeasonScore
+        ]]
 
         local torghast_number = 1
 

@@ -1,7 +1,7 @@
-## Interface: 90005
+## Interface: 90100
 ## Title: WeekKeys
 ## Author: Reinisdm
-## Version: 94
+## Version: 114
 ## Notes: Lists your keystones.
 ## SavedVariables: WeekKeysDB
 
@@ -13,6 +13,14 @@ locales\enUS.lua
 locales\ruRU.lua
 locales\zhTW.lua
 locales\zhCN.lua
+
+#locales\deDE.lua
+#locales\esES.lua
+#locales\esMX.lua
+#locales\frFR.lua
+#locales\itIT.lua
+#locales\koKR.lua
+#locales\ptBR.lua
 
 
 OptionTable.lua

@@ -1,5 +1,5 @@
 local Addon = ...
-local VERSION = 115
+local VERSION = 117
 local buttons = {}
 local elements = {}
 local buttonID = 1

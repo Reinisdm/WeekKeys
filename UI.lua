@@ -147,8 +147,8 @@ function WeekKeys.UI.ThorgastButton(name, parent)
         record = record or 0
         record2 = record2 or 0
 
-        self.record:SetText(record .. "/8")
-        self.record2:SetText(record2 .. "/8")
+        self.record:SetText(record .. "/12")
+        self.record2:SetText(record2 .. "/12")
     end
 
 

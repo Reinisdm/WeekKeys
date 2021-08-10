@@ -67,7 +67,7 @@ function WeekKeys.PlayerData()
                     local levelText = AVAILABLE
                     if levelInfo and levelInfo.shownState == 1 then levelText = (levelInfo.text) end
 
-                    WeekKeys.DB.InsertTorghast(WeekKeysDB.Characters,name,realm,"torghast"..torghast_number,levelText:gsub("|r",""):gsub("|n",""):gsub("|c........",""):match("%d"))
+                    WeekKeys.DB.InsertTorghast(WeekKeysDB.Characters,name,realm,"torghast"..torghast_number,levelText:gsub("|r",""):gsub("|n",""):gsub("|c........",""):match("%d+"))
                     torghast_number = torghast_number + 1
 
                 end

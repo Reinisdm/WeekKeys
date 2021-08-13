@@ -12,7 +12,27 @@ local function update()
         local btn = WeekKeys.UI.LootFinderButton(nil, arrayOfElements[1])
         loot_btns[#loot_btns + 1] = btn
         btn:SetSize(492,20)
+        btn:SetID(i + 1)
         btn:SetPoint("TOPLEFT",4,-(i)*20)
+        btn:SetScript("OnClick",function(self) 
+            local item = LootFinder.loot_list[self:GetID()]
+            if IsShiftKeyDown() then
+                local index = 0
+                if LootFinder.spec > 0 then
+                    index = LootFinder.spec
+                else
+                    index = LootFinder.class
+                end
+                LootFinder.loot_list = WeekKeysDB.FavLoot[index] or LootFinder.loot_list
+                LootFinder:Find()
+                update()
+            else
+                LootFinder.Favorite(item)  
+                LootFinder:Find()
+                update() 
+            end
+                 
+        end)
     end
     for i = 1, #loot_btns do -- hide all buttons
         loot_btns[i]:Hide()
@@ -21,6 +41,7 @@ local function update()
         local btn = loot_btns[index]
         btn.boss = boss
         btn.dung = name
+        btn:SetFavorite(itemlink)
         btn:SetSource(source)
         btn:SetIcon(icon)
         btn:SetDungeon(name)
@@ -488,6 +509,7 @@ WeekKeys.AddInit(function()
     end)
     arrayOfElements[1]:Hide()
 
+    -- 你好 Dololo
     local class_label = WeekKeys.WeekFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
     class_label:SetSize(30, 20)
     class_label:SetPoint("TOPLEFT", 20, -30)
@@ -762,20 +784,46 @@ WeekKeys.AddInit(function()
     fontstr:SetSize(200,20)
     label:SetScript("OnClick", function() LootFinder.SortBy("name") update() end)
     arrayOfElements[#arrayOfElements + 1] = label
-    -- list of globalstrings dungeon/instance
-    -- CALENDAR_TYPE_DUNGEON
-    -- INSTANCE_CHAT
-    -- INSTANCE_CHAT_MESSAGE
-    -- ENCOUNTER_JOURNAL_INSTANCE
-    -- DUNGEONS
-    -- INSTANCE
-    -- CHAT_MSG_INSTANCE_CHAT
-    -- GUILD_CHALLENGE_TYPE1
-    -- GUILD_INTEREST_DUNGEON
-    -- VOICE_CHANNEL_NAME_INSTANCE
-    -- LFG_TYPE_DUNGEON
 
-    --
+
+    local fav_label = WeekKeys.WeekFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+    fav_label:SetSize(30, 20)
+    fav_label:SetPoint("TOPLEFT", 340, -30)
+    fav_label:SetText(AUCTION_HOUSE_FAVORITES_SEARCH_TOOLTIP_TITLE)
+    fav_label:Hide()
+    arrayOfElements[#arrayOfElements + 1] = fav_label
+
+    local fav = WeekKeys.UI.Button(nil, WeekKeys.WeekFrame)
+    fav:SetSize(30,30)
+    fav:SetPoint("Topleft",340,-50)
+    fav:Hide()
+    fav.texture:SetTexture('Interface/AuctionFrame/AuctionHouse.blp')
+    fav.texture:SetTexCoord(0.9580078125,0.9833984375,0.591796875,0.642578125)
+    fav:SetScript("OnClick",function(self)
+        if LootFinder.FavLoot then
+            self.texture:SetTexCoord(0.9580078125,0.9833984375,0.591796875,0.642578125)
+            LootFinder.FavLoot = not LootFinder.FavLoot
+        else
+            self.texture:SetTexCoord(0.9306640625,0.9560546875,0.591796875,0.642578125)
+            LootFinder.FavLoot = not LootFinder.FavLoot
+        end
+        LootFinder:Find()
+        update()
+    end)
+
+    fav:SetScript("OnEnter",function(self)
+        GameTooltip:Hide();
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        GameTooltip:AddLine(AUCTION_HOUSE_FAVORITES_SEARCH_TOOLTIP_TITLE)
+        GameTooltip:Show()
+    end)
+
+    fav:SetScript("OnLeave",function()
+        GameTooltip:Hide();
+    end)
+
+    arrayOfElements[#arrayOfElements + 1] = fav
+
     label = WeekKeys.UI.Button(nil, WeekKeys.WeekFrame)
     label:SetPoint("TOPLEFT",230,-80)
     label:SetSize(50,20)

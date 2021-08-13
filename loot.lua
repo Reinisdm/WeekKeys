@@ -820,6 +820,24 @@ function LootFinder.SortBy(stat)
     table.sort(LootFinder.loot_list, function(a,b) return a[stat] > b[stat] end)
 end
 
+function LootFinder.IsFavorite(item)
+    if not WeekKeysDB.FavLoot then return end
+--GetItemInfoInstant
+    if LootFinder.spec > 0 and WeekKeysDB.FavLoot[LootFinder.spec] then
+        for index, favitem in ipairs(WeekKeysDB.FavLoot[LootFinder.spec]) do
+            if favitem.itemlink == item then
+                return true
+            end
+        end
+    elseif LootFinder.class > 0 and WeekKeysDB.FavLoot[LootFinder.class] then
+        for index, favitem in ipairs(WeekKeysDB.FavLoot[LootFinder.class]) do
+            if favitem.itemlink == item then
+                return true
+            end
+        end
+    end
+end
+
 
 ---Get table size
 ---@param tbl table
@@ -832,9 +850,47 @@ local function getsize(tbl)
     return size
 end
 
+function LootFinder.Favorite(item)
+    if LootFinder.class == 0 then return end
+    WeekKeysDB.FavLoot = WeekKeysDB.FavLoot or {}
+
+    local index = 0
+    if LootFinder.spec > 0 then
+        index = LootFinder.spec
+    else
+        index = LootFinder.class
+    end
+    WeekKeysDB.FavLoot[index] = WeekKeysDB.FavLoot[index] or {}
+    -- unset favorite
+    for i = 1, #WeekKeysDB.FavLoot[index] do
+        if WeekKeysDB.FavLoot[index][i].itemlink == item.itemlink then
+            return table.remove(WeekKeysDB.FavLoot[index],i)
+        end
+    end
+
+    --set favorite
+    WeekKeysDB.FavLoot[index][#WeekKeysDB.FavLoot[index] + 1] = item
+
+    -- useless return :D
+    return
+end
+
 local itemtstats = {}
---- Start find loot, results stored in Lootfinde.loot_list
+--- Start find loot, results stored in Lootfinder.loot_list
 function LootFinder:Find()
+    if LootFinder.FavLoot then
+        if WeekKeysDB.FavLoot then
+            if LootFinder.spec > 0 then
+                LootFinder.loot_list = WeekKeysDB.FavLoot[LootFinder.spec] or {}
+            elseif LootFinder.class > 0 then
+                LootFinder.loot_list = WeekKeysDB.FavLoot[LootFinder.class] or {}
+            else
+                LootFinder.loot_list = {}
+            end
+        end
+        return
+    end
+
     EJ_SetDifficulty(23)
     --EJ_SelectTier(LootFinder.expansion)
     EJ_SetDifficulty(LootFinder.raid_difficult)
@@ -846,7 +902,7 @@ function LootFinder:Find()
     self.slot = self.slot or 0
     EJ_SetLootFilter(self.class,self.spec )
     C_EncounterJournal.SetSlotFilter(self.slot)
-    table.wipe(LootFinder.loot_list)
+    LootFinder.loot_list = {}
 
     -- instnaces
     local index = 1
@@ -907,7 +963,7 @@ function LootFinder:Find()
         end -- if not black lsited
         index = index + 1
     end -- for each instance
---]]
+    --]]
     -- raids
     EJ_SetDifficulty(LootFinder.raid_difficult)
     index = 1

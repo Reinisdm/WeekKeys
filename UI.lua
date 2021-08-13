@@ -383,9 +383,23 @@ end
 function WeekKeys.UI.LootFinderButton(name,parent)
     local btn = WeekKeys.UI.Button(name, parent)
 
+    -- favorite icon
+    btn.favorite = btn:CreateTexture('textureName', 'CENTER')
+    btn.favorite:SetPoint("LEFT",5,0)
+    btn.favorite:SetSize(18,18)
+    btn.favorite:SetTexture('Interface/AuctionFrame/AuctionHouse')
+    btn.SetFavorite = function(self, item)
+        if LootFinder.IsFavorite(item) then
+            -- turn on
+            self.favorite:SetTexCoord(0.9306640625,0.9560546875,0.591796875,0.642578125)
+        else
+           -- turn off
+           self.favorite:SetTexCoord(0.9580078125,0.9833984375,0.591796875,0.642578125)
+        end
+    end
     -- source icon
     btn.source = btn:CreateTexture('textureName', 'CENTER')
-    btn.source:SetPoint("LEFT",5,0)
+    btn.source:SetPoint("LEFT",25,0)
     btn.source:SetSize(18,18)
     ---Set Loot texture
     ---@param self Button
@@ -409,7 +423,7 @@ function WeekKeys.UI.LootFinderButton(name,parent)
 
     -- icon
     btn.icon = btn:CreateTexture('textureName', 'CENTER')
-    btn.icon:SetPoint("LEFT",25,0)
+    btn.icon:SetPoint("LEFT",45,0)
     btn.icon:SetSize(18,18)
     ---Set Loot texture
     ---@param self Button
@@ -420,7 +434,7 @@ function WeekKeys.UI.LootFinderButton(name,parent)
 
     -- dungeon
     btn.instance = btn:CreateFontString(nil , "ARTWORK", "GameFontNormal")
-    btn.instance:SetPoint("LEFT",45,0)
+    btn.instance:SetPoint("LEFT",65,0)
     btn.instance:SetSize(180,20)
     btn.instance:SetJustifyH("LEFT")
     ---Set dungeon name

@@ -252,8 +252,8 @@ local function createraidlist(btn)
         button:SetSize(btnsize,btnsize)
         button:SetID(i)
         button.texture:SetTexture(buttonImage2)
-        button.texture:SetAlpha(0.3)
-        button.find = false
+        button.texture:SetAlpha(1)
+        button.find = true
 
         function button:enable(bool)
             if bool then

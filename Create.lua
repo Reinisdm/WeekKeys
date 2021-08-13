@@ -3,6 +3,7 @@ local VERSION = 117
 local buttons = {}
 local elements = {}
 local buttonID = 1
+
     --[[
         {type = "Fontstr", point = "TEXT", point_x = number, point_y = number, text = "text", width = number, height = number}
     --]]

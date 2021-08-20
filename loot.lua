@@ -822,16 +822,16 @@ end
 
 function LootFinder.IsFavorite(item)
     if not WeekKeysDB.FavLoot then return end
---GetItemInfoInstant
+    
     if LootFinder.spec > 0 and WeekKeysDB.FavLoot[LootFinder.spec] then
         for index, favitem in ipairs(WeekKeysDB.FavLoot[LootFinder.spec]) do
-            if favitem.itemlink == item then
+            if GetItemInfoInstant(favitem.itemlink) == GetItemInfoInstant(item) then
                 return true
             end
         end
     elseif LootFinder.class > 0 and WeekKeysDB.FavLoot[LootFinder.class] then
         for index, favitem in ipairs(WeekKeysDB.FavLoot[LootFinder.class]) do
-            if favitem.itemlink == item then
+            if GetItemInfoInstant(favitem.itemlink) == GetItemInfoInstant(item) then
                 return true
             end
         end
@@ -863,7 +863,7 @@ function LootFinder.Favorite(item)
     WeekKeysDB.FavLoot[index] = WeekKeysDB.FavLoot[index] or {}
     -- unset favorite
     for i = 1, #WeekKeysDB.FavLoot[index] do
-        if WeekKeysDB.FavLoot[index][i].itemlink == item.itemlink then
+        if GetItemInfoInstant(WeekKeysDB.FavLoot[index][i].itemlink) == GetItemInfoInstant(item.itemlink) then
             return table.remove(WeekKeysDB.FavLoot[index],i)
         end
     end

@@ -1,3 +1,4 @@
+
 function WeekKeys:OnCommReceived(prefix, message, chat, sender)
     if sender == UnitName("player") then
         return
@@ -13,7 +14,6 @@ WeekKeys:RegisterComm("WeekKeys")
 
 WeekKeys.AstralKeys = {}
 WeekKeys.WeekKeys = {}
-
 function WeekKeys.AstralKeys.GUILD(msg, sender)
     local guildName = GetGuildInfo("player");
     WeekKeysDB.Guild = WeekKeysDB.Guild or {}
@@ -65,25 +65,24 @@ end
 --/run WeekKeys.WeekKeys.PARTY("update3 " .. WeekKeys.DB.GetAllCovenant(WeekKeysDB.Characters),"sss")
 function WeekKeys.WeekKeys.PARTY(msg,sender)
     local command, text = strsplit(" ",msg,2)
-    if msg == "request" then
---WeekKeys.DB.GetAllCovenant(WeekKeysDB.Characters)
---  WeekKeys.Convert.StrToTbl("update3",WeekKeys.Convert.TblToStr("update3",WeekKeysDB.Characters[1]))
-        --str = "" for _,b in pairs(WeekKeysDB.Characters) do str = str .. "_" .. WeekKeys.Convert.TblToStr("update3",WeekKeysDB.Characters[1]) end
-        WeekKeys:SendCommMessage("WeekKeys","update3 " .. WeekKeys.DB.GetAllCovenant(WeekKeysDB.Characters),"PARTY")
-    elseif command == "update" then
-        WeekKeys.DB.SaveVars(WeekKeys.PartyDB,WeekKeys.Convert.OldStringToVars(text,sender))
-    elseif command == "update2" then
-        local char
-        while text and text:len() > 0 do
-            char, text = strsplit("_",text,2)
-           -- print(text:len(),"<=>",WeekKeys.Convert.StringToVars(char,sender))
-                WeekKeys.DB.SaveVars(WeekKeys.PartyDB,WeekKeys.Convert.StringToVars(char,sender))
+
+    if command == "request" then
+        local str = "update3 "
+        for _,b in pairs(WeekKeysDB.Characters) do
+            str = str .. "_" .. WeekKeys.Convert.TblToStr("update3",b)
         end
-    elseif command == "update3" then
+
+        WeekKeys:SendCommMessage("WeekKeys",str,"PARTY")
+    elseif command:find("update%d+") then
         local char
+        local tbl = {}
         while text and text:len() > 0 do
+
             char, text = strsplit("_",text,2)
-            WeekKeys.DB.SaveCovenantChar(WeekKeys.PartyDB,WeekKeys.Convert.StringToVars(char,sender))
+            WeekKeys.Convert.StrToTbl(command, char, tbl)
+            tbl.sender = sender
+            WeekKeys.DB.SaveTable(WeekKeys.PartyDB, tbl)
+            table.wipe(tbl)
         end
     end
 end
@@ -99,7 +98,7 @@ function WeekKeys.WeekKeys.GUILD(msg,sender)
 
         --WeekKeys:SendCommMessage("WeekKeys","update3 " .. WeekKeys.DB.GetAllCovenant(WeekKeysDB.Characters),"GUILD")
         WeekKeys:SendCommMessage("WeekKeys",str,"GUILD")
-    elseif command == "update3" then
+    elseif command:find("update%d+") then
         local char
         local tbl = {}
         while text and text:len() > 0 do
@@ -108,7 +107,7 @@ function WeekKeys.WeekKeys.GUILD(msg,sender)
             WeekKeysDB.Guild[guildName] = WeekKeysDB.Guild[guildName] or {}
 
             char, text = strsplit("_",text,2)
-            WeekKeys.Convert.StrToTbl("update3", char, tbl)
+            WeekKeys.Convert.StrToTbl(command, char, tbl)
             tbl.sender = sender
             WeekKeys.DB.SaveTable(WeekKeysDB.Guild[guildName], tbl)
             table.wipe(tbl)

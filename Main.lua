@@ -18,6 +18,7 @@ function WeekKeys:OnInitialize()
     if self.NeedReset() then
         self.ResetDB()
     end
+
     C_MythicPlus.RequestRewards()
     C_MythicPlus.RequestMapInfo()
     C_MythicPlus.RequestCurrentAffixes()

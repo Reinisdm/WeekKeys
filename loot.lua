@@ -835,6 +835,15 @@ function LootFinder.IsFavorite(item)
                 return true
             end
         end
+        for index, specID in pairs(LootFinder.class_spec[LootFinder.class]) do
+            if WeekKeysDB.FavLoot[specID] then 
+                for index, favitem in pairs(WeekKeysDB.FavLoot[specID]) do
+                    if GetItemInfoInstant(favitem.itemlink) == GetItemInfoInstant(item) then
+                        return true
+                    end
+                end
+            end
+        end
     end
 end
 
@@ -883,7 +892,19 @@ function LootFinder:Find()
             if LootFinder.spec > 0 then
                 LootFinder.loot_list = WeekKeysDB.FavLoot[LootFinder.spec] or {}
             elseif LootFinder.class > 0 then
-                LootFinder.loot_list = WeekKeysDB.FavLoot[LootFinder.class] or {}
+                LootFinder.loot_list = {}
+                if WeekKeysDB.FavLoot[LootFinder.class] then 
+                    for index, value in pairs(WeekKeysDB.FavLoot[LootFinder.class]) do
+                        LootFinder.loot_list[#LootFinder.loot_list + 1] = value
+                    end
+                end
+                for index, specID in pairs(LootFinder.class_spec[LootFinder.class]) do
+                    if WeekKeysDB.FavLoot[specID] then 
+                        for index, value in pairs(WeekKeysDB.FavLoot[specID]) do
+                            LootFinder.loot_list[#LootFinder.loot_list + 1] = value
+                        end
+                    end
+                end
             else
                 LootFinder.loot_list = {}
             end

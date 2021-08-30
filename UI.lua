@@ -219,18 +219,25 @@ function WeekKeys.UI.FactionCovenantButton(name, parent)
         self.ilvl:SetText(ilvl or "")
     end
 
+    btn.mscore = btn:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+    btn.mscore:SetPoint("LEFT",240,0)
+    btn.mscore:SetSize(60,height)
+    function btn:Setmscore(mscore)
+        self.mscore:SetText(mscore or 0)
+    end
+
     --------------------- record ----------------------
     btn.record = btn:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-    btn.record:SetPoint("LEFT",240,0)
-    btn.record:SetSize(50,height)
+    btn.record:SetPoint("LEFT",300,0)
+    btn.record:SetSize(70,height)
     function btn:SetRecord(record)
         self.record:SetText(record or "")
     end
 
     --------------------- keystone ----------------------
     btn.keystone = btn:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-    btn.keystone:SetPoint("LEFT",290,0) -- 470
-    btn.keystone:SetSize(180,height)
+    btn.keystone:SetPoint("LEFT",370,0) -- 470
+    btn.keystone:SetSize(210,height)
     btn.keystone:SetJustifyH("LEFT")
     btn.keystone:SetTextColor(1,1,1)
     function btn:SetKeystone(keystone)
@@ -303,9 +310,17 @@ function WeekKeys.UI.CovenantButton(name, parent)
         self.ilvl:SetText(ilvl or "???")
     end
 
+    -------------------- mscore ---------------------
+    btn.mscore = btn:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+    btn.mscore:SetPoint("LEFT",240,0)
+    btn.mscore:SetSize(60,height)
+    function btn:Setmscore(mscore)
+        self.mscore:SetText(mscore or 0)
+    end
+
     --------------------- record ----------------------
     btn.record = btn:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-    btn.record:SetPoint("LEFT",240,0)
+    btn.record:SetPoint("LEFT",300,0)
     btn.record:SetSize(50,height)
     function btn:SetRecord(record)
         self.record:SetText(record or "")
@@ -313,8 +328,8 @@ function WeekKeys.UI.CovenantButton(name, parent)
 
     --------------------- keystone ----------------------
     btn.keystone = btn:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-    btn.keystone:SetPoint("LEFT",290,0) -- 470
-    btn.keystone:SetSize(180,height)
+    btn.keystone:SetPoint("LEFT",350,0) -- 470
+    btn.keystone:SetSize(380,height)
     btn.keystone:SetJustifyH("LEFT")
     btn.keystone:SetTextColor(1,1,1)
     function btn:SetKeystone(keystone)

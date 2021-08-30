@@ -370,7 +370,7 @@ local function createpvplist(btn)
     hide_frames[#hide_frames + 1] = back
     back:Hide()
     return back
---[[
+    --[[
     local pvpnames = {
         PVP_RANK_0_NAME,
         PVP_RANK_1_NAME,

@@ -42,7 +42,7 @@ WeekKeys.AddInit(
 function()
     local scrframe = CreateFrame('Frame',nil,WeekKeys.WeekFrame.ScrollFrame)
     scrframe:SetFrameStrata("BACKGROUND")
-    scrframe:SetSize(480,5)
+    scrframe:SetSize(680,5)
     WeekKeys.WeekFrame.ScrollFrame:SetScrollChild(scrframe)
     scrframe:SetScript("OnShow",function()
         update()

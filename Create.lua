@@ -1,5 +1,5 @@
 local Addon = ...
-local VERSION = 121
+local VERSION = 122
 local buttons = {}
 local elements = {}
 local buttonID = 1
@@ -13,7 +13,7 @@ function WeekKeys:Create()
     WeekKeys.WeekFrame = CreateFrame('Frame', 'WeekKeysFrame', UIParent,"BasicFrameTemplateWithInset")
     local WeekFrame = WeekKeys.WeekFrame
     tinsert(UISpecialFrames, 'WeekKeysFrame')
-    WeekFrame:SetSize(500,500)
+    WeekFrame:SetSize(600,500)
     if WeekKeysDB.Settings["MainFramePos"] then
         local db = WeekKeysDB.Settings["MainFramePos"]
         WeekFrame:SetPoint(db["point"],db["xOfs"],db["yOfs"])

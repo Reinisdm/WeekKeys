@@ -31,6 +31,7 @@ local function update()
         buttons[i]:SetRecord(char.record)
         buttons[i]:SetKeystone(char.keystone)
         buttons[i]:SetReward(char.reward)
+        buttons[i]:Setmscore(char.mscore)
         buttons[i]:Show()
     end
 end
@@ -43,7 +44,7 @@ WeekKeys.AddInit(
 function()
     local scrframe = CreateFrame('Frame',nil,WeekKeys.WeekFrame.ScrollFrame)
     scrframe:SetFrameStrata("BACKGROUND")
-    scrframe:SetSize(480,5)
+    scrframe:SetSize(680,5)
     WeekKeys.WeekFrame.ScrollFrame:SetScrollChild(scrframe)
     scrframe:SetScript("OnShow",function()
         updateFrame:RegisterEvent("CHALLENGE_MODE_MAPS_UPDATE")
@@ -72,84 +73,24 @@ function()
 
     fontstr = WeekKeys.WeekFrame:CreateFontString(nil , "ARTWORK", "GameFontNormal")
     fontstr:SetPoint("TOPLEFT", 240,-70)
+    fontstr:SetText(strsplit(HEADER_COLON,DUNGEON_SCORE_TOTAL_SCORE))
+    fontstr:SetWidth(60)
+    add(fontstr)
+
+    fontstr = WeekKeys.WeekFrame:CreateFontString(nil , "ARTWORK", "GameFontNormal")
+    fontstr:SetPoint("TOPLEFT", 300,-70)
     fontstr:SetWidth(70)
     local record,_ = strsplit(HEADER_COLON,MYTHIC_PLUS_BEST_WEEKLY)
     fontstr:SetText(record)
     add(fontstr)
---[[
-    local fr = CreateFrame('Frame', nil, UIParent,"BasicFrameTemplateWithInset")
-    fr:SetPoint("CENTER")
-    fr:SetSize(500,300)
-    local b = {
-        "最佳成绩：|cFFFFFFFF%s (%d)|r",
-        "Best: |cFFFFFFFF%s (%d)|r",
-        "Melhor: |cFFFFFFFF%s (%d)|r",
-        "Mejor: |cFFFFFFFF%s (%d)|r",
-        "Migliore: |cFFFFFFFF%s (%d)|r",
-        "Mejor: |cFFFFFFFF%s (%d)|r",
-        "Bestleistung: |cFFFFFFFF%s (%d)|r",
-        "Record : |cFFFFFFFF%s (%d)|r",
-        "최고 기록: |cFFFFFFFF%s (%d)|r",
-        "最佳紀錄：|cFFFFFFFF%s(%d)|r",
-        "Рекорд: |cFFFFFFFF%s (%d)|r"
-    }
-    local c = {
-        "：",
-        ":",
-        ":",
-        ":",
-        ":",
-        ":",
-        ":",
-        " :",
-        ":",
-        "：",
-        ":"
-    }
-    local fontstr = fr:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-    fontstr:SetPoint("TOPLEFT",10,-30)
-    fontstr:SetText("Text")
 
-    local fontstr = fr:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-    fontstr:SetPoint("TOPLEFT",160,-30)
-    fontstr:SetText('HEADER_COLON')
-
-    local fontstr = fr:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-    fontstr:SetPoint("TOPLEFT",310,-30)
-    fontstr:SetText('split with colon')
-
-    for a,b in ipairs(b) do
-        local fontstr = fr:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-        fontstr:SetPoint("TOPLEFT",10,-40-20*a)
-        fontstr:SetText(b)
-
-        local fontstr = fr:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-        fontstr:SetPoint("TOPLEFT",310,-40-20*a)
-        fontstr:SetText(strsplit(c[a],b))
-
-        local fontstr = fr:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-        fontstr:SetPoint("TOPLEFT",160,-40-20*a)
-        fontstr:SetText(c[a])
-
-    end
-    /run a = "最佳成绩：|cFFFFFFFF%s (%d)|r" print(strsplit(":",a)) print(a:match("%a+"))
-    /run a = "Best: |cFFFFFFFF%s (%d)|r" print(strsplit(":",a)) print(a:match("%a+"))
-    /run a = "Melhor: |cFFFFFFFF%s (%d)|r" print(strsplit(":",a)) print(a:match("%a+"))
-    /run a = "Mejor: |cFFFFFFFF%s (%d)|r" print(strsplit(":",a)) print(a:match("%a+"))
-    /run a = "Migliore: |cFFFFFFFF%s (%d)|r" print(strsplit(":",a)) print(a:match("%a+"))
-    /run a = "Mejor: |cFFFFFFFF%s (%d)|r" print(strsplit(":",a)) print(a:match("%a+"))
-    /run a = "Bestleistung: |cFFFFFFFF%s (%d)|r" print(strsplit(":",a)) print(a:match("%a+"))
-    /run a = "Record : |cFFFFFFFF%s (%d)|r" print(strsplit(":",a)) print(a:match("%a+"))
-    /run a = "최고 기록: |cFFFFFFFF%s (%d)|r" print(strsplit(":",a)) print(a:match("%a+"))
-    /run a = "最佳紀錄：|cFFFFFFFF%s(%d)|r" print(strsplit(":",a)) print(a:match("%a+"))
-    /run a = "Рекорд: |cFFFFFFFF%s (%d)|r" print(strsplit(":",a)) print(a:match("%a+"))
-]]
     fontstr = WeekKeys.WeekFrame:CreateFontString(nil , "ARTWORK", "GameFontNormal")
-    fontstr:SetPoint("TOPLEFT", 310,-70)
+    fontstr:SetPoint("TOPLEFT", 370,-70)
     fontstr:SetWidth(180)
     local keystone,_ = strsplit(HEADER_COLON,CHALLENGE_MODE_KEYSTONE_NAME)
     fontstr:SetText(keystone)
     add(fontstr)
+    
     local affixIcons = {WeekKeys.Affixes.GetAffixes()}
     for i = 1, 4 do
         local btn = WeekKeys.UI.Button(nil,WeekKeys.WeekFrame,nil)

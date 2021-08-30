@@ -83,6 +83,11 @@ function WeekKeys.PlayerData()
         if not C_MythicPlus.IsWeeklyRewardAvailable() then
             WeekKeys.DB.RemoveReward()
         end
+        -----------------------
+        -- M+ score
+        -----------------------
+
+        tbl.mscore = C_PlayerInfo.GetPlayerMythicPlusRatingSummary("player").currentSeasonScore
         --[[ mythic score?
             C_PlayerInfo.GetPlayerMythicPlusRatingSummary(name).currentSeasonScore
             C_PlayerInfo.GetPlayerMythicPlusRatingSummary("target").currentSeasonScore

@@ -52,6 +52,7 @@ function Iterators.FormatPlayerList(list,writeRealm)
         formatted.faction = char.faction
         formatted.covenant = char.covenant
         formatted.reward = char.reward
+        formatted.mscore = char.mscore
         return i, formatted
     end
 end

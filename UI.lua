@@ -462,7 +462,7 @@ function WeekKeys.UI.LootFinderButton(name,parent)
     -- main atr
     btn.mainatr = btn:CreateFontString(nil , "ARTWORK", "GameFontNormal")
     btn.mainatr:SetPoint("LEFT",230,0)
-    btn.mainatr:SetSize(50,20)
+    btn.mainatr:SetSize(70,20)
     ---Set Main atr value
     ---@param self Button
     ---@param mainatr integer str/agi/int value
@@ -472,8 +472,8 @@ function WeekKeys.UI.LootFinderButton(name,parent)
 
     -- crit
     btn.crit = btn:CreateFontString(nil , "ARTWORK", "GameFontNormal")
-    btn.crit:SetPoint("LEFT",280,0)
-    btn.crit:SetSize(50,20)
+    btn.crit:SetPoint("LEFT",300,0)
+    btn.crit:SetSize(70,20)
     ---Set Crit value
     ---@param self Button
     ---@param crit integer crit value
@@ -483,8 +483,8 @@ function WeekKeys.UI.LootFinderButton(name,parent)
 
     -- haste
     btn.haste = btn:CreateFontString(nil , "ARTWORK", "GameFontNormal")
-    btn.haste:SetPoint("LEFT",330,0)
-    btn.haste:SetSize(50,20)
+    btn.haste:SetPoint("LEFT",370,0)
+    btn.haste:SetSize(70,20)
     ---Set haste value
     ---@param self Button
     ---@param haste integer haste value
@@ -494,8 +494,8 @@ function WeekKeys.UI.LootFinderButton(name,parent)
 
     -- mastery
     btn.mastery = btn:CreateFontString(nil , "ARTWORK", "GameFontNormal")
-    btn.mastery:SetPoint("LEFT",380,0)
-    btn.mastery:SetSize(50,20)
+    btn.mastery:SetPoint("LEFT",440,0)
+    btn.mastery:SetSize(70,20)
     ---Set mastery value
     ---@param self Button
     ---@param mastery integer mastery value
@@ -505,8 +505,8 @@ function WeekKeys.UI.LootFinderButton(name,parent)
 
     -- vers
     btn.versality = btn:CreateFontString(nil , "ARTWORK", "GameFontNormal")
-    btn.versality:SetPoint("LEFT",430,0)
-    btn.versality:SetSize(50,20)
+    btn.versality:SetPoint("LEFT",510,0)
+    btn.versality:SetSize(70,20)
     ---Set versality value
     ---@param self Button
     ---@param versality integer versality value

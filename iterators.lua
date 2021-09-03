@@ -23,9 +23,14 @@ function Iterators.FormatPlayerList(list,writeRealm)
         table.wipe(formatted)
         if not char then return end
 
-        local _, classFile, _ = GetClassInfo(char.classID)
-        local _, _, _, argbHex = GetClassColor(classFile)
-        local colored_nickname = "|c"..argbHex..char.name.."|r"
+        local colored_nickname
+        if char.classID then
+            local _, classFile, _ = GetClassInfo(char.classID)
+            local _, _, _, argbHex = GetClassColor(classFile)
+            colored_nickname = "|c"..argbHex..char.name.."|r"
+        else
+            colored_nickname = char.name
+        end
         if writeRealm and char.realm ~= realm then
             colored_nickname = colored_nickname .. " (*)"
         end

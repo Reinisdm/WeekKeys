@@ -23,7 +23,7 @@ end
 
 function WeekKeys.Convert.NewTableToString(tabl)
     return string.format("%d:%s:%s:%s:%d:%s:%s:%s:%s",tabl.covenant or 0,tabl.name or "", tabl.realm or "", tostring(tabl.classID or ""), tabl.ilvl or 0,
-    tostring(tabl.record or ""), tostring(tabl.keyID or ""),tostring(tabl.keyLevel or ""), tabl.faction)
+    tostring(tabl.record or ""), tostring(tabl.keyID or ""),tostring(tabl.keyLevel or ""), tabl.faction or "")
 end
 
 function WeekKeys.Convert.OldTableToString(tabl)

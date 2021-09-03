@@ -43,6 +43,9 @@ function WeekKeys.PlayerData()
         -- classID
         ----------------------
         local _, classname, classID = UnitClass("player")
+        if not classID then
+            classFilename, classID = UnitClassBase("player")
+        end
         tbl.classID = classID
 
 

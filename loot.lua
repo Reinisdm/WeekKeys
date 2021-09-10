@@ -733,17 +733,15 @@ local rating = {
     "1400-1599",
     "1600-1799",
     "1800-2099",
-    "2100-2399",
-    "2400+"
+    "2100+",
 }
 
 local pvpilvl = {
-    200,  -- unranked
-    207,  -- Combatant
-    213,  -- Challenger
-    220,  -- Rival
-    226,  -- Duelist
-    233   -- Elite
+    220,  -- unranked
+    226,  -- Combatant
+    233,  -- Challenger
+    240,  -- Rival
+    246,  -- Duelist
 }
 
 local mythic_level = {

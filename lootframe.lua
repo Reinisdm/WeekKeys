@@ -348,8 +348,7 @@ local function createpvplist(btn)
         "1400-1599",
         "1600-1799",
         "1800-2099",
-        "2100-2399",
-        "2400+"
+        "2100+"
     }
     for i = 0, 4 do
         local checkbtn = CreateFrame("CheckButton", "WeekKeys_PvPChoose"..(i+1), back, "ChatConfigCheckButtonTemplate")

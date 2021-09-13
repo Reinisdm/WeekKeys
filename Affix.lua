@@ -3,18 +3,18 @@ local curr_rotation = nil
 local sesionalID = 120
 local steps = 0
 local AFFIXES = {
-    {11,124,10,128}, --bursting storming fortified tormented
-    {6,3,9,128}, --raging volcanic tyrannical tormented
-    {122,12,10,128}, -- inspiring grievous fortified tormented
-    {123,4,9,128}, -- spiteful necrotic tyrannical tormented
-    {7,14,10,128}, -- bolstering quaking fortified tormented
-    {8,124,9,128}, --sanguine storming tyrannical tormented
-    {6,13,10,128}, --raging explosive fortified tormented
-    {11,3,9,128}, --bursting volcanic tyrannical tormented
-    {123,12,10,128}, --spiteful grievous fortified tormented
-    {122,14,9,128},  --inspiring quaking tyrannical tormented
-    {8,4,10,128},  --sanguine necrotic fortified tormented
-    {7,13,9,128},  --bolstering explosive tyrannical tormented
+    {10 ,11 ,124,128}, --bursting storming fortified tormented
+    {9  ,6  ,3  ,128}, --raging volcanic tyrannical tormented
+    {10 ,122,12 ,128}, -- inspiring grievous fortified tormented
+    {9  ,123,4  ,128}, -- spiteful necrotic tyrannical tormented
+    {10 ,7  ,14 ,128}, -- bolstering quaking fortified tormented
+    {9  ,8  ,124,128}, --sanguine storming tyrannical tormented
+    {10 ,6  ,13 ,128}, --raging explosive fortified tormented
+    {9  ,11 ,3  ,128}, --bursting volcanic tyrannical tormented
+    {10 ,123,12 ,128}, --spiteful grievous fortified tormented
+    {9  ,122,14 ,128},  --inspiring quaking tyrannical tormented
+    {10 ,8  ,4  ,128},  --sanguine necrotic fortified tormented
+    {9  ,7  ,13 ,128},  --bolstering explosive tyrannical tormented
 }
 
 function WeekKeys.Affixes.init()

@@ -508,7 +508,6 @@ WeekKeys.AddInit(function()
     end)
     arrayOfElements[1]:Hide()
 
-    -- 你好 Dololo
     local class_label = WeekKeys.WeekFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
     class_label:SetSize(30, 20)
     class_label:SetPoint("TOPLEFT", 20, -30)

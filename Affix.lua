@@ -3,18 +3,18 @@ local curr_rotation = nil
 local sesionalID = 120
 local steps = 0
 local AFFIXES = {
-    [1] =  {[1]=10,[2]=11,[3]=3,[4]=121},
-    [2] =  {[1]=9,[2]=7,[3]=124,[4]=121},
-    [3] =  {[1]=10,[2]=123,[3]=12,[4]=121},
-    [4] =  {[1]=9,[2]=122,[3]=4,[4]=121},
-    [5] =  {[1]=10,[2]=8,[3]=14,[4]=121},
-    [6] =  {[1]=9,[2]=6,[3]=13,[4]=121},
-    [7] =  {[1]=10,[2]=123,[3]=3,[4]=121},
-    [8] =  {[1]=9,[2]=7,[3]=4,[4]=121},
-    [9] =  {[1]=10,[2]=122,[3]=124,[4]=121},----------
-    [10] = {[1]=9,[2]=11,[3]=13,[4]=121},
-    [11] = {[1]=10,[2]=8,[3]=12,[4]=121},
-    [12] = {[1]=9,[2]=6,[3]=14,[4]=121}
+    {11,124,10,128}, --bursting storming fortified tormented
+    {6,3,9,128}, --raging volcanic tyrannical tormented
+    {122,12,10,128}, -- inspiring grievous fortified tormented
+    {123,4,9,128}, -- spiteful necrotic tyrannical tormented
+    {7,14,10,128}, -- bolstering quaking fortified tormented
+    {8,124,9,128}, --sanguine storming tyrannical tormented
+    {6,13,10,128}, --raging explosive fortified tormented
+    {11,3,9,128}, --bursting volcanic tyrannical tormented
+    {123,12,10,128}, --spiteful grievous fortified tormented
+    {122,14,9,128},  --inspiring quaking tyrannical tormented
+    {8,4,10,128},  --sanguine necrotic fortified tormented
+    {7,13,9,128},  --bolstering explosive tyrannical tormented
 }
 
 function WeekKeys.Affixes.init()

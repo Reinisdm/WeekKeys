@@ -741,7 +741,7 @@ WeekKeys.AddInit(function()
     local stat_label = WeekKeys.WeekFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
     stat_label:SetSize(30, 20)
     stat_label:SetPoint("TOPLEFT", 300, -30)
-    stat_label:SetText(SCORE_POWER_UPS)
+    stat_label:SetText(STAT_CATEGORY_ENHANCEMENTS)
     stat_label:Hide()
     arrayOfElements[#arrayOfElements + 1] = stat_label
     -- stat filters
@@ -760,7 +760,7 @@ WeekKeys.AddInit(function()
     statfilter:SetScript("OnEnter",function(self)
         GameTooltip:Hide();
         GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-        GameTooltip:AddLine(SCORE_POWER_UPS)
+        GameTooltip:AddLine(STAT_CATEGORY_ENHANCEMENTS)
         GameTooltip:Show()
     end)
 

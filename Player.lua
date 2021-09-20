@@ -140,7 +140,6 @@ function WeekKeys.PlayerData()
             end
         end
         WeekKeys.DB.SaveTable(WeekKeysDB.Characters,tbl)
-        table.wipe(tbl)
         --WeekKeys.DB.SaveVars2(WeekKeysDB.Characters,name,realm,classID,ilvl,record,keyID,keyLevel,faction,covenantID)
         return name, realm, classID, ilvl, record, keyID, keyLevel, faction, covenantID
     end

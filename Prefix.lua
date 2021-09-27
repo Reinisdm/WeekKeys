@@ -100,8 +100,8 @@ function WeekKeys.WeekKeys.GUILD(msg,sender)
         WeekKeys:SendCommMessage("WeekKeys",str,"GUILD")
     elseif command:find("update%d+") then
         local char
-        local tbl = {}
         while text and text:len() > 0 do
+            local tbl = {}
             local guildName = GetGuildInfo("player");
             WeekKeysDB.Guild = WeekKeysDB.Guild or {}
             WeekKeysDB.Guild[guildName] = WeekKeysDB.Guild[guildName] or {}
@@ -110,7 +110,6 @@ function WeekKeys.WeekKeys.GUILD(msg,sender)
             WeekKeys.Convert.StrToTbl(command, char, tbl)
             tbl.sender = sender
             WeekKeys.DB.SaveTable(WeekKeysDB.Guild[guildName], tbl)
-            table.wipe(tbl)
             --WeekKeys.DB.SaveCovenantChar(WeekKeysDB.Guild[guildName],WeekKeys.Convert.StringToVars(char,sender))
         end
     end
@@ -119,13 +118,11 @@ end
 function WeekKeys.WeekKeys.Friend(msg,sender)
     local command, text = strsplit(" ",msg,2)
     if msg == "request" then
-        local char
-        local str = WeekKeys.DB.GetAllCovenant(WeekKeysDB.Characters)
-        while str and str:len() > 0 do
-            char, str = strsplit("_",str,2)
-            WeekKeys.BNAddMsg("WeekKeys","update3 "..char,sender)
+        for _,b in pairs(WeekKeysDB.Characters) do
+            WeekKeys.BNAddMsg("WeekKeys","update4 "..WeekKeys.Convert.TblToStr("update4",b),sender)
         end
-    elseif command == "update2" then
+       
+    elseif command == "update%d+" then
         local char
         if not WeekKeys.FriendBattleTag[sender] then
             local i = 1
@@ -142,28 +139,10 @@ function WeekKeys.WeekKeys.Friend(msg,sender)
         end
         WeekKeysDB.Friends[WeekKeys.FriendBattleTag[sender]] = WeekKeysDB.Friends[WeekKeys.FriendBattleTag[sender]] or {}
         while text and text:len() > 0 do
+            local tbl = {}
             char, text = strsplit("_",text,2)
-            WeekKeys.DB.SaveVars(WeekKeysDB.Friends[WeekKeys.FriendBattleTag[sender]],WeekKeys.Convert.StringToVars(char,WeekKeys.FriendBattleTag[sender]))
-        end
-    elseif command == "update3" then
-        local char
-        if not WeekKeys.FriendBattleTag[sender] then
-            local i = 1
-            while C_BattleNet.GetFriendAccountInfo(i) do
-                local friend = C_BattleNet.GetFriendAccountInfo(i)
-                local id = friend.gameAccountInfo.gameAccountID
-                local battleTag = friend.battleTag
-                if id and friend.gameAccountInfo.clientProgram == "WoW" then
-                    WeekKeys.FriendBattleTag[id] = battleTag
-                    WeekKeys.BNAddMsg("WeekKeys","request",id)
-                end
-                i = i + 1
-            end
-        end
-        WeekKeysDB.Friends[WeekKeys.FriendBattleTag[sender]] = WeekKeysDB.Friends[WeekKeys.FriendBattleTag[sender]] or {}
-        while text and text:len() > 0 do
-            char, text = strsplit("_",text,2)
-            WeekKeys.DB.SaveCovenantChar(WeekKeysDB.Friends[WeekKeys.FriendBattleTag[sender]],WeekKeys.Convert.StringToVars(char,WeekKeys.FriendBattleTag[sender]))
+            WeekKeys.Convert.StrToTbl(command, char, tbl)
+            WeekKeys.DB.SaveTable(WeekKeysDB.Friends[WeekKeys.FriendBattleTag[sender]], tbl)
         end
     end
 end

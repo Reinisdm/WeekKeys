@@ -19,7 +19,12 @@ function Iterators.FormatPlayerList(list,writeRealm)
     ---@return table formatted table with formatted data
     return function()
         i = i + 1
+        if list[i] then list[i].reward = nil end
+        while type(list[i]) == "table" and next(list[i]) == nil do
+            table.remove(list, i)
+        end
         local char = list[i]
+        
         table.wipe(formatted)
         if not char then return end
 

@@ -117,6 +117,7 @@ end
 
 function WeekKeys.WeekKeys.Friend(msg,sender)
     local command, text = strsplit(" ",msg,2)
+    --print(command, text)
     if msg == "request" then
         for _,b in pairs(WeekKeysDB.Characters) do
             WeekKeys.BNAddMsg("WeekKeys","update4 "..WeekKeys.Convert.TblToStr("update4",b),sender)
@@ -124,6 +125,7 @@ function WeekKeys.WeekKeys.Friend(msg,sender)
        
     elseif command == "update%d+" then
         local char
+       -- print("upadte")
         if not WeekKeys.FriendBattleTag[sender] then
             local i = 1
             while C_BattleNet.GetFriendAccountInfo(i) do

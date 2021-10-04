@@ -223,7 +223,7 @@ local function createinstancelist(btn)
 
         i = i + 1
     end
-    back:SetHeight(math.floor((i-1)/4)*btnsize+20)
+    back:SetHeight(math.ceil((i-1)/4)*btnsize+20)
 
     hide_frames[#hide_frames + 1] = back
     --back:SetScript("OnLeave",function(self) self:Hide() end)

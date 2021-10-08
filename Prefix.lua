@@ -67,9 +67,9 @@ function WeekKeys.WeekKeys.PARTY(msg,sender)
     local command, text = strsplit(" ",msg,2)
 
     if command == "request" then
-        local str = "update3 "
+        local str = "update4 "
         for _,b in pairs(WeekKeysDB.Characters) do
-            str = str .. "_" .. WeekKeys.Convert.TblToStr("update3",b)
+            str = str .. "_" .. WeekKeys.Convert.TblToStr("update4",b)
         end
 
         WeekKeys:SendCommMessage("WeekKeys",str,"PARTY")

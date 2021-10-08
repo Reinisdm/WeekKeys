@@ -1,0 +1,1 @@
+local FriendDB = WeekKeys.DB:New({})

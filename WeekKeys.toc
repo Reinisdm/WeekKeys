@@ -49,7 +49,6 @@ GuildKeys.lua
 FriendKeys.lua
 MTable.lua
 lootframe.lua
-achieve.lua
 Torghast.lua
 calculator.lua
 settings.lua

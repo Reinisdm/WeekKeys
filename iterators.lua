@@ -24,7 +24,7 @@ function Iterators.FormatPlayerList(list,writeRealm)
             table.remove(list, i)
         end
         local char = list[i]
-        
+
         table.wipe(formatted)
         if not char then return end
 

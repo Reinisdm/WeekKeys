@@ -372,11 +372,11 @@ function WeekKeys.UI.MTableButton(name,parent,bool)
 
     btn.rio = btn:CreateFontString(nil, "ARTWORK", "GameFontNormal")
     btn.rio:SetPoint("LEFT", 315,0)
-    btn.rio:SetSize(50, height)
+    btn.rio:SetSize(90, height)
     btn.rio:SetTextColor(1,1,1)
 
     btn.mod = btn:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-    btn.mod:SetPoint("LEFT", 365,0)
+    btn.mod:SetPoint("LEFT", 405,0)
     btn.mod:SetSize(85, height)
     btn.mod:SetTextColor(1,1,1)
 
@@ -384,7 +384,7 @@ function WeekKeys.UI.MTableButton(name,parent,bool)
         btn.level:SetText(level)
         btn.week:SetText(week)
         btn.push:SetText(push)
-        btn.rio:SetText(rio)
+        btn.rio:SetFormattedText("%d / %d",rio ,rio/3)
         btn.mod:SetText(mod)
     end
 

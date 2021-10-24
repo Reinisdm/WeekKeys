@@ -7,7 +7,12 @@ function DB:New(tbl)
 end
 
 -- add character to db
-function DB:Add(char)
+function DB:Add(newchar)
+    for _, char in pairs(self.DB) do
+        if char.name == newchar.name then
+            
+        end
+    end
 
 end
 

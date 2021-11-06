@@ -65,6 +65,7 @@ function WeekKeys.PlayerData()
         elseif #recordtable >= 1 then
             record = recordtable[1].level
         end
+        tbl.recordtable = recordtable
         tbl.record = record
 
         ------------------------

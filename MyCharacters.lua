@@ -32,6 +32,7 @@ local function update()
         buttons[i]:SetKeystone(char.keystone)
         buttons[i]:SetReward(char.reward)
         buttons[i]:Setmscore(char.mscore)
+        buttons[i]:SetTooltip(char.recordtable)
         buttons[i]:Show()
     end
 end

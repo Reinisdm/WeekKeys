@@ -159,7 +159,35 @@ function WeekKeys.UI.FactionCovenantButton(name, parent)
     local btn = WeekKeys.UI.Button(name, parent)
     local height = btn:GetHeight()
     btn:RegisterForClicks("RightButtonUp","LeftButtonUp")
+    ------------------- tooltip -------------------
+    btn.tooltip = nil
+    function btn:SetTooltip(tbl)
+        btn.tooltip = tbl
+    end
 
+    btn:SetScript("OnEnter",function(self) 
+        GameTooltip:Hide();
+        GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+        GameTooltip:AddLine(RATED_PVP_WEEKLY_VAULT)
+        local pattern = "(%d) (%d) %s"
+        if self.tooltip and #self.tooltip > 0 then
+            for i = 1, min(10,#self.tooltip) do 
+                local chest = C_MythicPlus.GetRewardLevelForDifficultyLevel(self.tooltip[i].level)
+                if i == 1 or i == 4 or i == 10 then
+                    GameTooltip:AddLine(pattern:format(chest, self.tooltip[i].level,C_ChallengeMode.GetMapUIInfo(self.tooltip[i].mapChallengeModeID)),0,1,0)
+                else
+                    local pattern = "           (%d) %s"
+                    GameTooltip:AddLine(pattern:format(self.tooltip[i].level,C_ChallengeMode.GetMapUIInfo(self.tooltip[i].mapChallengeModeID)),1,1,1)
+                end
+                
+            end
+            GameTooltip:Show()
+        end
+    end)
+
+    btn:SetScript("OnLeave",function(self)
+        GameTooltip:Hide();
+    end)
     --------------------- faction -----------------
     btn.faction = btn:CreateTexture('textureName', 'CENTER')
     btn.faction:SetPoint("LEFT", 2,0)

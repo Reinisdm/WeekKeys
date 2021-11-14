@@ -165,13 +165,13 @@ function WeekKeys.UI.FactionCovenantButton(name, parent)
         btn.tooltip = tbl
     end
 
-    btn:SetScript("OnEnter",function(self) 
+    btn:SetScript("OnEnter",function(self)
         GameTooltip:Hide();
         GameTooltip:SetOwner(self, "ANCHOR_LEFT")
         GameTooltip:AddLine(RATED_PVP_WEEKLY_VAULT)
         local pattern = "(%d) (%d) %s"
         if self.tooltip and #self.tooltip > 0 then
-            for i = 1, min(10,#self.tooltip) do 
+            for i = 1, min(10,#self.tooltip) do
                 local chest = C_MythicPlus.GetRewardLevelForDifficultyLevel(self.tooltip[i].level)
                 if i == 1 or i == 4 or i == 10 then
                     GameTooltip:AddLine(pattern:format(chest, self.tooltip[i].level,C_ChallengeMode.GetMapUIInfo(self.tooltip[i].mapChallengeModeID)),0,1,0)
@@ -179,7 +179,7 @@ function WeekKeys.UI.FactionCovenantButton(name, parent)
                     local pattern = "           (%d) %s"
                     GameTooltip:AddLine(pattern:format(self.tooltip[i].level,C_ChallengeMode.GetMapUIInfo(self.tooltip[i].mapChallengeModeID)),1,1,1)
                 end
-                
+
             end
             GameTooltip:Show()
         end
@@ -324,9 +324,9 @@ function WeekKeys.UI.CovenantButton(name, parent)
      function btn:SetRealm(str)
          self.realm = str
      end
- 
+
      function btn:GetNameFaction()
-         local name = self.name:GetText():gsub(" %(%*%)",""):sub(11,-3) 
+         local name = self.name:GetText():gsub(" %(%*%)",""):sub(11,-3)
          return name, self.realm
      end
 
@@ -554,6 +554,57 @@ function WeekKeys.UI.LootFinderButton(name,parent)
         self:SetDungeon(self.dung)
         GameTooltip:Hide()
     end)
+
+    return btn
+end
+
+
+function WeekKeys.UI.IconNameButton(name, parent)
+    local btn = WeekKeys.UI.Button(name, parent)
+    local height = btn:GetHeight()
+    btn:RegisterForClicks("RightButtonUp","LeftButtonUp")
+    ------------------- tooltip -------------------
+    btn.tooltip = nil
+    function btn:SetTooltip(tbl)
+        btn.tooltip = tbl
+    end
+
+    btn:SetScript("OnEnter",function(self)
+        GameTooltip:Hide();
+        GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+        if self.tooltip then
+            GameTooltip:SetHyperlink(self.tooltip)
+            GameTooltip:Show()
+        end
+    end)
+
+    btn:SetScript("OnLeave",function(self)
+        GameTooltip:Hide();
+    end)
+
+    ---------------------- icon ---------------------
+    btn.icon = btn:CreateTexture('textureName', 'CENTER')
+    btn.icon:SetPoint("LEFT",5,0)
+    btn.icon:SetSize(18,18)
+
+    btn.SetIcon = function (self, icon, coords)
+        self.icon:SetTexture(icon)
+        if coords then
+            self.icon:SetTexCoord(unpack(coords))
+        else
+            self.icon:SetTexCoord(0,1,0,1)
+        end
+    end
+
+    --------------------- name ----------------------
+    btn.name = btn:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+    btn.name:SetPoint("LEFT",25,0)
+    btn.name:SetSize(200,height)
+    btn.name:SetJustifyH("LEFT")
+    function btn:SetName(name)
+        self.name:SetText(name or "")
+    end
+
 
     return btn
 end

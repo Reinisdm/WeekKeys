@@ -128,8 +128,8 @@ function WeekKeys.PlayerData()
             local astralweeks
             local time
             if GetCurrentRegion() == 3 then -- if in EU region
-                astralweeks = math.floor((GetServerTime() - 1500447600) / 604800) 
-                time = math.floor((GetServerTime() - 1500447600) % 604800) 
+                astralweeks = math.floor((GetServerTime() - 1500447600) / 604800)
+                time = math.floor((GetServerTime() - 1500447600) % 604800)
             else -- if not EU region
                 astralweeks = math.floor((GetServerTime() - 1500390000) / 604800)
                 time = math.floor((GetServerTime() - 1500390000) % 604800)

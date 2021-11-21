@@ -22,16 +22,25 @@ locales\zhCN.lua
 #locales\koKR.lua
 #locales\ptBR.lua
 
+#Constants\ClassColors.lua
+
+
+prefix_patterns.lua
+Convert.lua
+
+DB\db.lua
+DB\Mychars.lua
+
+
 
 OptionTable.lua
 db.lua
 Prefix.lua
-Convert.lua
 UI.lua
 Reset.lua
 Affix.lua
 loot.lua
-prefix_patterns.lua
+
 
 Minimap.lua
 Player.lua

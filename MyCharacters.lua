@@ -91,7 +91,7 @@ function()
     local keystone,_ = strsplit(HEADER_COLON,CHALLENGE_MODE_KEYSTONE_NAME)
     fontstr:SetText(keystone)
     add(fontstr)
-    
+
     local affixIcons = {WeekKeys.Affixes.GetAffixes()}
     for i = 1, 4 do
         local btn = WeekKeys.UI.Button(nil,WeekKeys.WeekFrame,nil)

@@ -1,4 +1,4 @@
-local FriendDB = WeekKeys.DB:New({})
+local FriendDB = WeekKeys.DB:New()
 
 function FriendDB:Add(player)
 

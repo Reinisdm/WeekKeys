@@ -1,4 +1,4 @@
-local PartyDB = WeekKeys.DB:New({})
+local PartyDB = WeekKeys.DB:New()
 
 function PartyDB:pairs()
 

@@ -725,7 +725,7 @@ end
 
 function LootFinder.IsFavorite(item)
     if not WeekKeysDB.FavLoot then return end
-    
+
     if LootFinder.spec > 0 and WeekKeysDB.FavLoot[LootFinder.spec] then
         for index, favitem in ipairs(WeekKeysDB.FavLoot[LootFinder.spec]) do
             if GetItemInfoInstant(favitem.itemlink) == GetItemInfoInstant(item) then
@@ -739,7 +739,7 @@ function LootFinder.IsFavorite(item)
             end
         end
         for index, specID in pairs(LootFinder.class_spec[LootFinder.class]) do
-            if WeekKeysDB.FavLoot[specID] then 
+            if WeekKeysDB.FavLoot[specID] then
                 for index, favitem in pairs(WeekKeysDB.FavLoot[specID]) do
                     if GetItemInfoInstant(favitem.itemlink) == GetItemInfoInstant(item) then
                         return true
@@ -782,9 +782,6 @@ function LootFinder.Favorite(item)
 
     --set favorite
     WeekKeysDB.FavLoot[index][#WeekKeysDB.FavLoot[index] + 1] = item
-
-    -- useless return :D
-    return
 end
 
 local itemtstats = {}
@@ -796,13 +793,13 @@ function LootFinder:Find()
                 LootFinder.loot_list = WeekKeysDB.FavLoot[LootFinder.spec] or {}
             elseif LootFinder.class > 0 then
                 LootFinder.loot_list = {}
-                if WeekKeysDB.FavLoot[LootFinder.class] then 
+                if WeekKeysDB.FavLoot[LootFinder.class] then
                     for index, value in pairs(WeekKeysDB.FavLoot[LootFinder.class]) do
                         LootFinder.loot_list[#LootFinder.loot_list + 1] = value
                     end
                 end
                 for index, specID in pairs(LootFinder.class_spec[LootFinder.class]) do
-                    if WeekKeysDB.FavLoot[specID] then 
+                    if WeekKeysDB.FavLoot[specID] then
                         for index, value in pairs(WeekKeysDB.FavLoot[specID]) do
                             LootFinder.loot_list[#LootFinder.loot_list + 1] = value
                         end
@@ -861,7 +858,7 @@ function LootFinder:Find()
                         end
                         if count >= 2 then
                             LootFinder:AddResult("instance", instancename, bossname,
-                                        itemInfo.link, itemInfo.icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                                        itemInfo.link, itemInfo.icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0,
                                         itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
                                         itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
                         end
@@ -869,7 +866,7 @@ function LootFinder:Find()
                         for key, _ in pairs(LootFinder.stats) do
                             if itemtstats[key] then
                                 LootFinder:AddResult("instance", instancename, bossname,
-                                        itemInfo.link, itemInfo.icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                                        itemInfo.link, itemInfo.icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0,
                                         itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
                                         itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
                                 break
@@ -878,7 +875,7 @@ function LootFinder:Find()
                     else
                         LootFinder:AddResult("instance", instancename, bossname,
                                 itemInfo.link, itemInfo.icon,
-                                itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                                itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0,
                                 itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
                                 itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
                     end
@@ -917,7 +914,7 @@ function LootFinder:Find()
                         end
                         if count >= 2 then
                             LootFinder:AddResult("raid", instancename, bossname,
-                                        itemInfo.link, itemInfo.icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                                        itemInfo.link, itemInfo.icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0,
                                         itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
                                         itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
                         end
@@ -925,7 +922,7 @@ function LootFinder:Find()
                         for key, _ in pairs(LootFinder.stats) do
                             if itemtstats[key] then
                                 LootFinder:AddResult("raid", instancename, bossname,
-                                        itemInfo.link, itemInfo.icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                                        itemInfo.link, itemInfo.icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0,
                                         itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
                                         itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
                                 break
@@ -934,7 +931,7 @@ function LootFinder:Find()
                     else
                         LootFinder:AddResult("raid", instancename, bossname,
                                 itemInfo.link, itemInfo.icon,
-                                itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                                itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0,
                                 itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
                                 itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
                     end
@@ -961,10 +958,10 @@ function LootFinder:Find()
                         if  itemtstats[key] then
                             count = count + 1
                         end
-                    end 
+                    end
                     if count >= 2 then
                         LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
-                        link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                        link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0,
                                     itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
                                     itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
                     end
@@ -972,7 +969,7 @@ function LootFinder:Find()
                     for key, _ in pairs(LootFinder.stats) do
                         if itemtstats[key] then
                             LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
-                            link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                            link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0,
                                     itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
                                     itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
                             break
@@ -981,14 +978,14 @@ function LootFinder:Find()
                 else
                     LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
                     link, icon,
-                            itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                            itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0,
                             itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
                             itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
                 end
             elseif itemtype == "INVTYPE_FINGER" and LootFinder.slot == 12 then
                     local link = itemlink:gsub("%d+:%d+:::::","60:258::14:3:".. pvprank[LootFinder.pvptier] ..":"..(1272 + pvpilvl[LootFinder.pvptier]) .. ":6646:1:28:807:::")
 
-    
+
                     --add or not to lootlist
                     itemtstats = GetItemStats(link, itemtstats)
                     --if #LootFinder.stats > 0 then
@@ -998,10 +995,10 @@ function LootFinder:Find()
                             if  itemtstats[key] then
                                 count = count + 1
                             end
-                        end 
+                        end
                         if count >= 2 then
                             LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
-                            link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                            link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0,
                                         itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
                                         itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
                         end
@@ -1009,7 +1006,7 @@ function LootFinder:Find()
                         for key, _ in pairs(LootFinder.stats) do
                             if itemtstats[key] then
                                 LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
-                                link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                                link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0,
                                         itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
                                         itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
                                 break
@@ -1018,7 +1015,7 @@ function LootFinder:Find()
                     else
                         LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
                         link, icon,
-                                itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                                itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0,
                                 itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
                                 itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
                     end
@@ -1035,10 +1032,10 @@ function LootFinder:Find()
                         if  itemtstats[key] then
                             count = count + 1
                         end
-                    end 
+                    end
                     if count >= 2 then
                         LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
-                        link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                        link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0,
                                     itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
                                     itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
                     end
@@ -1046,7 +1043,7 @@ function LootFinder:Find()
                     for key, _ in pairs(LootFinder.stats) do
                         if itemtstats[key] then
                             LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
-                            link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                            link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0,
                                     itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
                                     itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
                             break
@@ -1055,7 +1052,7 @@ function LootFinder:Find()
                 else
                     LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
                     link, icon,
-                            itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                            itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0,
                             itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
                             itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
                 end
@@ -1072,10 +1069,10 @@ function LootFinder:Find()
                         if  itemtstats[key] then
                             count = count + 1
                         end
-                    end 
+                    end
                     if count >= 2 then
                         LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
-                        link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                        link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0,
                                     itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
                                     itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
                     end
@@ -1083,7 +1080,7 @@ function LootFinder:Find()
                     for key, _ in pairs(LootFinder.stats) do
                         if itemtstats[key] then
                             LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
-                            link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                            link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0,
                                     itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
                                     itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
                             break
@@ -1092,7 +1089,7 @@ function LootFinder:Find()
                 else
                     LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
                     link, icon,
-                            itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                            itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0,
                             itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
                             itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
                 end
@@ -1109,10 +1106,10 @@ function LootFinder:Find()
                         if  itemtstats[key] then
                             count = count + 1
                         end
-                    end 
+                    end
                     if count >= 2 then
                         LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
-                        link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                        link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0,
                                     itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
                                     itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
                     end
@@ -1120,7 +1117,7 @@ function LootFinder:Find()
                     for key, _ in pairs(LootFinder.stats) do
                         if itemtstats[key] then
                             LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
-                            link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                            link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0,
                                     itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
                                     itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
                             break
@@ -1129,7 +1126,7 @@ function LootFinder:Find()
                 else
                     LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
                     link, icon,
-                            itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                            itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0,
                             itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
                             itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
                 end
@@ -1147,10 +1144,10 @@ function LootFinder:Find()
                         if  itemtstats[key] then
                             count = count + 1
                         end
-                    end 
+                    end
                     if count >= 2 then
                         LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
-                        link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                        link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0,
                                     itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
                                     itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
                     end
@@ -1158,7 +1155,7 @@ function LootFinder:Find()
                     for key, _ in pairs(LootFinder.stats) do
                         if itemtstats[key] then
                             LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
-                            link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                            link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0,
                                     itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
                                     itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
                             break
@@ -1167,7 +1164,7 @@ function LootFinder:Find()
                 else
                     LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
                     link, icon,
-                            itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                            itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0,
                             itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
                             itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
                 end
@@ -1184,10 +1181,10 @@ function LootFinder:Find()
                         if  itemtstats[key] then
                             count = count + 1
                         end
-                    end 
+                    end
                     if count >= 2 then
                         LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
-                        link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                        link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0,
                                     itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
                                     itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
                     end
@@ -1195,7 +1192,7 @@ function LootFinder:Find()
                     for key, _ in pairs(LootFinder.stats) do
                         if itemtstats[key] then
                             LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
-                            link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                            link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0,
                                     itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
                                     itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
                             break
@@ -1204,7 +1201,7 @@ function LootFinder:Find()
                 else
                     LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
                     link, icon,
-                            itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                            itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0,
                             itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
                             itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
                 end
@@ -1227,7 +1224,7 @@ function LootFinder:Find()
                     end
                     if count >= 2 then
                         LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
-                        link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                        link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0,
                                     itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
                                     itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
                     end
@@ -1235,7 +1232,7 @@ function LootFinder:Find()
                     for key, _ in pairs(LootFinder.stats) do
                         if itemtstats[key] then
                             LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
-                            link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                            link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0,
                                     itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
                                     itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
                             break
@@ -1244,14 +1241,14 @@ function LootFinder:Find()
                 else
                     LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
                     link, icon,
-                            itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                            itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0,
                             itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
                             itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
                 end
 
             elseif classID == 2 and LootFinder.slot == 10 and (weapons[subclassID][LootFinder.spec] or (LootFinder.spec == 0 and weapons[subclassID][LootFinder.class])) then
                 local link = itemlink:gsub("%d+:%d+:::::","60:258::14:3:".. pvprank[LootFinder.pvptier] ..":"..(1272 + pvpilvl[LootFinder.pvptier]) .. ":6646:1:28:807:::")
-                
+
 
                 --add or not to lootlist
                 itemtstats = GetItemStats(link, itemtstats)
@@ -1267,7 +1264,7 @@ function LootFinder:Find()
                         end
                         if count >= 2 then
                             LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
-                            link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                            link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0,
                                         itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
                                         itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
                         end
@@ -1275,7 +1272,7 @@ function LootFinder:Find()
                         for key, _ in pairs(LootFinder.stats) do
                             if itemtstats[key] then
                                 LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
-                                link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                                link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0,
                                         itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
                                         itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
                                 break
@@ -1284,7 +1281,7 @@ function LootFinder:Find()
                     else
                         LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
                         link, icon,
-                                itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                                itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0,
                                 itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
                                 itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
                     end
@@ -1300,7 +1297,7 @@ function LootFinder:Find()
                                 end
                                 if count >= 2 then
                                     LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
-                                    link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                                    link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0,
                                                 itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
                                                 itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
                                 end
@@ -1308,7 +1305,7 @@ function LootFinder:Find()
                                 for key, _ in pairs(LootFinder.stats) do
                                     if itemtstats[key] then
                                         LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
-                                        link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                                        link, icon, itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0,
                                                 itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
                                                 itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
                                         break
@@ -1317,7 +1314,7 @@ function LootFinder:Find()
                             else
                                 LootFinder:AddResult("pvp", PLAYER_V_PLAYER, pvprating,
                                 link, icon,
-                                        itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0, 
+                                        itemtstats.ITEM_MOD_STRENGTH_SHORT or itemtstats.ITEM_MOD_AGILITY_SHORT or itemtstats.ITEM_MOD_INTELLECT_SHORT or 0,
                                         itemtstats.ITEM_MOD_CRIT_RATING_SHORT or 0, itemtstats.ITEM_MOD_HASTE_RATING_SHORT or 0,
                                         itemtstats.ITEM_MOD_MASTERY_RATING_SHORT or 0, itemtstats.ITEM_MOD_VERSATILITY or 0)
                             end

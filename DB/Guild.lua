@@ -1,4 +1,4 @@
-local GuildDB = WeekKeys.DB:New({})
+local GuildDB = WeekKeys.DB:New()
 
 function GuildDB:pairs()
 

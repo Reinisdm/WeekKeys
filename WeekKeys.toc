@@ -1,7 +1,7 @@
 ## Interface: 90105
 ## Title: WeekKeys
 ## Author: Reinisdm
-## Version: 138
+## Version: 140
 ## Notes: Lists your keystones.
 ## SavedVariables: WeekKeysDB
 

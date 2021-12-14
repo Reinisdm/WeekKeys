@@ -41,7 +41,7 @@ function MycharDB:CurrentChar()
     -- if char not exist in db
     if UnitLevel("player") == 60 then
         self.db[#self.db + 1] = {} -- create new char
-        player = self.db[#self.db] -- get current char
+        local player = self.db[#self.db] -- get current char
         player.name = name
         player.realm = realm
         return player

@@ -6,9 +6,10 @@ end
 local L = WeekKeys.L
 local buttons = {}
 local updateFrame = CreateFrame("frame")
+local mycharsDB = WeekKeys.MyChars
 
 local function update()
-    for i, char in WeekKeys.Iterators.FormatPlayerList(WeekKeysDB.Characters,true) do
+    for i, char in mycharsDB:pairs() do
 
         if not buttons[i] then -- create if button does not exist
             buttons[i] = WeekKeys.UI.FactionCovenantButton(nil,buttons[#buttons] or elements[1])

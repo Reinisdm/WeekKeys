@@ -64,22 +64,7 @@ local gear_type = {
     [12] = 2
 }
 
-local slotids = {
-    [0] = "INVTYPE_HEAD",
-    [1] = "INVTYPE_NECK",
-    [2] = "INVTYPE_SHOULDER",
-    [3] = "INVTYPE_CLOAK",
-    [4] = "INVTYPE_CHEST",
-    [5] = "INVTYPE_WRIST",
-    [6] = "INVTYPE_HAND",
-    [7] = "INVTYPE_WAIST",
-    [8] = "INVTYPE_LEGS",
-    [9] = "INVTYPE_FEET",
-    [10] = "INVTYPE_WEAPON",-- need weapon wear table
-    [11] = "INVTYPE_HOLDABLEs",-- shields/ off hands
-    [12] = "INVTYPE_FINGER",
-    [13] = "INVTYPE_TRINKET"
-}
+
 --[[
     GetMerchantNumItems()
     link = GetMerchantItemLink(index);
@@ -102,6 +87,22 @@ local slotids = {
 
 }
 ]]
+local slotids = {
+    [0] = "INVTYPE_HEAD",
+    [1] = "INVTYPE_NECK",
+    [2] = "INVTYPE_SHOULDER",
+    [3] = "INVTYPE_CLOAK",
+    [4] = "INVTYPE_CHEST",
+    [5] = "INVTYPE_WRIST",
+    [6] = "INVTYPE_HAND",
+    [7] = "INVTYPE_WAIST",
+    [8] = "INVTYPE_LEGS",
+    [9] = "INVTYPE_FEET",
+    [10] = "INVTYPE_WEAPON",-- need weapon wear table
+    [11] = "INVTYPE_HOLDABLEs",-- shields/ off hands
+    [12] = "INVTYPE_FINGER",
+    [13] = "INVTYPE_TRINKET"
+}
 --[[
 local spec_main_atr = {
 

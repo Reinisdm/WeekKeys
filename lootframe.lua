@@ -8,7 +8,7 @@ local fav_mode = false
 local sort = nil
 
 local lootfinder = LF:New({},'WeekKeysDB')
-llll = lootfinder
+
 local function update()
     for i = #loot_btns, #lootfinder.results do
         local btn = WeekKeys.UI.LootFinderButton(nil, arrayOfElements[1])
@@ -158,7 +158,7 @@ local function createspeclist(btn)
 
             btn.texture:SetTexture(self.texture:GetTexture())
             back:Hide()
-            
+
             lootfinder:SetSpec(self:GetID())
             lootfinder:Search()
 

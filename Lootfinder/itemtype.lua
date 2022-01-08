@@ -303,106 +303,129 @@ local weapons = {
     --[20] = {}, -- fishing poles
 }
 
-function LF:IsNeck(itemType, selectedSlot)
-    if itemType == "INVTYPE_NECK" and selectedSlot == 1 then
+-----------------------------------------------------------------------
+
+function LF:INVTYPE_HEAD(subclass)
+    if self.slotid == 0 and subclass == gear_type[self.class] then
         return true
     end
     return false
 end
 
-function LF:IsRing(itemType, selectedSlot)
-    if itemType == "INVTYPE_FINGER" and selectedSlot == 12 then
+function LF:INVTYPE_NECK()
+    if self.slotid == 1 then
         return true
     end
     return false
 end
 
-function LF:IsTrinket(itemType, selectedSlot)
-    if itemType == "INVTYPE_TRINKET" and selectedSlot == 13 then
+function LF:INVTYPE_SHOULDER(subclass)
+    if self.slotid == 2 and subclass == gear_type[self.class] then
         return true
     end
     return false
 end
 
-function LF:IsShield(itemType, selectedSlot, class, specialization)
-    if itemType == "INVTYPE_SHIELD" and selectedSlot == 11 and (shields[specialization] or (specialization == 0 and shields[class])) then
+function LF:INVTYPE_CLOAK()
+    if self.slotid == 3 then
         return true
     end
     return false
 end
 
-function LF:IsOffHand(itemType, selectedSlot, class, specialization)
-    if itemType == "INVTYPE_HOLDABLE" and selectedSlot == 11 and (offhand[specialization] or (specialization == 0 and offhand[class])) then
+function LF:INVTYPE_CHEST(subclass)
+    if self.slotid == 4 and subclass == gear_type[self.class] then
         return true
     end
     return false
 end
 
-function LF:IsChest(itemType, selectedSlot, class, _, subclass)
-    if (itemType == "INVTYPE_CHEST" or itemType == "INVTYPE_ROBE") and selectedSlot == 4 and subclass == gear_type[class] then
+function LF:INVTYPE_ROBE(subclass)
+    if self.slotid == 4 and subclass == gear_type[self.class] then
         return true
     end
     return false
 end
 
-function LF:IsBack(itemType, selectedSlot)
-    if itemType == "INVTYPE_CLOAK" and selectedSlot == 3 then
+function LF:INVTYPE_WRIST(subclass)
+    if self.slotid == 5 and subclass == gear_type[self.class] then
         return true
     end
     return false
 end
 
-function LF:IsHead(itemType, selectedSlot, class, _, subclass)
-    if (itemType == "INVTYPE_CHEST" or itemType == "INVTYPE_ROBE") and selectedSlot == 4 and subclass == gear_type[class] then
+function LF:INVTYPE_HAND(subclass)
+    if self.slotid == 6 and subclass == gear_type[self.class] then
         return true
     end
     return false
 end
 
-function LF:IsShoulder(itemType, selectedSlot, class, _, subclass)
-    if itemType == "INVTYPE_SHOULDER" and selectedSlot == 2 and subclass == gear_type[class] then
+function LF:INVTYPE_WAIST(subclass)
+    if self.slotid == 7 and subclass == gear_type[self.class] then
         return true
     end
     return false
 end
 
-function LF:IsWrist(itemType, selectedSlot, class, _, subclass)
-    if itemType == "INVTYPE_WRIST" and selectedSlot == 4 and subclass == gear_type[class] then
+function LF:INVTYPE_LEGS(subclass)
+    if self.slotid == 8 and subclass == gear_type[self.class] then
         return true
     end
     return false
 end
 
-function LF:IsHands(itemType, selectedSlot, class, _, subclass)
-    if itemType == "INVTYPE_HAND" and selectedSlot == 6 and subclass == gear_type[class] then
+function LF:INVTYPE_FEET(subclass)
+    if self.slotid == 9 and subclass == gear_type[self.class] then
         return true
     end
     return false
 end
 
-function LF:IsWaist(itemType, selectedSlot, class, _, subclass)
-    if itemType == "INVTYPE_WAIST" and selectedSlot == 7 and subclass == gear_type[class] then
+function LF:INVTYPE_WEAPON(subclass)
+    if self.slotid == 10 and (weapons[subclass][self.spec] or (self.spec == 0 and weapons[subclass][self.class]))  then
         return true
     end
     return false
 end
 
-function LF:IsLegs(itemType, selectedSlot, class, _, subclass)
-    if itemType == "INVTYPE_LEGS" and selectedSlot == 8 and subclass == gear_type[class] then
+function LF:INVTYPE_2HWEAPON(subclass)
+    if self.slotid == 10 and (weapons[subclass][self.spec] or (self.spec == 0 and weapons[subclass][self.class]))  then
         return true
     end
     return false
 end
 
-function LF:IsBoots(itemType, selectedSlot, class, _, subclass)
-    if itemType == "INVTYPE_FEET" and selectedSlot == 9 and subclass == gear_type[class] then
+function LF:INVTYPE_RANGED(subclass)
+    if self.slotid == 10 and (weapons[subclass][self.spec] or (self.spec == 0 and weapons[subclass][self.class]))  then
         return true
     end
     return false
 end
 
-function LF:IsMainHand(itemType, selectedSlot, class, specialization, subclass)
-    if itemType == "INVTYPE_WEAPON" and selectedSlot == 10 and (weapons[subclass][specialization] or (specialization == 0 and weapons[subclass][class]))  then
+function LF:INVTYPE_SHIELD()
+    if self.slotid == 11 and (shields[self.spec] or (self.spec == 0 and shields[self.class])) then
+        return true
+    end
+    return false
+end
+
+function LF:INVTYPE_HOLDABLE()
+    if self.slotid == 11 and (offhand[self.spec] or (self.spec == 0 and offhand[self.class])) then
+        return true
+    end
+    return false
+end
+
+function LF:INVTYPE_FINGER()
+    if self.slotid == 12 then
+        return true
+    end
+    return false
+end
+
+function LF:INVTYPE_TRINKET()
+    if self.slotid == 13 then
         return true
     end
     return false

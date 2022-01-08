@@ -67,30 +67,3 @@ function Iterators.FormatPlayerList(list,writeRealm)
         return i, formatted
     end
 end
-
-
---- 'for' loop iterator loops LootList
----@return function iterator loop iterator
-function Iterators.LootList()
-    if #LootFinder.loot_list == 0 then return function() end end
-    local index = 0
-    --- iterator
-    ---@return integer index position in LootList table
-    ---@return string source instance/raid
-    ---@return string name dungeon name
-    ---@return string boss boss name
-    ---@return string itemlink modified itemlink
-    ---@return integer icon  items iconID
-    ---@return integer mainatr str/agi/int value
-    ---@return integer crit crit value
-    ---@return integer haste haste value
-    ---@return integer mastery mastery value
-    ---@return integer versality versality value
-    return function()
-        index = index + 1
-        local tbl = LootFinder.loot_list[index]
-        if not tbl then return end
-        --index, name, boss, itemlink, icon, mainstat, crit, haste, mastery, versality
-        return index, tbl.source, tbl.name, tbl.boss, tbl.itemlink, tbl.icon, tbl.mainstat, tbl.crit, tbl.haste, tbl.mastery, tbl.versality
-    end
-end

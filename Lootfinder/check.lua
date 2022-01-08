@@ -1,6 +1,5 @@
 local stats = {}
 
-
 local function tsize(tbl)
     local count = 0
     for _, _ in pairs(tbl) do
@@ -10,6 +9,8 @@ local function tsize(tbl)
 end
 
 function LF:FilterCheck(itemlink)
+    if not itemlink then return end
+
     table.wipe(stats)
 
     GetItemStats(itemlink, stats)
@@ -41,6 +42,13 @@ function LF:FilterCheck(itemlink)
             return false
         end
     end
+
+    local _, _, _, _, _, _, _, _, itemEquipLoc, _, _, _, subclassID = GetItemInfo(itemlink)
+
+    if not self[itemEquipLoc](self,subclassID) and self.slotid < 15 then
+        return false
+    end
+
 
     return true
 end

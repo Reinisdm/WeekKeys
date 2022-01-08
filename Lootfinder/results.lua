@@ -1,5 +1,17 @@
 
 --LootFinder:AddResult()
+function LF:Search()
+    self.results = {}
+    EJ_SetDifficulty(self.raid_difficult)
+
+    EJ_SetLootFilter(self.class,self.spec)
+    --C_EncounterJournal.SetSlotFilter(self.slot)
+
+    self:MPlusSearch()
+    self:RaidSearch()
+    self:PvPSearch()
+end
+
 local statTable = {}
 function LF:AddResult(source, name, boss, itemlink)
     local icon = select(5, GetItemInfoInstant(itemlink))

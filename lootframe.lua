@@ -4,55 +4,100 @@ local WeekFrame = WeekKeys.WeekFrame
 
 local loot_btns = {}
 local hide_frames = {}
-local mlevel = 15
-local wchest = true
+local fav_mode = false
+local sort = nil
 
+local lootfinder = LF:New({},'WeekKeysDB')
+llll = lootfinder
 local function update()
-    for i = #loot_btns, #LootFinder.loot_list do
+    for i = #loot_btns, #lootfinder.results do
         local btn = WeekKeys.UI.LootFinderButton(nil, arrayOfElements[1])
+        btn.LF = lootfinder
         loot_btns[#loot_btns + 1] = btn
         btn:SetSize(592,20)
         btn:SetID(i + 1)
         btn:SetPoint("TOPLEFT",4,-(i)*20)
-        btn:SetScript("OnClick",function(self) 
-            local item = LootFinder.loot_list[self:GetID()]
-            if IsShiftKeyDown() then
-                local index = 0
-                if LootFinder.spec > 0 then
-                    index = LootFinder.spec
-                else
-                    index = LootFinder.class
-                end
-                LootFinder.loot_list = WeekKeysDB.FavLoot[index] or LootFinder.loot_list
-                LootFinder:Find()
-                update()
-            else
-                LootFinder.Favorite(item)  
-                LootFinder:Find()
-                update() 
-            end
-                 
+        btn:SetScript("OnClick",function(self)
+            local item = lootfinder.results[self:GetID()]
+
+            lootfinder:Favorite(item)
+            update()
         end)
     end
     for i = 1, #loot_btns do -- hide all buttons
         loot_btns[i]:Hide()
     end
-    for index, source, name, boss, itemlink, icon, mainstat, crit, haste, mastery, versality in WeekKeys.Iterators.LootList() do
-        local btn = loot_btns[index]
-        btn.boss = boss
-        btn.dung = name
-        btn:SetFavorite(itemlink)
-        btn:SetSource(source)
-        btn:SetIcon(icon)
-        btn:SetDungeon(name)
-        btn.link = itemlink
-        btn:SetMainAtr(mainstat)
-        btn:SetCrit(crit)
-        btn:SetHaste(haste)
-        btn:SetMastery(mastery)
-        btn:SetVersality(versality)
-        btn:Show()
+    if fav_mode then
+        if not WeekKeysDB.FavLoot then return end
+        local db
+        if lootfinder.spec > 0 then
+            db = WeekKeysDB.FavLoot[lootfinder.spec] or {}
+        elseif lootfinder.class > 0 then
+            db = {}
+            if WeekKeysDB.FavLoot[lootfinder.class] then
+                for _, value in pairs(WeekKeysDB.FavLoot[lootfinder.class]) do
+                    db[#db + 1] = value
+                end
+            end
+            for _, specID in pairs(LF.tables.class_spec[lootfinder.class]) do
+                if WeekKeysDB.FavLoot[specID] then
+                    for _, value in pairs(WeekKeysDB.FavLoot[specID]) do
+                        db[#db + 1] = value
+                    end
+                end
+            end
+        else
+            LootFinder.loot_list = {}
+        end
+
+        if sort then
+            table.sort(db,function (a,b)
+                return a[sort] > b[sort]
+            end)
+        end
+
+        for index, loot in ipairs(db) do
+            local btn = loot_btns[index]
+            btn.boss = loot.boss
+            btn.dung = loot.name
+            btn:SetFavorite(loot.itemlink,"WeekKeysDB")
+            btn:SetSource(loot.source)
+            btn:SetIcon(loot.icon)
+            btn:SetDungeon(loot.name)
+            btn.link = loot.itemlink
+            btn:SetMainAtr(loot.mainstat)
+            btn:SetCrit(loot.crit)
+            btn:SetHaste(loot.haste)
+            btn:SetMastery(loot.mastery)
+            btn:SetVersality(loot.versality)
+            btn:Show()
+        end
+    else
+
+        if sort then
+            table.sort(lootfinder.results,function (a,b)
+                return a[sort] > b[sort]
+            end)
+        end
+
+        for index, loot in ipairs(lootfinder.results) do
+            local btn = loot_btns[index]
+            btn.boss = loot.boss
+            btn.dung = loot.name
+            btn:SetFavorite(loot.itemlink,"WeekKeysDB")
+            btn:SetSource(loot.source)
+            btn:SetIcon(loot.icon)
+            btn:SetDungeon(loot.name)
+            btn.link = loot.itemlink
+            btn:SetMainAtr(loot.mainstat)
+            btn:SetCrit(loot.crit)
+            btn:SetHaste(loot.haste)
+            btn:SetMastery(loot.mastery)
+            btn:SetVersality(loot.versality)
+            btn:Show()
+        end
     end
+
 end
 --- Function to create frame with class icons
 ---@param btn Frame @frame/button to anchor
@@ -75,15 +120,18 @@ local function createmyclasslist(btn)
         button.texture:SetTexCoord(unpack(coords))
 
         button:SetScript("onclick",function(self)
-            LootFinder.class = self:GetID()
-            LootFinder.spec = 0
+
             -- specrefresh()
             btn.texture:SetTexture(self.texture:GetTexture())
             local _, class, _ = GetClassInfo(self:GetID())
             local coords = CLASS_ICON_TCOORDS[class]
             btn.texture:SetTexCoord(unpack(coords))
             back:Hide()
-            LootFinder:Find()
+
+            lootfinder:SetClass(self:GetID())
+            lootfinder:Search()
+
+            update()
         end)
     end
     hide_frames[#hide_frames + 1] = back
@@ -107,19 +155,23 @@ local function createspeclist(btn)
         button:SetPoint("TOPLEFT",(i-1)%3*btnsize+2,-1*math.floor((i-1)/3)*btnsize-2)
         button:SetSize(btnsize,btnsize)
         button:SetScript("OnClick",function(self)
-            LootFinder.spec = self:GetID()
+
             btn.texture:SetTexture(self.texture:GetTexture())
             back:Hide()
-            LootFinder:Find()
+            
+            lootfinder:SetSpec(self:GetID())
+            lootfinder:Search()
+
+            update()
         end)
         spec_btn_list[i] = button
     end
 
     back:SetScript("OnShow",function(self)
-        if not LootFinder.class_spec[LootFinder.class] then return self:Hide() end
-        local len = #LootFinder.class_spec[LootFinder.class]
+        if not LF.tables.class_spec[lootfinder.class] then return self:Hide() end
+        local len = #LF.tables.class_spec[lootfinder.class]
         --if len == 0 then self:Hide() return end -- hide if no class choosen
-        local spec_ids = LootFinder.class_spec[LootFinder.class]
+        local spec_ids = LF.tables.class_spec[lootfinder.class]
         if len == 2 then back:SetSize(btnsize * 3 + 10, btnsize * 1 + 10) else back:SetSize(btnsize * 3 + 10, btnsize * 2 + 10) end
         for i = 1, len do
            local _, _, _, icon, _, _ = GetSpecializationInfoByID(spec_ids[i])
@@ -152,17 +204,21 @@ local function createslotlist(btn)
     local icons = {133070,133292,135061,133771,132751,132616,132939,132511,134584,132535,135317,134959,801523,133441,QUESTION_MARK_ICON}
     local slots = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,15}
 
-    for i = 1, #icons do 
+    for i = 1, #icons do
         local button = WeekKeys.UI.Button(nil, back)
         button:SetPoint("TOPLEFT",(i-1)%4*btnsize+10,-1*math.floor((i-1)/4)*btnsize-10)
         button:SetSize(btnsize,btnsize)
         button.texture:SetTexture(icons[i])
         button:SetID(slots[i])
         button:SetScript("OnClick",function(self)
-            LootFinder.slot = self:GetID()
+
             btn.texture:SetTexture(self.texture:GetTexture())
             back:Hide()
-            LootFinder:Find()
+
+            lootfinder:SetSlot(self:GetID())
+            lootfinder:Search()
+
+            update()
         end)
     end
     hide_frames[#hide_frames + 1] = back
@@ -182,9 +238,9 @@ local function createinstancelist(btn)
     back:SetSize(btnsize * 4 + 20, btnsize * 4 + 20)
 
     local i = 1
-    EJ_SelectTier(LootFinder.expansion)
+    EJ_SelectTier(EJ_GetNumTiers())
     while EJ_GetInstanceByIndex(i, false) ~= nil do
-        LootFinder.instances[i] = true
+
         local _, name, _, _, _, _, buttonImage2 = EJ_GetInstanceByIndex(i, false)
         local button = WeekKeys.UI.Button(nil, back)
         button.name = name
@@ -196,10 +252,10 @@ local function createinstancelist(btn)
 
         function button:enable(bool)
             if bool then
-                LootFinder.instances[self:GetID()] = true
+                lootfinder.instances[self:GetID()] = true
                 self.texture:SetAlpha(1)
             else
-                LootFinder.instances[self:GetID()] = false
+                lootfinder.instances[self:GetID()] = false
                 self.texture:SetAlpha(0.3)
             end
             self.find = bool
@@ -207,7 +263,8 @@ local function createinstancelist(btn)
 
         button:SetScript("OnClick",function(self)
             self:enable(not self.find)
-            LootFinder:Find()
+            lootfinder:Search()
+            update()
         end)
 
         button:SetScript("OnEnter",function(self)
@@ -242,9 +299,9 @@ local function createraidlist(btn)
     back:SetSize(btnsize * 4 + 20, 150)
 
     local i = 1
-    EJ_SelectTier(LootFinder.expansion)
+    EJ_SelectTier(EJ_GetNumTiers())
     while EJ_GetInstanceByIndex(i, true) ~= nil do
-        LootFinder.raids[i] = true
+        lootfinder.raids[i] = true
         local _, name, _, _, _, _, buttonImage2 = EJ_GetInstanceByIndex(i, true)
         local button = WeekKeys.UI.Button(nil, back)
         button.name = name
@@ -257,10 +314,10 @@ local function createraidlist(btn)
 
         function button:enable(bool)
             if bool then
-                LootFinder.raids[self:GetID()] = true
+                lootfinder.raids[self:GetID()] = true
                 self.texture:SetAlpha(1)
             else
-                LootFinder.raids[self:GetID()] = false
+                lootfinder.raids[self:GetID()] = false
                 self.texture:SetAlpha(0.3)
             end
             self.find = bool
@@ -268,7 +325,10 @@ local function createraidlist(btn)
 
         button:SetScript("OnClick",function(self)
             self:enable(not self.find)
-            LootFinder:Find()
+
+            lootfinder:Search()
+
+            update()
         end)
 
         button:SetScript("OnEnter",function(self)
@@ -306,9 +366,11 @@ local function createraidlist(btn)
                 _G["WeekKeys_RaidChoose"..j]:SetChecked(false)
             end
             self:SetChecked(true)
-            LootFinder.raid_difficult = self.val
 
-            LootFinder:Find()
+            lootfinder.raid_difficult = self.val
+            lootfinder:Search()
+
+            update()
         end)
     end
     table.wipe(diff_names)
@@ -339,9 +401,10 @@ local function createpvplist(btn)
             _G["WeekKeys_PvPChoose"..j]:SetChecked(false)
         end
         self:SetChecked(true)
-        LootFinder.pvptier = self.val
+        lootfinder.pvptier = self.val
+        lootfinder:Search()
 
-        LootFinder:Find()
+        update()
     end)
     local rating = {
         "0-1399",
@@ -361,9 +424,11 @@ local function createpvplist(btn)
                 _G["WeekKeys_PvPChoose"..j]:SetChecked(false)
             end
             self:SetChecked(true)
-            LootFinder.pvptier = self.val
 
-            LootFinder:Find()
+            lootfinder.pvptier = self.val
+            lootfinder:Search()
+
+            update()
         end)
     end
     hide_frames[#hide_frames + 1] = back
@@ -405,13 +470,16 @@ local function createmlevel(btn)
             local chest, key = C_MythicPlus.GetRewardLevelForDifficultyLevel(max(1,id))
 
             if wchest then
-                LootFinder.milvl = chest
+                lootfinder.milvl = chest
             else
-                LootFinder.milvl = key
+                lootfinder.milvl = key
             end
-            LootFinder.mlevel = id
-            btn:SetText(LootFinder.mlevel .. (wchest and "|Tinterface/worldmap/treasurechest_64.blp:20:20|t" or ""))
-            LootFinder:Find()
+            lootfinder.mlevel = id
+            btn:SetText(lootfinder.mlevel .. (wchest and "|Tinterface/worldmap/treasurechest_64.blp:20:20|t" or ""))
+
+            lootfinder:Search()
+
+            update()
         end)
 
     end
@@ -424,13 +492,16 @@ local function createmlevel(btn)
         local chest, key = C_MythicPlus.GetRewardLevelForDifficultyLevel(max(1,mlevel))
 
         if checked == true then
-            LootFinder.milvl = chest
+            lootfinder.milvl = chest
         else
-            LootFinder.milvl = key
+            lootfinder.milvl = key
         end
         wchest = checked
-        btn:SetText(LootFinder.mlevel .. (wchest and "|Tinterface/worldmap/treasurechest_64.blp:20:20|t" or ""))
-        LootFinder:Find()
+        btn:SetText(lootfinder.mlevel .. (wchest and "|Tinterface/worldmap/treasurechest_64.blp:20:20|t" or ""))
+
+        lootfinder:Search()
+
+        update()
     end);
     hide_frames[#hide_frames + 1] = back
 
@@ -472,11 +543,14 @@ local function createfilters(btn)
         checkbtn:SetScript("OnClick",function(self)
             local checked = self:GetChecked()
             if checked == true then
-                LootFinder.stats[self.val] = true
+                lootfinder.selectedstats[self.val] = true
             else
-                LootFinder.stats[self.val] = nil
+                lootfinder.selectedstats[self.val] = nil
             end
-            LootFinder:Find()
+
+            lootfinder:Search()
+
+            update()
         end)
     end
     hide_frames[#hide_frames + 1] = back
@@ -780,7 +854,7 @@ WeekKeys.AddInit(function()
     local fontstr = label:GetFontString()
     label:SetFontString(fontstr)
     fontstr:SetSize(200,20)
-    label:SetScript("OnClick", function() LootFinder.SortBy("name") update() end)
+    label:SetScript("OnClick", function() sort = "name" update() end)
     arrayOfElements[#arrayOfElements + 1] = label
 
 
@@ -798,14 +872,14 @@ WeekKeys.AddInit(function()
     fav.texture:SetTexture('Interface/AuctionFrame/AuctionHouse.blp')
     fav.texture:SetTexCoord(0.9580078125,0.9833984375,0.591796875,0.642578125)
     fav:SetScript("OnClick",function(self)
-        if LootFinder.FavLoot then
+        if fav_mode then
             self.texture:SetTexCoord(0.9580078125,0.9833984375,0.591796875,0.642578125)
-            LootFinder.FavLoot = not LootFinder.FavLoot
+            fav_mode = not fav_mode
         else
             self.texture:SetTexCoord(0.9306640625,0.9560546875,0.591796875,0.642578125)
-            LootFinder.FavLoot = not LootFinder.FavLoot
+            fav_mode = not fav_mode
         end
-        LootFinder:Find()
+
         update()
     end)
 
@@ -830,7 +904,10 @@ WeekKeys.AddInit(function()
     fontstr = label:GetFontString()
     label:SetFontString(fontstr)
     fontstr:SetSize(70,20)
-    label:SetScript("OnClick", function() LootFinder.SortBy("mainstat") update() end)
+    label:SetScript("OnClick", function()
+        sort = "mainstat"
+        update()
+    end)
     arrayOfElements[#arrayOfElements + 1] = label
 
     label = WeekKeys.UI.Button(nil, WeekKeys.WeekFrame)
@@ -841,7 +918,10 @@ WeekKeys.AddInit(function()
     fontstr = label:GetFontString()
     label:SetFontString(fontstr)
     fontstr:SetSize(70,20)
-    label:SetScript("OnClick", function() LootFinder.SortBy("crit") update() end)
+    label:SetScript("OnClick", function()
+        sort = "crit"
+        update()
+    end)
     arrayOfElements[#arrayOfElements + 1] = label
 
     label = WeekKeys.UI.Button(nil, WeekKeys.WeekFrame)
@@ -852,7 +932,7 @@ WeekKeys.AddInit(function()
     fontstr = label:GetFontString()
     label:SetFontString(fontstr)
     fontstr:SetSize(70,20)
-    label:SetScript("OnClick", function() LootFinder.SortBy("haste") update() end)
+    label:SetScript("OnClick", function() sort = "haste" update() end)
     arrayOfElements[#arrayOfElements + 1] = label
 
     label = WeekKeys.UI.Button(nil, WeekKeys.WeekFrame)
@@ -863,7 +943,7 @@ WeekKeys.AddInit(function()
     fontstr = label:GetFontString()
     label:SetFontString(fontstr)
     fontstr:SetSize(70,20)
-    label:SetScript("OnClick", function() LootFinder.SortBy("mastery") update() end)
+    label:SetScript("OnClick", function() sort = "mastery" update() end)
     arrayOfElements[#arrayOfElements + 1] = label
 
     label = WeekKeys.UI.Button(nil, WeekKeys.WeekFrame)
@@ -874,11 +954,8 @@ WeekKeys.AddInit(function()
     label:SetFontString(fontstr)
     fontstr:SetSize(70,20)
     label:Hide()
-    label:SetScript("OnClick", function() LootFinder.SortBy("versality") update() end)
+    label:SetScript("OnClick", function() sort = "versality" update() end)
     arrayOfElements[#arrayOfElements + 1] = label
-
-    -- result printing
-    hooksecurefunc(LootFinder, "Find",update)
 
     WeekKeys.AddButton(L["lootfinder"],arrayOfElements)
 end)

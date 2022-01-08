@@ -73,13 +73,15 @@ local masteryval = {
 	[581] = 14  -- vengeance
 
 }
+
+local LootFinder = LF:New()
 local function update(db, callback)
 --icon, name, tooltip
     for i = #btns, #db do
         btns[#btns + 1] = WeekKeys.UI.IconNameButton(nil, btns[#btns] or elements[1])
     end
     for i = 1, #btns do
-        btn = btns[i]
+        local btn = btns[i]
         if db[i] then
             btn:SetName(db[i].name)
             btn:SetIcon(db[i].icon,db[i].coords)
@@ -185,7 +187,7 @@ function()
     btn:SetScript("OnClick",function()
         local callback = function(self)
             local id = self:GetID()
-            local item = LootFinder.loot_list[id]
+            local item = LootFinder.results[id]
             btn.texture:SetTexture(item.icon or QUESTION_MARK_ICON)
             btn.link = item.itemlink
             slots[1] = item.itemlink
@@ -195,10 +197,10 @@ function()
         LootFinder.spec = spec_btn:GetID()
         LootFinder.milvl = C_MythicPlus.GetRewardLevelForDifficultyLevel(15)
         LootFinder.mlevel = 15
-        LootFinder.slot = 0
-        LootFinder:Find()
+        LootFinder.slotid = 0
+        LootFinder:Search()
 
-        update(LootFinder.loot_list,callback)
+        update(LootFinder.results,callback)
     end)
     add(btn)
 
@@ -222,7 +224,7 @@ function()
     btn:SetScript("OnClick",function()
         local callback = function(self)
             local id = self:GetID()
-            local item = LootFinder.loot_list[id]
+            local item = LootFinder.results[id]
             btn.texture:SetTexture(item.icon or QUESTION_MARK_ICON)
             btn.link = item.itemlink
             slots[2] = item.itemlink
@@ -230,10 +232,10 @@ function()
         end
         LootFinder.class = class_btn:GetID()
         LootFinder.spec = spec_btn:GetID()
-        LootFinder.slot = 1
-        LootFinder:Find()
+        LootFinder.slotid = 1
+        LootFinder:Search()
 
-        update(LootFinder.loot_list,callback)
+        update(LootFinder.results,callback)
     end)
     add(btn)
 
@@ -257,7 +259,7 @@ function()
     btn:SetScript("OnClick",function()
         local callback = function(self)
             local id = self:GetID()
-            local item = LootFinder.loot_list[id]
+            local item = LootFinder.results[id]
             btn.texture:SetTexture(item.icon or QUESTION_MARK_ICON)
             btn.link = item.itemlink
             slots[3] = item.itemlink
@@ -265,10 +267,10 @@ function()
         end
         LootFinder.class = class_btn:GetID()
         LootFinder.spec = spec_btn:GetID()
-        LootFinder.slot = 2
-        LootFinder:Find()
+        LootFinder.slotid = 2
+        LootFinder:Search()
 
-        update(LootFinder.loot_list,callback)
+        update(LootFinder.results,callback)
     end)
     add(btn)
 
@@ -292,7 +294,7 @@ function()
     btn:SetScript("OnClick",function()
         local callback = function(self)
             local id = self:GetID()
-            local item = LootFinder.loot_list[id]
+            local item = LootFinder.results[id]
             btn.texture:SetTexture(item.icon or QUESTION_MARK_ICON)
             btn.link = item.itemlink
             slots[4] = item.itemlink
@@ -300,10 +302,10 @@ function()
         end
         LootFinder.class = class_btn:GetID()
         LootFinder.spec = spec_btn:GetID()
-        LootFinder.slot = 3
-        LootFinder:Find()
+        LootFinder.slotid = 3
+        LootFinder:Search()
 
-        update(LootFinder.loot_list,callback)
+        update(LootFinder.results,callback)
     end)
     add(btn)
 
@@ -327,7 +329,7 @@ function()
     btn:SetScript("OnClick",function()
         local callback = function(self)
             local id = self:GetID()
-            local item = LootFinder.loot_list[id]
+            local item = LootFinder.results[id]
             btn.texture:SetTexture(item.icon or QUESTION_MARK_ICON)
             btn.link = item.itemlink
             slots[5] = item.itemlink
@@ -335,11 +337,11 @@ function()
         end
         LootFinder.class = class_btn:GetID()
         LootFinder.spec = spec_btn:GetID()
-        LootFinder.slot = 4
-        LootFinder:Find()
+        LootFinder.slotid = 4
+        LootFinder:Search()
         --local slots = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,15}
         -- head neck shoulders back chest wrist hands waist legs boots main off ring trinket
-        update(LootFinder.loot_list,callback)
+        update(LootFinder.results,callback)
     end)
     add(btn)
 
@@ -363,7 +365,7 @@ function()
     btn:SetScript("OnClick",function()
         local callback = function(self)
             local id = self:GetID()
-            local item = LootFinder.loot_list[id]
+            local item = LootFinder.results[id]
             btn.texture:SetTexture(item.icon or QUESTION_MARK_ICON)
             btn.link = item.itemlink
             slots[6] = item.itemlink
@@ -371,10 +373,10 @@ function()
         end
         LootFinder.class = class_btn:GetID()
         LootFinder.spec = spec_btn:GetID()
-        LootFinder.slot = 5
-        LootFinder:Find()
+        LootFinder.slotid = 5
+        LootFinder:Search()
 
-        update(LootFinder.loot_list,callback)
+        update(LootFinder.results,callback)
     end)
     add(btn)
 
@@ -398,7 +400,7 @@ function()
     btn:SetScript("OnClick",function()
         local callback = function(self)
             local id = self:GetID()
-            local item = LootFinder.loot_list[id]
+            local item = LootFinder.results[id]
             btn.texture:SetTexture(item.icon or QUESTION_MARK_ICON)
             btn.link = item.itemlink
             slots[7] = item.itemlink
@@ -406,10 +408,10 @@ function()
         end
         LootFinder.class = class_btn:GetID()
         LootFinder.spec = spec_btn:GetID()
-        LootFinder.slot = 6
-        LootFinder:Find()
+        LootFinder.slotid = 6
+        LootFinder:Search()
 
-        update(LootFinder.loot_list,callback)
+        update(LootFinder.results,callback)
     end)
     add(btn)
 
@@ -433,7 +435,7 @@ function()
     btn:SetScript("OnClick",function()
         local callback = function(self)
             local id = self:GetID()
-            local item = LootFinder.loot_list[id]
+            local item = LootFinder.results[id]
             btn.texture:SetTexture(item.icon or QUESTION_MARK_ICON)
             btn.link = item.itemlink
             slots[8] = item.itemlink
@@ -441,10 +443,10 @@ function()
         end
         LootFinder.class = class_btn:GetID()
         LootFinder.spec = spec_btn:GetID()
-        LootFinder.slot = 7
-        LootFinder:Find()
+        LootFinder.slotid = 7
+        LootFinder:Search()
 
-        update(LootFinder.loot_list,callback)
+        update(LootFinder.results,callback)
     end)
     add(btn)
 
@@ -468,7 +470,7 @@ function()
     btn:SetScript("OnClick",function()
         local callback = function(self)
             local id = self:GetID()
-            local item = LootFinder.loot_list[id]
+            local item = LootFinder.results[id]
             btn.texture:SetTexture(item.icon or QUESTION_MARK_ICON)
             btn.link = item.itemlink
             slots[9] = item.itemlink
@@ -476,10 +478,10 @@ function()
         end
         LootFinder.class = class_btn:GetID()
         LootFinder.spec = spec_btn:GetID()
-        LootFinder.slot = 8
-        LootFinder:Find()
+        LootFinder.slotid = 8
+        LootFinder:Search()
 
-        update(LootFinder.loot_list,callback)
+        update(LootFinder.results,callback)
     end)
     add(btn)
 
@@ -503,7 +505,7 @@ function()
     btn:SetScript("OnClick",function()
         local callback = function(self)
             local id = self:GetID()
-            local item = LootFinder.loot_list[id]
+            local item = LootFinder.results[id]
             btn.texture:SetTexture(item.icon or QUESTION_MARK_ICON)
             btn.link = item.itemlink
             slots[10] = item.itemlink
@@ -511,10 +513,10 @@ function()
         end
         LootFinder.class = class_btn:GetID()
         LootFinder.spec = spec_btn:GetID()
-        LootFinder.slot = 9
-        LootFinder:Find()
+        LootFinder.slotid = 9
+        LootFinder:Search()
 
-        update(LootFinder.loot_list,callback)
+        update(LootFinder.results,callback)
     end)
     add(btn)
 
@@ -538,7 +540,7 @@ function()
     btn:SetScript("OnClick",function()
         local callback = function(self)
             local id = self:GetID()
-            local item = LootFinder.loot_list[id]
+            local item = LootFinder.results[id]
             btn.texture:SetTexture(item.icon or QUESTION_MARK_ICON)
             btn.link = item.itemlink
             slots[11] = item.itemlink
@@ -546,10 +548,10 @@ function()
         end
         LootFinder.class = class_btn:GetID()
         LootFinder.spec = spec_btn:GetID()
-        LootFinder.slot = 12
-        LootFinder:Find()
+        LootFinder.slotid = 12
+        LootFinder:Search()
 
-        update(LootFinder.loot_list,callback)
+        update(LootFinder.results,callback)
     end)
     add(btn)
 
@@ -573,7 +575,7 @@ function()
     btn:SetScript("OnClick",function()
         local callback = function(self)
             local id = self:GetID()
-            local item = LootFinder.loot_list[id]
+            local item = LootFinder.results[id]
             btn.texture:SetTexture(item.icon or QUESTION_MARK_ICON)
             btn.link = item.itemlink
             slots[12] = item.itemlink
@@ -581,10 +583,10 @@ function()
         end
         LootFinder.class = class_btn:GetID()
         LootFinder.spec = spec_btn:GetID()
-        LootFinder.slot = 12
-        LootFinder:Find()
+        LootFinder.slotid = 12
+        LootFinder:Search()
 
-        update(LootFinder.loot_list,callback)
+        update(LootFinder.results,callback)
     end)
     add(btn)
 
@@ -608,7 +610,7 @@ function()
     btn:SetScript("OnClick",function()
         local callback = function(self)
             local id = self:GetID()
-            local item = LootFinder.loot_list[id]
+            local item = LootFinder.results[id]
             btn.texture:SetTexture(item.icon or QUESTION_MARK_ICON)
             btn.link = item.itemlink
             slots[13] = item.itemlink
@@ -616,10 +618,10 @@ function()
         end
         LootFinder.class = class_btn:GetID()
         LootFinder.spec = spec_btn:GetID()
-        LootFinder.slot = 13
-        LootFinder:Find()
+        LootFinder.slotid = 13
+        LootFinder:Search()
 
-        update(LootFinder.loot_list,callback)
+        update(LootFinder.results,callback)
     end)
     add(btn)
 
@@ -643,7 +645,7 @@ function()
     btn:SetScript("OnClick",function()
         local callback = function(self)
             local id = self:GetID()
-            local item = LootFinder.loot_list[id]
+            local item = LootFinder.results[id]
             btn.texture:SetTexture(item.icon or QUESTION_MARK_ICON)
             btn.link = item.itemlink
             slots[14] = item.itemlink
@@ -651,10 +653,10 @@ function()
         end
         LootFinder.class = class_btn:GetID()
         LootFinder.spec = spec_btn:GetID()
-        LootFinder.slot = 13
-        LootFinder:Find()
+        LootFinder.slotid = 13
+        LootFinder:Search()
 
-        update(LootFinder.loot_list,callback)
+        update(LootFinder.results,callback)
     end)
     add(btn)
 
@@ -678,7 +680,7 @@ function()
     btn:SetScript("OnClick",function()
         local callback = function(self)
             local id = self:GetID()
-            local item = LootFinder.loot_list[id]
+            local item = LootFinder.results[id]
             btn.texture:SetTexture(item.icon or QUESTION_MARK_ICON)
             btn.link = item.itemlink
             slots[15] = item.itemlink
@@ -686,10 +688,10 @@ function()
         end
         LootFinder.class = class_btn:GetID()
         LootFinder.spec = spec_btn:GetID()
-        LootFinder.slot = 10
-        LootFinder:Find()
+        LootFinder.slotid = 10
+        LootFinder:Search()
 
-        update(LootFinder.loot_list,callback)
+        update(LootFinder.results,callback)
     end)
     add(btn)
 
@@ -713,7 +715,7 @@ function()
     btn:SetScript("OnClick",function()
         local callback = function(self)
             local id = self:GetID()
-            local item = LootFinder.loot_list[id]
+            local item = LootFinder.results[id]
             btn.texture:SetTexture(item.icon or QUESTION_MARK_ICON)
             btn.link = item.itemlink
             slots[16] = item.itemlink
@@ -721,10 +723,10 @@ function()
         end
         LootFinder.class = class_btn:GetID()
         LootFinder.spec = spec_btn:GetID()
-        LootFinder.slot = 11
-        LootFinder:Find()
+        LootFinder.slotid = 11
+        LootFinder:Search()
 
-        update(LootFinder.loot_list,callback)
+        update(LootFinder.results,callback)
     end)
     add(btn)
 
@@ -775,7 +777,7 @@ function()
             calc()
         end
         -- print(class_btn:GetID())
-        local spec_ids = LootFinder.class_spec[class_btn:GetID()]
+        local spec_ids = LootFinder.tables.class_spec[class_btn:GetID()]
         -- id, name, description, icon, role, classFile, className     = GetSpecializationInfoByID(specID)
         local tbl = {}
         for i = 1, #spec_ids do

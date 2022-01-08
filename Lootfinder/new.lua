@@ -1,7 +1,12 @@
 LF = {}
+LF.__index = LF
+LF.tables = {}
 
-function LF:New(tbl)
+function LF:New(tbl,db)
     tbl = tbl or {}
+    tbl.db = db
     tbl.results = {}
-    setmetatable(tbl, self)
+    tbl.selectedstats = {}
+
+    return setmetatable(tbl, self)
 end

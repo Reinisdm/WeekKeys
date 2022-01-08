@@ -431,8 +431,8 @@ function WeekKeys.UI.LootFinderButton(name,parent)
     btn.favorite:SetPoint("LEFT",5,0)
     btn.favorite:SetSize(18,18)
     btn.favorite:SetTexture('Interface/AuctionFrame/AuctionHouse')
-    btn.SetFavorite = function(self, item)
-        if LootFinder.IsFavorite(item) then
+    btn.SetFavorite = function(self, item, db)
+        if self.LF:IsFavorite(item, db) then
             -- turn on
             self.favorite:SetTexCoord(0.9306640625,0.9560546875,0.591796875,0.642578125)
         else

@@ -24,6 +24,19 @@ locales\zhCN.lua
 
 #Constants\ClassColors.lua
 
+Lootfinder\new.lua
+Lootfinder\blacklist.lua
+Lootfinder\check.lua
+Lootfinder\itemtype.lua
+Lootfinder\msearch.lua
+Lootfinder\pvpsearch.lua
+Lootfinder\raidsearch.lua
+Lootfinder\results.lua
+Lootfinder\classspec.lua
+Lootfinder\defaults.lua
+Lootfinder\slot.lua
+Lootfinder\favorite.lua
+Lootfinder\tables\classspec.lua
 
 prefix_patterns.lua
 Convert.lua
@@ -39,7 +52,6 @@ Prefix.lua
 UI.lua
 Reset.lua
 Affix.lua
-loot.lua
 
 
 Minimap.lua

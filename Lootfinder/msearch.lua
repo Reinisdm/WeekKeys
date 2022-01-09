@@ -31,15 +31,20 @@ function LF:MPlusSearch()
                 if not itemInfo.link then
                     i = i - 1 -- item not loaded, step back
                 elseif self:FilterCheck(itemInfo.link) then
-                    itemInfo.link = itemInfo.link:gsub("%d+:3524:%d+:%d+:%d+","5:"..mythic_level[self.mlevel]..":6652:1501:"..(self.milvl + 5658)..":6646")
+                    local chest, key = C_MythicPlus.GetRewardLevelForDifficultyLevel(self.mlevel)
+                    local milvl = nil
+                    if self.chest then
+                        milvl = chest
+                    else
+                        milvl = key
+                    end
+                    itemInfo.link = itemInfo.link:gsub("%d+:3524:%d+:%d+:%d+","5:"..(mythic_level[self.mlevel] or 6808)..":6652:1501:"..((milvl or 220) + 5658)..":6646")
                     self:AddResult("instance", instancename, bossname,itemInfo.link)
                 end
             end
         end
         index = index + 1
     end
------------------------------------------------------------------------------------------------------------
--- LootFinder.selectedstats
 
 end
 

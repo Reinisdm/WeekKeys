@@ -75,6 +75,7 @@ local masteryval = {
 }
 
 local LootFinder = LF:New()
+
 local function update(db, callback)
 --icon, name, tooltip
     for i = #btns, #db do
@@ -114,10 +115,10 @@ local function calc()
         table.wipe(item_stats)
     end
 
-    stat_labels[1]:SetText(string.format("%s : +%.2f%% (+%d)",STAT_CRITICAL_STRIKE, (stats.ITEM_MOD_CRIT_RATING_SHORT or 0) / 35, stats.ITEM_MOD_CRIT_RATING_SHORT or 0))
-    stat_labels[2]:SetText(string.format("%s : +%.2f%% (+%d)",STAT_HASTE, (stats.ITEM_MOD_HASTE_RATING_SHORT or 0) / 33, stats.ITEM_MOD_HASTE_RATING_SHORT or 0))
-    stat_labels[3]:SetText(string.format("%s : +%.2f%% (+%d)",STAT_MASTERY, (stats.ITEM_MOD_MASTERY_RATING_SHORT or 0) / (masteryval[LootFinder.spec] or 1), stats.ITEM_MOD_MASTERY_RATING_SHORT or 0))
-    stat_labels[4]:SetText(string.format("%s : +%.2f%% (+%d)",STAT_VERSATILITY, (stats.ITEM_MOD_VERSATILITY or 0) / 40, stats.ITEM_MOD_VERSATILITY or 0))
+    stat_labels[1]:SetText(string.format("%s :|cffffffff +%.2f%% (+%d)",STAT_CRITICAL_STRIKE, (stats.ITEM_MOD_CRIT_RATING_SHORT or 0) / 35, stats.ITEM_MOD_CRIT_RATING_SHORT or 0))
+    stat_labels[2]:SetText(string.format("%s :|cffffffff +%.2f%% (+%d)",STAT_HASTE, (stats.ITEM_MOD_HASTE_RATING_SHORT or 0) / 33, stats.ITEM_MOD_HASTE_RATING_SHORT or 0))
+    stat_labels[3]:SetText(string.format("%s :|cffffffff +%.2f%% (+%d)",STAT_MASTERY, (stats.ITEM_MOD_MASTERY_RATING_SHORT or 0) / (masteryval[LootFinder.spec] or 1), stats.ITEM_MOD_MASTERY_RATING_SHORT or 0))
+    stat_labels[4]:SetText(string.format("%s :|cffffffff +%.2f%% (+%d)",STAT_VERSATILITY, (stats.ITEM_MOD_VERSATILITY or 0) / 40, stats.ITEM_MOD_VERSATILITY or 0))
 end
 --[[
     INVTYPE_HEAD    interface/paperdoll/ui-paperdoll-slot-head.blp
@@ -195,8 +196,6 @@ function()
         end
         LootFinder.class = class_btn:GetID()
         LootFinder.spec = spec_btn:GetID()
-        LootFinder.milvl = C_MythicPlus.GetRewardLevelForDifficultyLevel(15)
-        LootFinder.mlevel = 15
         LootFinder.slotid = 0
         LootFinder:Search()
 
@@ -790,23 +789,86 @@ function()
     spec_btn = btn
     add(btn)
 
+
     local fontstr = WeekKeys.WeekFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-    fontstr:SetPoint("TOPLEFT",20,-290)
+    fontstr:SetPoint("TOPLEFT",30,-300)
+    fontstr:SetText(PLAYER_DIFFICULTY6)
+    add(fontstr)
+
+    local btn = WeekKeys.UI.Button(nil,WeekKeys.WeekFrame)
+    btn:SetPoint("TOPLEFT",150,-290)
+    btn:SetSize(30,30)
+    btn:SetText("15 |Tinterface/worldmap/treasurechest_64.blp:20:20|t")
+    btn:SetScript("OnClick",function()
+        local callback = function(self)
+            local id = self:GetID()
+            if id % 2 == 0 then
+                LootFinder.mlevel = id / 2
+                LootFinder.chest = true
+                btn:SetText(LootFinder.mlevel .. "|Tinterface/worldmap/treasurechest_64.blp:20:20|t")
+            else
+                LootFinder.mlevel = math.ceil(id / 2)
+                LootFinder.chest = false
+                btn:SetText(LootFinder.mlevel)
+            end
+        end
+        local tbl = {}
+        for i = 1, 30 do
+            local name = math.ceil(i/2)
+            if i % 2 == 0 then
+                name = name .. "|Tinterface/worldmap/treasurechest_64.blp:20:20|t"
+            end
+            tbl[#tbl + 1] = {name = name, icon = nil, ID = i}
+        end
+        update(tbl,callback)
+    end)
+    spec_btn = btn
+    add(btn)
+
+    local fontstr = WeekKeys.WeekFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+    fontstr:SetPoint("TOPLEFT",30,-340)
+    fontstr:SetText(RAID)
+    add(fontstr)
+
+    local btn = WeekKeys.UI.Button(nil,WeekKeys.WeekFrame)
+    btn:SetPoint("TOPLEFT",150,-330)
+    btn:SetSize(30,30)
+    btn:SetText("M")
+    btn:SetScript("OnClick",function()
+        local callback = function(self)
+            local id = self:GetID()
+            btn:SetText(self.name:GetText())
+            LootFinder.raid_difficult = id
+        end
+        local tbl = {
+            {name = PLAYER_DIFFICULTY1, ID = 14},
+            {name = PLAYER_DIFFICULTY2, ID = 15},
+            {name = PLAYER_DIFFICULTY6, ID = 16},
+            {name = PLAYER_DIFFICULTY3, ID = 17}
+        }
+
+        update(tbl,callback)
+    end)
+    spec_btn = btn
+    add(btn)
+
+    fontstr = WeekKeys.WeekFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+    fontstr:SetPoint("TOPLEFT",20,-370)
     stat_labels[1] = fontstr
     add(fontstr)
 
-    local fontstr = WeekKeys.WeekFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-    fontstr:SetPoint("TOPLEFT",20,-310)
+    fontstr = WeekKeys.WeekFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+    fontstr:SetPoint("TOPLEFT",20,-390)
     stat_labels[2] = fontstr
     add(fontstr)
 
-    local fontstr = WeekKeys.WeekFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-    fontstr:SetPoint("TOPLEFT",20,-330)
+    fontstr = WeekKeys.WeekFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+    fontstr:SetPoint("TOPLEFT",20,-410)
     stat_labels[3] = fontstr
     add(fontstr)
 
-    local fontstr = WeekKeys.WeekFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-    fontstr:SetPoint("TOPLEFT",20,-350)
+    fontstr = WeekKeys.WeekFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+    fontstr:SetPoint("TOPLEFT",20,-430)
     stat_labels[4] = fontstr
     add(fontstr)
 

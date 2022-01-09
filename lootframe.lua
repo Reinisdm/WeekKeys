@@ -489,14 +489,14 @@ local function createmlevel(btn)
     chesckbtn:SetChecked(true)
     chesckbtn:SetScript("OnClick",function(self)
         local checked = self:GetChecked()
-        local chest, key = C_MythicPlus.GetRewardLevelForDifficultyLevel(max(1,mlevel))
+        local chest, key = C_MythicPlus.GetRewardLevelForDifficultyLevel(max(1,lootfinder.mlevel))
 
         if checked == true then
             lootfinder.milvl = chest
         else
             lootfinder.milvl = key
         end
-        wchest = checked
+        lootfinder.chest = not lootfinder.chest
         btn:SetText(lootfinder.mlevel .. (wchest and "|Tinterface/worldmap/treasurechest_64.blp:20:20|t" or ""))
 
         lootfinder:Search()

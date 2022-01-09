@@ -6,6 +6,7 @@ LF.spec = 0
 LF.slotid = 15
 LF.pvptier = 0
 LF.raid_difficult = 15
+LF.chest = true
 
 LF.raids = {
     false,

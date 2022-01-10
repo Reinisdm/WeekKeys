@@ -252,10 +252,10 @@ local function createinstancelist(btn)
 
         function button:enable(bool)
             if bool then
-                lootfinder.instances[self:GetID()] = true
+                lootfinder.instances[self:GetID()] = false
                 self.texture:SetAlpha(1)
             else
-                lootfinder.instances[self:GetID()] = false
+                lootfinder.instances[self:GetID()] = true
                 self.texture:SetAlpha(0.3)
             end
             self.find = bool
@@ -301,7 +301,6 @@ local function createraidlist(btn)
     local i = 1
     EJ_SelectTier(EJ_GetNumTiers())
     while EJ_GetInstanceByIndex(i, true) ~= nil do
-        lootfinder.raids[i] = true
         local _, name, _, _, _, _, buttonImage2 = EJ_GetInstanceByIndex(i, true)
         local button = WeekKeys.UI.Button(nil, back)
         button.name = name
@@ -314,10 +313,10 @@ local function createraidlist(btn)
 
         function button:enable(bool)
             if bool then
-                lootfinder.raids[self:GetID()] = true
+                lootfinder.raids[self:GetID()] = false
                 self.texture:SetAlpha(1)
             else
-                lootfinder.raids[self:GetID()] = false
+                lootfinder.raids[self:GetID()] = true
                 self.texture:SetAlpha(0.3)
             end
             self.find = bool

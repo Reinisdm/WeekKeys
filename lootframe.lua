@@ -310,7 +310,7 @@ local function createraidlist(btn)
         button.texture:SetTexture(buttonImage2)
         button.texture:SetAlpha(1)
         button.find = true
-
+        
         function button:enable(bool)
             if bool then
                 lootfinder.raids[self:GetID()] = false

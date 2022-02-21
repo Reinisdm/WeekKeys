@@ -9,9 +9,9 @@ local btns = {}
 local class_btn = nil
 local spec_btn = nil
 local slots = {}
+local slot_btns = {}
 local stat_labels = {}
 local masteryval = {
-
 	-- warrior
 	[71] = 31.82, -- arms
 	[72] = 24, -- fury
@@ -160,7 +160,7 @@ function()
     scrframe:SetScript("OnShow",function()
 
         WeekKeys.WeekFrame.ScrollFrame:ClearAllPoints()
-        WeekKeys.WeekFrame.ScrollFrame:SetPoint("TOPLEFT", WeekKeys.WeekFrame, "TOPLEFT", 300, -60);
+        WeekKeys.WeekFrame.ScrollFrame:SetPoint("TOPLEFT", WeekKeys.WeekFrame, "TOPLEFT", 300, -120);
         WeekKeys.WeekFrame.ScrollFrame:SetPoint("BOTTOMRIGHT",  WeekKeys.WeekFrame, "BOTTOMRIGHT", -5, 5);
     end)
     scrframe:SetScript("OnHide",function()
@@ -168,7 +168,49 @@ function()
 
     add(scrframe)
 
-    local btn = WeekKeys.UI.Button(nil,WeekKeys.WeekFrame)
+--[[
+    local editBox = CreateFrame("EditBox",nil,WeekKeys.WeekFrame,"InputBoxTemplate")
+    editBox:SetAutoFocus(false)
+    editBox:SetText(AUCTION_HOUSE_BROWSE_HEADER_NAME)
+    editBox:SetSize(200,20)
+    editBox:SetPoint("TOPLEFT",300,-30)
+    add(editBox)
+
+    local btn = CreateFrame("Button", nil, WeekKeys.WeekFrame, "UIPanelButtonTemplate")
+    btn:SetSize(100,20)
+    btn:SetPoint("TOPLEFT", 290, -60)
+    btn:SetText(SAVE)
+    btn:SetScript("OnClick",function(self)
+        print("Add to DB:")
+        print("name: " .. tostring(editBox:GetText()))
+        print("class: ".. class_btn:GetID())
+        print("spec: ".. spec_btn:GetID())
+        for i = 1, 16 do
+            print(slots[i] .. " => " .. tostring(slots[i]))
+        end
+    end)
+    add(btn)
+
+    btn = CreateFrame("Button", nil, WeekKeys.WeekFrame, "UIPanelButtonTemplate")
+    btn:SetSize(100,20)
+    btn:SetPoint("TOPLEFT", 390, -60)
+    btn:SetText(DELETE)
+    add(btn)
+
+    btn = CreateFrame("Button", nil, WeekKeys.WeekFrame, "UIPanelButtonTemplate")
+    btn:SetSize(100,20)
+    btn:SetPoint("TOPLEFT", 490, -60)
+    btn:SetText(NEW)
+    add(btn)
+
+    btn = WeekKeys.UI.Button(nil,WeekKeys.WeekFrame)
+    btn.texture:SetTexture("Interface/AuctionFrame/AuctionHouse")
+    btn.texture:SetTexCoord(0.9501953125,0.9765625,0.505859375,0.556640625)
+    btn:SetPoint("TOPLEFT",500,-30)
+    btn:SetSize(30,30)
+    add(btn)
+--]]
+    btn = WeekKeys.UI.Button(nil,WeekKeys.WeekFrame)
     btn:SetPoint("TOPLEFT",20,-40)
     btn:SetSize(40,40)
     btn:SetScript("OnEnter",function(self)
@@ -736,6 +778,7 @@ function()
     add(fontstr)
 
     local btn = WeekKeys.UI.Button(nil,WeekKeys.WeekFrame)
+    btn:SetID(1)
     btn:SetPoint("TOPLEFT",150,-210)
     btn:SetSize(30,30)
     btn.texture:SetTexture(QUESTION_MARK_ICON)
@@ -758,6 +801,7 @@ function()
     add(fontstr)
 
     local btn = WeekKeys.UI.Button(nil,WeekKeys.WeekFrame)
+    btn:SetID(0)
     btn:SetPoint("TOPLEFT",150,-250)
     btn:SetSize(30,30)
     btn.texture:SetTexture(QUESTION_MARK_ICON)

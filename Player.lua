@@ -58,7 +58,7 @@ function WeekKeys.PlayerData()
             return a.level > b.level
         end)
         -- C_PlayerInfo.MythicPlusRatingSummary
-        if #recordtable >= 10 then
+        if #recordtable >= 8 then
             record = recordtable[1].level .. "/" .. recordtable[4].level .. "/" .. recordtable[8].level
         elseif #recordtable >= 4 then
             record = recordtable[1].level .. "/" .. recordtable[4].level
@@ -92,12 +92,6 @@ function WeekKeys.PlayerData()
         -----------------------
 
         tbl.mscore = C_PlayerInfo.GetPlayerMythicPlusRatingSummary("player").currentSeasonScore
-        --[[ mythic score?
-            C_PlayerInfo.GetPlayerMythicPlusRatingSummary(name).currentSeasonScore
-            C_PlayerInfo.GetPlayerMythicPlusRatingSummary("target").currentSeasonScore
-            C_PlayerInfo.GetPlayerMythicPlusRatingSummary("player").currentSeasonScore
-        ]]
-
 
         ---------------------
         -- torghast

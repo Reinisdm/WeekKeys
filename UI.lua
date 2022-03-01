@@ -170,10 +170,10 @@ function WeekKeys.UI.FactionCovenantButton(name, parent)
         GameTooltip:SetOwner(self, "ANCHOR_LEFT")
         local pattern = "(%d) (%d) %s"
         if self.tooltip and #self.tooltip > 0 then
-            GameTooltip:AddLine(RATED_PVP_WEEKLY_VAULT ..' (' .. min(10,#self.tooltip) .. '/10)')
-            for i = 1, min(10,#self.tooltip) do
+            GameTooltip:AddLine(RATED_PVP_WEEKLY_VAULT ..' (' .. min(8,#self.tooltip) .. '/8)')
+            for i = 1, min(8,#self.tooltip) do
                 local chest = C_MythicPlus.GetRewardLevelForDifficultyLevel(self.tooltip[i].level)
-                if i == 1 or i == 4 or i == 10 then
+                if i == 1 or i == 4 or i == 8 then
                     GameTooltip:AddLine(pattern:format(chest, self.tooltip[i].level,C_ChallengeMode.GetMapUIInfo(self.tooltip[i].mapChallengeModeID)),0,1,0)
                 else
                     local pattern = "           (%d) %s"

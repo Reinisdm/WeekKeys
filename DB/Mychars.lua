@@ -50,15 +50,30 @@ function MycharDB:CurrentChar()
     return {} -- return table to prevent errors
 end
 
-function MycharDB:pairs()
+function MycharDB:pairs(field,descending)
     if not self.db then return end
+    local db = {}
+    for index, value in ipairs(self.db) do
+        db[index] = value
+    end
+
+    if field then
+        table.sort(db,function(a,b)
+            if descending then
+                return (a[field] or 0) < (b[field] or 0)
+            else
+                return (a[field] or 0) > (b[field] or 0)
+            end
+        end)
+    end
+
     local i = 0
     return function()
         i = i + 1
 
-        if not self.db[i] then return end
+        if not db[i] then return end
 
-        local char = self.db[i]
+        local char = db[i]
         local formatted = WeekKeys.Convert.Player(char)
 
         return i, formatted

@@ -66,7 +66,7 @@ function MycharDB:pairs(field,descending)
             end
         end)
     end
-
+    
     local i = 0
     return function()
         i = i + 1

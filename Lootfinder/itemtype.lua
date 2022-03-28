@@ -282,7 +282,9 @@ local weapons = {
     --[16] = {}, -- thrown Classic
     --[17] = {}, -- spears?
     [18] = { -- crossbows
-
+        [3] = true, -- hunter
+        [253] = true,-- beast mastery
+        [254] = true -- marksmanship
     },
     [19] = { -- wands
         [5] = true, -- priest
@@ -426,6 +428,13 @@ end
 
 function LF:INVTYPE_TRINKET()
     if self.slotid == 13 then
+        return true
+    end
+    return false
+end
+
+function LF:INVTYPE_RANGEDRIGHT(subclass)
+    if self.slotid == 10 and (weapons[subclass][self.spec] or (self.spec == 0 and weapons[subclass][self.class])) then
         return true
     end
     return false

@@ -93,31 +93,7 @@ function WeekKeys.PlayerData()
 
         tbl.mscore = C_PlayerInfo.GetPlayerMythicPlusRatingSummary("player").currentSeasonScore
 
-        ---------------------
-        -- torghast
-        ---------------------
-        local torghast_number = 1
 
-        if not TorghastInfo then
-            TorghastInfo = C_AreaPoiInfo.GetAreaPOIInfo(1543, 6640)
-        end
-
-        if TorghastInfo and C_QuestLog.IsQuestFlaggedCompleted(60136) then
-            local torghastHeader
-            for _, value in pairs(TorghastWidgets) do
-                local nameInfo = C_UIWidgetManager.GetTextWithStateWidgetVisualizationInfo(value.nameID)
-                if nameInfo and nameInfo.shownState == 1 then
-                    local nameText = nameInfo.text
-                    local levelInfo = C_UIWidgetManager.GetTextWithStateWidgetVisualizationInfo(value.levelID)
-                    local levelText = AVAILABLE
-                    if levelInfo and levelInfo.shownState == 1 then levelText = (levelInfo.text) end
-
-                    WeekKeys.DB.InsertTorghast(WeekKeysDB.Characters,name,realm,"torghast"..torghast_number,levelText:gsub("|r",""):gsub("|n",""):gsub("|c........",""):match("%d+"))
-                    torghast_number = torghast_number + 1
-
-                end
-            end
-        end
         if IsInGuild() then
             local astralweeks
             local time

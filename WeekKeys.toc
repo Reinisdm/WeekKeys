@@ -1,7 +1,7 @@
 ## Interface: 90200
 ## Title: WeekKeys
 ## Author: Reinisdm
-## Version: 149
+## Version: 150
 ## Notes: Lists your keystones.
 ## SavedVariables: WeekKeysDB
 
@@ -70,7 +70,6 @@ GuildKeys.lua
 FriendKeys.lua
 MTable.lua
 lootframe.lua
-Torghast.lua
 calculator.lua
 Dress.lua
 settings.lua

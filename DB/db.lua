@@ -46,6 +46,26 @@ function DB:Delete(...)
     end
 end
 
+function DB:validate(char)
+    if not char.classID then
+        return
+    end
+
+    if not char.name then
+        return
+    end
+
+    if not char.realm then
+        return
+    end
+    
+    if not char.faction then
+        return
+    end
+
+    return true
+end
+
 -- expand player
 function DB:Expand(sender)
 

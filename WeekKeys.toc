@@ -1,7 +1,7 @@
 ## Interface: 90200
 ## Title: WeekKeys
 ## Author: Reinisdm
-## Version: 151
+## Version: 152
 ## Notes: Lists your keystones.
 ## SavedVariables: WeekKeysDB
 

@@ -132,7 +132,7 @@ function convert.Player(player)
     tbl.reward = player.reward
     tbl.mscore = player.mscore
     tbl.recordtable = player.recordtable
-    tbl.reference = player
+    tbl.ref = player
 
     return tbl
 end

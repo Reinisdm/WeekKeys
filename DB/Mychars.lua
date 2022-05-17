@@ -66,7 +66,7 @@ function MycharDB:pairs(field,descending)
             end
         end)
     end
-    
+
     local i = 0
     return function()
         i = i + 1
@@ -74,6 +74,12 @@ function MycharDB:pairs(field,descending)
         if not db[i] then return end
 
         local char = db[i]
+
+        if not self:validate(char) then
+            self:Delete(char)
+            return
+        end
+
         local formatted = WeekKeys.Convert.Player(char)
 
         return i, formatted

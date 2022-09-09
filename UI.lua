@@ -434,10 +434,10 @@ function WeekKeys.UI.LootFinderButton(name,parent)
     btn.SetFavorite = function(self, item, db)
         if self.LF:IsFavorite(item, db) then
             -- turn on
-            self.favorite:SetTexCoord(0.9306640625,0.9560546875,0.591796875,0.642578125)
+            self.favorite:SetTexCoord(0.9404296875,0.9794921875,0.095703125,0.166015625)
         else
            -- turn off
-           self.favorite:SetTexCoord(0.9580078125,0.9833984375,0.591796875,0.642578125)
+           self.favorite:SetTexCoord(0.9404296875,0.9794921875,0.169921875,0.240234375)
         end
     end
     -- source icon

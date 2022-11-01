@@ -1,4 +1,4 @@
-## Interface: 90205
+## Interface: 100000
 ## Title: WeekKeys
 ## Author: Reinisdm
 ## Version: 154
@@ -69,7 +69,7 @@ PartyKeys.lua
 GuildKeys.lua
 FriendKeys.lua
 MTable.lua
-lootframe.lua
-calculator.lua
-Dress.lua
+#lootframe.lua
+#calculator.lua
+#Dress.lua
 settings.lua

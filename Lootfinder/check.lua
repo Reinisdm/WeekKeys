@@ -52,7 +52,7 @@ function LF:FilterCheck(itemlink)
     if not self[itemEquipLoc](self,subclassID) and self.slotid < 15 then
         return false
     end
-
+--asdasd
 
     return true
 end

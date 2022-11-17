@@ -4,8 +4,8 @@ function WeekKeys:ADDON_LOADED(eve,addon) -- insert keystone
     if addon == "Blizzard_ChallengesUI" or eve == "Blizzard_ChallengesUI" then
         hooksecurefunc(ChallengesKeystoneFrame,"Show",function()
             for container = 0, 4 do
-                for slot=1, GetContainerNumSlots(container) do
-                    local link = GetContainerItemLink(container, slot)
+                for slot=1, C_Container.GetContainerNumSlots(container) do
+                    local link = C_Container.GetContainerItemLink(container, slot)
                     if link and link:find("keystone") then
                         PickupContainerItem(container, slot)
                         if (CursorHasItem()) then
@@ -28,10 +28,10 @@ function WeekKeys:CHAT_MSG_PARTY(msg,arg1)
     if msg:find("CHAT_MSG_PARTY") then msg = arg1 end
     if WeekKeysDB.Settings.pkeyslink and string.lower(msg) == "!keys" then
         for container = 0, 4 do
-            for slot=1, GetContainerNumSlots(container) do
-                local _, _, _, _, _, _, slotLink, _, _, _ = GetContainerItemInfo(container, slot)
-                if slotLink and slotLink:match("|Hkeystone:") then
-                    SendChatMessage("WeekKeys "..slotLink,"party")
+            for slot=1, C_Container.GetContainerNumSlots(container) do
+                local item = C_Container.GetContainerItemLink(container, slot)
+                if item and item:match("|Hkeystone:") then
+                    SendChatMessage("WeekKeys "..item,"party")
                 end
             end
         end

@@ -1,7 +1,7 @@
 ## Interface: 100000
 ## Title: WeekKeys
 ## Author: Reinisdm
-## Version: 154
+## Version: 156
 ## Notes: Lists your keystones.
 ## SavedVariables: WeekKeysDB
 
